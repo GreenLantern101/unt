@@ -34,14 +34,22 @@ public class MainController : MonoBehaviour {
 		curGameNum = 0;
 		curNode = NODE.BLACK_NODE;
 		totalGameNum = 10;
+
+
+		// currently creates one instance of each player type --> why?
 		_localPlayer = new LocalPlayer();
 		_agentPlayer = new AgentPlayer();
 		_networkedPlayer = new NetworkedPlayer ();
 		_twoPlayers = new TwoPlayers ();
+
+
+		//set cameras
 		mainCam = GameObject.Find ("Main Camera").camera;
 		progressCam = GameObject.Find ("ProgressCamera").camera;
 	}
 
+
+	//is called at the end of game intro by state machine
 	public static void sendPlayerReady(){
 		LocalPlayer.readyFlag = true;
 		AgentPlayer.readyFlag = true;
@@ -50,6 +58,7 @@ public class MainController : MonoBehaviour {
 
 	void Update(){
 
+		//start game at end of intro
 		if (FSM.IsInState (PuzzleState.INTRO_END)) {
 			if(_localPlayer.isReady()){
 				if(_agentPlayer.isReady()){
@@ -58,6 +67,8 @@ public class MainController : MonoBehaviour {
 			}
 		}
 
+
+		//switch cameras based on game state
 		if (FSM.IsInState (PuzzleState.GAME_STEP) ||FSM.IsInState(PuzzleState.GAME_END)) {
 
 			mainCam.enabled = true;
@@ -71,6 +82,8 @@ public class MainController : MonoBehaviour {
 	public static void IntroEntry(){
 	}
 
+
+	//when game finished, start next game
 	public static void finishOneGame(){
 		++curGameNum;
 		if (curGameNum < totalGameNum) {

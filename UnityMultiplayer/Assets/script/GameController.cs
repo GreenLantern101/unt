@@ -58,9 +58,9 @@ public class GameController : MonoBehaviour {
 	}
 
 	//GameController should be initialized for each game
-	//GameInitilization depends on the feature of each game
+	//gameInitialization depends on the feature of each game
 	//Initilize all the blocks
-	public static void gameInitilization(){
+	public static void gameInitialization(){
 //		GameInfo.InitializeParameters ();
 		print ("arget paramet");
 		//get the game configuration
@@ -90,8 +90,11 @@ public class GameController : MonoBehaviour {
 		GameObject.Find (targetTName).transform.position = targetTPosition;
 		setTargetPosition (targetName);
 		setPlayer ();
-		active_player = MainController.black_player;		//initialize active player as the black player
+
+		//initialize active player as the black player
+		active_player = MainController.black_player;
 		inactive_player = MainController.white_player;
+
 		GameInfo.switchTimer = GameInfo.switchLen; 
 		print ("secondary active3 " + GameController.secondaryActivePiece);
 		secondaryActivePiece = -1;
@@ -130,6 +133,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	//reads node information
 	public static void TaskConfNode(string fileName, string curNodeStr, string otherNodeStr){
 		//print ("fileName is: " + fileName);
 		TextAsset AssignmentXmlFile;
@@ -192,6 +196,7 @@ public class GameController : MonoBehaviour {
 	//initilize players
 	public static void setPlayer(){
 		if (MainController.isAgentActive) {
+			//BLACK NODE = AI-HUMAN GAME
 			if (MainController.curNode == NODE.BLACK_NODE) {
 				MainController.black_player = MainController._localPlayer;
 				MainController.white_player = MainController._agentPlayer;
@@ -199,7 +204,8 @@ public class GameController : MonoBehaviour {
 				MainController.black_player = MainController._agentPlayer;
 				MainController.white_player = MainController._localPlayer;
 			}
-		} else {						
+		} else {
+			//WHITE NODE = HUMAN-HUMAN GAME (networked)
 			if (MainController.curNode == NODE.WHITE_NODE) {
 				MainController.black_player = MainController._localPlayer;
 				MainController.white_player = MainController._networkedPlayer;

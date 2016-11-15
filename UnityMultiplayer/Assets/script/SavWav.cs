@@ -5,6 +5,12 @@ using System.Collections.Generic;
 using System.Collections; 
 using System.Threading;
 
+
+/*
+ * Saves audio clip
+ */ 
+
+
 public static class SavWav {
 	
 	const int HEADER_SIZE = 44;

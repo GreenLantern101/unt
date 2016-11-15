@@ -10,6 +10,12 @@ using System.Net.Sockets;
 using System.Threading;
 using System.IO;
 
+
+/*
+ * used by LanguageManager.cs
+ */
+
+
 public class AI : MonoBehaviour {
 
 	public static int selectPiece(){

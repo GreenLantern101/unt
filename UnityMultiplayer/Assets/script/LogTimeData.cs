@@ -2,6 +2,10 @@
 using System.Collections;
 using System.IO;
 
+/*
+ * Log data for research purposes into /LoggedData/*
+ */ 
+
 public class LogTimeData : MonoBehaviour {	
 	
 	public static string participantName;

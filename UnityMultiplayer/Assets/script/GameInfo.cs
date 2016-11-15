@@ -321,6 +321,7 @@ public static class GameInfo{
 		}
 	}
 
+	//sets target block position
 	public static void setTargetBlockPosition(string blockName, Vector3 positionT){
 //		UnityEngine.Debug.Log (blockName + "'s target position is: " + positionT.x.ToString() + ", " + positionT.z);
 		for(int blockIndex =0; blockIndex < blockNumber; blockIndex ++){

@@ -5,6 +5,11 @@ using System.Threading;
 
 [RequireComponent (typeof (AudioSource))]  
 
+/*
+ * Captures microphone input, saves recordings using SavWav.cs
+ */ 
+
+
 public class SingleMicrophoneCapture : MonoBehaviour   
 {  
 	//A boolean that flags whether there's a connected microphone  

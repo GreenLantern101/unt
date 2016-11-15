@@ -19,7 +19,7 @@ public class TargetPosition: MonoBehaviour{
 
 	void Update(){
 		
-		Vector3 curPostition = gameObject.transform.position;
+		Vector3 curPosition = gameObject.transform.position;
 		if (MainController.FSM.IsInState (PuzzleState.GAME_STEP)) {
 			if(gameObject.name == "PlayArea"){
 				Vector3 targetPosition = GameObject.Find(GameController.targetTName).transform.position;
@@ -30,21 +30,21 @@ public class TargetPosition: MonoBehaviour{
 				if (gameObject.name == GameController.targetTName) {
 					if (MainController.curGameNum == 7 || MainController.curGameNum == 8 || MainController.curGameNum == 9) {						
 						GameController.setPostion("");
-						if ((curPostition.z > threshUp && !moveFlag) || (curPostition.z < threshDown && moveFlag)) {
+						if ((curPosition.z > threshUp && !moveFlag) || (curPosition.z < threshDown && moveFlag)) {
 								moveFlag = !moveFlag;
 								MoveRate = 0 - MoveRate;
 						}
 
-						curPostition.z += Time.deltaTime * MoveRate;
-						curPostition.x += Time.deltaTime * MoveRate * Random.Range(0f, 0.5f);
-						gameObject.transform.position = curPostition;
+						curPosition.z += Time.deltaTime * MoveRate;
+						curPosition.x += Time.deltaTime * MoveRate * Random.Range(0f, 0.5f);
+						gameObject.transform.position = curPosition;
 					} else {
-							curPostition.z = (float)GameInfo.initialPositionArray[GameController.targetTName];
-							gameObject.transform.position = curPostition;					
+							curPosition.z = (float)GameInfo.initialPositionArray[GameController.targetTName];
+							gameObject.transform.position = curPosition;					
 					}
 				} else {
-					curPostition.z = 300f;
-					gameObject.transform.position = curPostition;						
+					curPosition.z = 300f;
+					gameObject.transform.position = curPosition;						
 				}
 			}
 		}

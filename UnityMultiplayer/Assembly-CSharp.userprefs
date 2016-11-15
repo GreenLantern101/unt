@@ -1,9 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="c:\Users\Apache\Documents\GitHub\unt\UnityMultiplayer\Assets\script\DMStateMachine.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\GameInfo.cs">
     <Files>
-      <File FileName="c:\Users\Apache\Documents\GitHub\unt\UnityMultiplayer\Assets\script\AI.cs" Line="7" Column="7" />
-      <File FileName="c:\Users\Apache\Documents\GitHub\unt\UnityMultiplayer\Assets\script\DMStateMachine.cs" Line="46" Column="3" />
+      <File FileName="Assets\script\NetworkedPlayer.cs" Line="8" Column="31" />
+      <File FileName="Assets\script\GameInfo.cs" Line="272" Column="3" />
+      <File FileName="Assets\script\GameController.cs" Line="28" Column="47" />
+      <File FileName="Assets\script\AgentPlayer.cs" Line="8" Column="5" />
+      <File FileName="Assets\script\LanguageManager.cs" Line="637" Column="15" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,7 +15,7 @@
             <Node name="References" expanded="True" />
             <Node name="Asset" expanded="True" />
             <Node name="script" expanded="True">
-              <Node name="DMStateMachine.cs" selected="True" />
+              <Node name="GameInfo.cs" selected="True" />
             </Node>
           </Node>
         </State>

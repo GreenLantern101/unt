@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*
+ * Interface that all players must implement
+ */
 public interface IPlayerHandler {
 	//get current active piece
 	int getActivePiece();
@@ -17,7 +20,7 @@ public interface IPlayerHandler {
 	//Should be ready for a new game
 	bool isReady();
 
-	//whehter can move the block
+	//whether can move the block
 	bool isControllable(int _block);
 
 	//let the other player move the block
