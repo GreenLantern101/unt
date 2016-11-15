@@ -1,3 +1,26 @@
+# Unnecessary files dirs
+
+*/Assets/Asset/*
+*/Assets/Data/*
+*/Assets/Materials/*
+*/Assets/Recordings/*
+*/Assets/Resources/*
+*/Assets/scene/*
+*/Assets/SharedAssets/*
+
+
+*/backup/*
+*/Keyboard/*
+*/Library/*
+*/LoggedData/*
+*/Matlab/*
+*/models/*
+*/ProjectSettings/*
+*/RecordedAudio/*
+
+
+
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

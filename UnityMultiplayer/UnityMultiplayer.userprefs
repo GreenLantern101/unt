@@ -1,0 +1,20 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\VoiceSpeaker.cs">
+    <Files>
+      <File FileName="Assets\script\StateMachine.cs" Line="51" Column="37" />
+      <File FileName="Assets\script\MainController.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\BlockController.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\GameInfo.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\GameController.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\LogTimeData.cs" Line="63" Column="63" />
+      <File FileName="Assets\script\MainInfo.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\NetworkConnection.cs" Line="26" Column="27" />
+      <File FileName="Assets\script\VoiceSpeaker.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
