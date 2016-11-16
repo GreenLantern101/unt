@@ -64,7 +64,8 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler {
 
 	//based on current and the target location, move the block
 	public void startMoveBlock(int blockId){
-		if (GameController.active_player == MainController._agentPlayer || GameController.active_player == MainController._twoPlayers) {
+		if (GameController.active_player == MainController._agentPlayer 
+		    || GameController.active_player == MainController._twoPlayers) {
 			setActivePiece(blockId);
 			GameObject activeObject = GameInfo.blockList [activePiece];
 			curPosition = activeObject.transform.position;

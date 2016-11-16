@@ -29,7 +29,7 @@ public class TargetPosition: MonoBehaviour{
 			}else{
 				if (gameObject.name == GameController.targetTName) {
 					if (MainController.curGameNum == 7 || MainController.curGameNum == 8 || MainController.curGameNum == 9) {						
-						GameController.setPostion("");
+						GameController.setPosition("");
 						if ((curPosition.z > threshUp && !moveFlag) || (curPosition.z < threshDown && moveFlag)) {
 								moveFlag = !moveFlag;
 								MoveRate = 0 - MoveRate;

@@ -11,10 +11,20 @@ public static class GameInfo{
 	private static GameObject SelectionPlan;
 	private static Vector3 SelectionPosition;
 	public static String[] hintsInfor;
+
+	//color for two players
 	public static bool[] ColorControl;
 	public static bool[] OtherColorControl;
+
+	//step control for two players
 	public static bool[] stepControl;
 	public static bool[] otherStepControl;
+
+	//flags for two players
+	public static bool NoColorTaskFlag;
+	public static bool OtherNoColorTaskFlag;
+
+
 	private static bool[] rotationHitFlagArray;
 	public static Vector3[] blockPositionArray;
 	public static Hashtable initialPositionArray;
@@ -24,8 +34,9 @@ public static class GameInfo{
 	public static bool[] blockSucceed;
 	public static float[] targetRotationArray;
 	private static bool[] resetPositionFlagArray;
-	public static bool NoColorTaskFlag;
-	public static bool OtherNoColorTaskFlag;
+
+
+
 	private static float stepTimer;
 	private static float INFTIMER = 2400F;
 	public static AudioClip[] audioClips;
@@ -42,6 +53,8 @@ public static class GameInfo{
 	public static List<List<string>> blockColorNameList;
 	public static List<List<string>> blockShapeNameList;
 	public static float activeLen = 3f;
+
+	//involved in what blocks agent can see
 	public static int[] peerList;
 	public static int[] agentColorVisible;
 
@@ -170,6 +183,9 @@ public static class GameInfo{
 		for (int i=0; i<blockNumber; ++i) {
 			RandomList.Add(i);
 		}
+
+
+
 		ColorControl = new bool[blockNumber];
 		OtherColorControl = new bool[blockNumber];
 		stepControl = new bool[blockNumber];
@@ -182,6 +198,7 @@ public static class GameInfo{
 		blockSucceed = new bool[blockNumber];
 	}
 
+	//called by GameController.gameInitialization();
 	public static void InitializeParameters(){
 		//two hints are included for the game
 		hintsInfor[0] = "";
@@ -199,6 +216,8 @@ public static class GameInfo{
 		}
 		getRandomNumList ();
 		currTarget = "Target7";
+
+		//infinite timer?
 		stepTimer = INFTIMER;
 		PreActiveBlock = -1;
 		blockReset ();
@@ -213,28 +232,35 @@ public static class GameInfo{
 		}
 	}
 
+	//------------------------ SET COLOR CONTROLS -----------------------------
+
 	public static void setColorful(){
 		for(int blockIndex=0;blockIndex< blockNumber;blockIndex++){
 			ColorControl[blockIndex] = true;
 		}
 		NoColorTaskFlag = false;
 	}
-
-	
+	public static void setNoColor(){
+		for(int blockIndex=0;blockIndex< blockNumber;blockIndex++){
+			ColorControl[blockIndex] = false;
+		}
+		NoColorTaskFlag = true;
+	}
 	public static void setOtherColorful(){
 		for(int blockIndex=0;blockIndex< blockNumber;blockIndex++){
 			OtherColorControl[blockIndex] = true;
 		}
 		OtherNoColorTaskFlag = false;
 	}
-
 	public static void setOtherNoColor(){
 		for(int blockIndex=0;blockIndex< blockNumber;blockIndex++){
 			OtherColorControl[blockIndex] = false;
 		}
 		OtherNoColorTaskFlag = true;
 	}
-	
+	//----------------------------------------------------------------------
+
+
 	public static void setSucceed(int blockI){
 		GameObject suObj = blockList [blockI];
 		//set color
@@ -256,13 +282,7 @@ public static class GameInfo{
 	public static GameObject getSmoothBlock(int id){
 		return blockSmoothList [id];
 	}
-
-	public static void setNoColor(){
-		for(int blockIndex=0;blockIndex< blockNumber;blockIndex++){
-			ColorControl[blockIndex] = false;
-		}
-		NoColorTaskFlag = true;
-	}
+	
 
 	public static void setStepControl(int stepIdx, bool flag){
 		stepControl [stepIdx] = flag;

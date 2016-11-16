@@ -10,14 +10,20 @@ public enum NODE{
 
 public class MainController : MonoBehaviour {
 
+	// all static because GLOBAL VARS
 	public static LocalPlayer _localPlayer;
 	public static AgentPlayer _agentPlayer;
 	public static NetworkedPlayer _networkedPlayer;
 	public static TwoPlayers _twoPlayers;
+
+
 	public static StateMachine FSM = new StateMachine ();
 	public static bool isAgentActive;
+
+	//may be local player, agent player, networked player, twoPlayer
 	public static IPlayerHandler black_player;
 	public static IPlayerHandler white_player;
+
 	public static int curGameNum;
 	public static NODE curNode;
 	public static Camera mainCam ;
@@ -29,8 +35,17 @@ public class MainController : MonoBehaviour {
 	void Start()
 	{	//The node start state
 		print ("FSM initilized. ");
+
+
+		//sets agent to active (b/c currently player plays with agent)
+		//will need to set to false for networking??
 		isAgentActive = true;		
+
+
+		//initializes game
 		GameInfo.NodeInfoInitialization ();
+
+
 		curGameNum = 0;
 		curNode = NODE.BLACK_NODE;
 		totalGameNum = 10;

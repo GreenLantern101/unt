@@ -2,6 +2,9 @@
 using System.Collections;
 
 public class NetworkedPlayer : MonoBehaviour, IPlayerHandler {
+
+	//TODO: implement this with networking functionality
+
 	public static int activePiece;
 	public static Vector3 curPosition;
 	public static Vector3 curOrientation;

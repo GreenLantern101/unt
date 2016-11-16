@@ -24,17 +24,29 @@ public class GameController : MonoBehaviour {
 	public MoveValidator _moveValid;
 	public static int turnNumber; 		//from 0 to 9 
 	public static AudioClip DClip;	//The sound at the end of each step
+
+
+	//keeps track of whose turn it is (inherently for two-player game)
 	public static IPlayerHandler active_player;
 	public static IPlayerHandler inactive_player;
+
+
+
 	public static int totalStepNum;
 	public static float GameTimer;	// Time for the count down
 	public static AudioSource audioP;
 	private static int succeedBlock;
 	public static stepType thisStep;
+
+
 	private static int activePiece;
 	public static int secondaryActivePiece;
+
+
 	public static float activeTimer;
 	public static float secondaryActiveTimer;
+
+
 	public static float gameLen;
 	public static bool flag;
 	private int blockNumber = 7;
@@ -66,7 +78,11 @@ public class GameController : MonoBehaviour {
 		//get the game configuration
 		string gameName = MainInfo.getAssignmentName ();
 		string targetName = MainInfo.getTargetName ();
+
+		//initialize parameters
 		GameInfo.InitializeParameters ();
+
+
 		GameInfo.setTarget (targetName);
 
 		//read the feature for the current node 
@@ -105,7 +121,7 @@ public class GameController : MonoBehaviour {
 		//move the target object to the visible area
 //		GameObject targetObj = GameObject.Find (targetName);
 //		targetObj.transform.position = new Vector3 (200f,0f,-155f);
-		setPostion (targetTName);
+		setPosition (targetTName);
 
 		//show where to put the blocks
 		for (int i=0; i<7; ++i) {
@@ -117,7 +133,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	public static void setPostion (string targetName) {
+	public static void setPosition (string targetName) {
 //		print ("target name is: " + targetName);
 		GameObject targetObj = GameObject.Find (targetTName);	//reset target position and rotation	
 		Transform TargetTransform = targetObj.transform;

@@ -16,8 +16,12 @@ public class NetworkConnection: MonoBehaviour
 	private int sPort;
 	private int pPort;
 	private TcpClient speechClient;
-	private string Adress = "129.59.79.186";
-	//private string Adress = "10.110.10.208";
+
+	//what is this hard-coded ip address?
+	private string Address = "129.59.79.186";
+	//private string Address = "10.110.10.208";
+
+
 	public Hashtable speechHT;
 	NetworkStream netStream;
 
@@ -51,7 +55,7 @@ public class NetworkConnection: MonoBehaviour
 	{            
 		sPort = 10010;
 		speechClient = new TcpClient ();
-		speechClient.Connect (Adress, sPort);
+		speechClient.Connect (Address, sPort);
 	}
 
 	string receiveSpeechData(){

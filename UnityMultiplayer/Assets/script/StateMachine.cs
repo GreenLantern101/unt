@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using Stateless;
 
+//Stateless.dll explained https://blogs.msdn.microsoft.com/nblumhardt/2009/04/16/state-machines-in-domain-models/
 
 public enum PuzzleState
 {
@@ -49,9 +50,11 @@ public enum Trigger
 };
 
 public class StateMachine: Stateless.StateMachine<PuzzleState, Trigger> {
-	
+
 	public StateMachine(): base(PuzzleState.NODE_START)
 	{
+		//all of form State --> trigger --> another State
+		
 		Configure(PuzzleState.NODE_START)
 			.Permit (Trigger.startIntro, PuzzleState.INTRO_PLAY);
 
@@ -66,7 +69,7 @@ public class StateMachine: Stateless.StateMachine<PuzzleState, Trigger> {
 		
 		Configure (PuzzleState.GAME_INITIALIZATION)
 			.SubstateOf (PuzzleState.GAME)
-				.OnEntry(()=>GameController.gameInitilization())
+				.OnEntry(()=>GameController.gameInitialization())
 				.Permit (Trigger.startStep, PuzzleState.GAME_STEP);
 		
 		
