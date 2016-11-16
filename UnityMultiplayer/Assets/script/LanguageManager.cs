@@ -103,11 +103,11 @@ public class LanguageManager : MonoBehaviour {
 		actIdx = -1;
 		feedbackTimer1 = TimerLen1;
 		feedbackTimer2 = TimerLen2;				
-		InitialParms ();
+		InitialParams ();
 		correctNum = 0;
 		DMFSM = new DMStateMachine ();
 		curInfor = new Information ();
-		print ("initialized dmfsm");
+		print ("initialized DMFSM");
 	}
 
 
@@ -762,8 +762,8 @@ public class LanguageManager : MonoBehaviour {
 		return inStr;
 	}
 
-	public static void InitialParms(){
-		print ("initial parameters");
+	public static void InitialParams(){
+
 		speechHT = new Hashtable ();
 		objectList = new List<int>();
 		slotList = new List<string> ();
@@ -779,6 +779,8 @@ public class LanguageManager : MonoBehaviour {
 		intDectNum = 0;
 		objDectNum =0;
 		curColor = "";
+
+		print ("LanguageManager: Initialized parameters.");
 	}
 
 	void readResponse(TextAsset sysResContent){

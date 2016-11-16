@@ -16,8 +16,10 @@ public class MainController : MonoBehaviour {
 	public static NetworkedPlayer _networkedPlayer;
 	public static TwoPlayers _twoPlayers;
 
-
+	//initialized here before Start(), so NetworkConnection can call it remotely
 	public static StateMachine FSM = new StateMachine ();
+
+
 	public static bool isAgentActive;
 
 	//may be local player, agent player, networked player, twoPlayer
@@ -34,16 +36,17 @@ public class MainController : MonoBehaviour {
 
 	void Start()
 	{	//The node start state
-		print ("FSM initilized. ");
+
 
 
 		//sets agent to active (b/c currently player plays with agent)
-		//will need to set to false for networking??
-		isAgentActive = true;		
+		//will need to set to false for networking, true for agent
+		isAgentActive = false;		
 
 
 		//initializes game
 		GameInfo.NodeInfoInitialization ();
+		print ("GameInfo: Node info initialized");
 
 
 		curGameNum = 0;
@@ -76,7 +79,9 @@ public class MainController : MonoBehaviour {
 		//start game at end of intro
 		if (FSM.IsInState (PuzzleState.INTRO_END)) {
 			if(_localPlayer.isReady()){
+				print ("Local player ready.");
 				if(_agentPlayer.isReady()){
+					print ("Agent player ready.");
 					FSM.Fire(Trigger.startGame);
 				}
 			}

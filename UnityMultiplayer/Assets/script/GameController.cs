@@ -194,14 +194,14 @@ public class GameController : MonoBehaviour {
 			stepIndex++;
 		}
 		
-		//read the first hit information
+		//read the first hint information
 		XmlNodeList Hint1List = XmlDoc.SelectNodes("/Assignment/hint1");
 		foreach(XmlNode stepNode in Hint1List){
 			GameInfo.setHintsInfor(0, stepNode[curNodeStr].InnerXml.ToString());
 			GameInfo.loadAudio(0, stepNode[curNodeStr + "Audio"].InnerXml.ToString());
 		}
 		
-		//read the second hit information
+		//read the second hint information
 		XmlNodeList Hint2List = XmlDoc.SelectNodes("/Assignment/hint2");
 		foreach(XmlNode stepNode in Hint2List){
 			GameInfo.setHintsInfor(1, stepNode[curNodeStr].InnerXml);
@@ -212,7 +212,7 @@ public class GameController : MonoBehaviour {
 	//initilize players
 	public static void setPlayer(){
 		if (MainController.isAgentActive) {
-			//BLACK NODE = AI-HUMAN GAME
+			//AI-HUMAN GAME
 			if (MainController.curNode == NODE.BLACK_NODE) {
 				MainController.black_player = MainController._localPlayer;
 				MainController.white_player = MainController._agentPlayer;
@@ -221,14 +221,14 @@ public class GameController : MonoBehaviour {
 				MainController.white_player = MainController._localPlayer;
 			}
 		} else {
-			//WHITE NODE = HUMAN-HUMAN GAME (networked)
+			//HUMAN-HUMAN GAME (networked)
 			if (MainController.curNode == NODE.WHITE_NODE) {
 				MainController.black_player = MainController._localPlayer;
 				MainController.white_player = MainController._networkedPlayer;
 			} else {
 				MainController.black_player = MainController._networkedPlayer;
 				MainController.white_player = MainController._localPlayer;
-			}				
+			}	
 		}
 	}
 
@@ -245,8 +245,8 @@ public class GameController : MonoBehaviour {
 			}
 		}
 
-
-		if(MainController.FSM.IsInState(PuzzleState.GAME_STEP)){		//During the game
+		//During the game
+		if(MainController.FSM.IsInState(PuzzleState.GAME_STEP)){
 			//Set the moving target
 			setTargetPosition (MainInfo.getTargetName ());
 
@@ -348,7 +348,7 @@ public class GameController : MonoBehaviour {
 	public static void DetectPlayState(){
 		if (GameInfo.stepControl [turnNumber] && GameInfo.otherStepControl[turnNumber]) {
 			//two player condition
-			print ("current active player is: two player");
+			print ("ACTIVE: two player");
 			MainController._twoPlayers.setPlayers(MainController._localPlayer, MainController._agentPlayer);
 			active_player = MainController._twoPlayers;
 			if(GameInfo.NoColorTaskFlag){				
@@ -365,7 +365,7 @@ public class GameController : MonoBehaviour {
 		}else{
 			if(GameInfo.stepControl[turnNumber]){
 				//color sharing with color
-				print ("current active player is: local player");
+				print ("ACTIVE: local player");
 				active_player = MainController._localPlayer;
 				if(GameInfo.NoColorTaskFlag){
 					curPlayState = PlayState.UserMoveAgentColor;
@@ -375,7 +375,7 @@ public class GameController : MonoBehaviour {
 				LogTimeData.setActivePerson("p1");
 			}else if(GameInfo.otherStepControl[turnNumber]){
 				//color sharing without color
-				print ("current active player is: agent player");
+				print ("ACTIVE: agent player");
 				active_player = MainController._agentPlayer;	
 				if(GameInfo.OtherNoColorTaskFlag){
 					curPlayState = PlayState.AgentMoveUserColor;

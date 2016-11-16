@@ -185,13 +185,13 @@
      <None Include="Assets\Data\TEST_04_50_32_GamePositionLog.txt" />
      <None Include="Assets\Data\TEST_12_00_13_GamePositionLog.txt" />
  <Reference Include="Newtonsoft.Json">
- <HintPath>F:/agent/UnityMultiplayer/Assets/Plugins/Newtonsoft.Json.dll</HintPath>
+ <HintPath>C:/Users/Apache/Documents/GitHub/unt/UnityMultiplayer/Assets/Plugins/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="SocketDLL">
- <HintPath>F:/agent/UnityMultiplayer/Assets/Plugins/SocketDLL.dll</HintPath>
+ <HintPath>C:/Users/Apache/Documents/GitHub/unt/UnityMultiplayer/Assets/Plugins/SocketDLL.dll</HintPath>
  </Reference>
  <Reference Include="Stateless">
- <HintPath>F:/agent/UnityMultiplayer/Assets/Plugins/Stateless.dll</HintPath>
+ <HintPath>C:/Users/Apache/Documents/GitHub/unt/UnityMultiplayer/Assets/Plugins/Stateless.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

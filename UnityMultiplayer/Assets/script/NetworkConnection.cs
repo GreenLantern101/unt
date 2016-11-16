@@ -27,9 +27,12 @@ public class NetworkConnection: MonoBehaviour
 
 	void Start() {
 		//start speech connection
+		/*
+		print ("Connecting to speech started.");
 	    StartSpeechConnection();
-		print ("Connected to speech finished");
+		print ("Connected to speech finished.");
 		netStream = speechClient.GetStream ();
+		*/
 		MainController.FSM.Fire (Trigger.startIntro);
 		//start player connection
 //		pPort = 3000;
@@ -39,6 +42,9 @@ public class NetworkConnection: MonoBehaviour
 	}
 
 	void Update(){
+		//ensure speechClient not null
+		if (speechClient == null)
+			return;
 		if (speechClient.Connected && MainController.FSM.IsInState(PuzzleState.GAME)) {            
 
 				if(speechClient.Available>0){

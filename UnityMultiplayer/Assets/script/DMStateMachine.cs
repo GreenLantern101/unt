@@ -45,7 +45,7 @@ public class DMStateMachine: Stateless.StateMachine<DMState, DMTrigger>{
 
 		Configure(DMState.DMInitial)
 			.SubstateOf (DMState.DMGame)
-			.OnEntry(()=>LanguageManager.InitialParms())
+			.OnEntry(()=>LanguageManager.InitialParams())
 				.Permit (DMTrigger.Feedback1, DMState.DMIntentionConf)
 				.Permit (DMTrigger.ProvInfo, DMState.DMProvInfor)
 				.Permit (DMTrigger.MLInput, DMState.DMIntentionDetect);
