@@ -149,7 +149,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	//reads node information
+	//reads node info from XML file, determines conditions/params of game
 	public static void TaskConfNode(string fileName, string curNodeStr, string otherNodeStr){
 		//print ("fileName is: " + fileName);
 		TextAsset AssignmentXmlFile;
@@ -209,7 +209,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	//initilize players
+	//initilize players (set who can see what)
 	public static void setPlayer(){
 		if (MainController.isAgentActive) {
 			//AI-HUMAN GAME
@@ -220,6 +220,7 @@ public class GameController : MonoBehaviour {
 				MainController.black_player = MainController._agentPlayer;
 				MainController.white_player = MainController._localPlayer;
 			}
+			print ("PLAYERS SET --- local player + agent player");
 		} else {
 			//HUMAN-HUMAN GAME (networked)
 			if (MainController.curNode == NODE.WHITE_NODE) {
@@ -229,7 +230,9 @@ public class GameController : MonoBehaviour {
 				MainController.black_player = MainController._networkedPlayer;
 				MainController.white_player = MainController._localPlayer;
 			}	
+			print ("PLAYERS SET --- local player + networked player");
 		}
+
 	}
 
 
@@ -364,9 +367,11 @@ public class GameController : MonoBehaviour {
 
 		}else{
 			if(GameInfo.stepControl[turnNumber]){
+
+				//active_player = MainController._localPlayer;
+				active_player = MainController.white_player;
+
 				//color sharing with color
-				print ("ACTIVE: local player");
-				active_player = MainController._localPlayer;
 				if(GameInfo.NoColorTaskFlag){
 					curPlayState = PlayState.UserMoveAgentColor;
 				}else{
@@ -374,9 +379,11 @@ public class GameController : MonoBehaviour {
 				}
 				LogTimeData.setActivePerson("p1");
 			}else if(GameInfo.otherStepControl[turnNumber]){
+
+				//active_player = MainController._agentPlayer;	
+				active_player = MainController.black_player;
+
 				//color sharing without color
-				print ("ACTIVE: agent player");
-				active_player = MainController._agentPlayer;	
 				if(GameInfo.OtherNoColorTaskFlag){
 					curPlayState = PlayState.AgentMoveUserColor;
 				}else{
@@ -384,6 +391,18 @@ public class GameController : MonoBehaviour {
 				}
 				LogTimeData.setActivePerson("p2");
 			}
+
+			//log player type
+			if(active_player==MainController._localPlayer)
+				print ("ACTIVE: LOCAL PLAYER");
+			else if(active_player==MainController._networkedPlayer)
+				print ("ACTIVE: NETWORKED PLAYER");
+			else if(active_player==MainController._agentPlayer)
+				print ("ACTIVE: AGENT PLAYER");
+			else if(active_player==MainController._twoPlayers)
+				print ("ACTIVE: TWOPLAYER");
+			else print ("ACTIVE: UNRECOGNIZED");
+
 		}
 		LogTimeData.setStepIndex(turnNumber);
 	}

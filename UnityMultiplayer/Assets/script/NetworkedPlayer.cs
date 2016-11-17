@@ -28,7 +28,9 @@ public class NetworkedPlayer : MonoBehaviour, IPlayerHandler {
 	}
 
 	public bool isReady(){
-		return readyFlag;
+		//FIX --> only change flag when connected & ready
+		return true;
+		//return readyFlag;
 	}
 	public void setActivePiece(int _acI){
 		activePiece = _acI;

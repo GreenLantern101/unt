@@ -10,6 +10,8 @@ using System.Net.Sockets;
 using System.Threading;
 using System.IO;
 
+
+//connects agent AI to speech connection
 public class NetworkConnection: MonoBehaviour
 {
 	//data

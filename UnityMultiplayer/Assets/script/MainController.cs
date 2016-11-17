@@ -80,10 +80,17 @@ public class MainController : MonoBehaviour {
 		if (FSM.IsInState (PuzzleState.INTRO_END)) {
 			if(_localPlayer.isReady()){
 				print ("Local player ready.");
+				if(_networkedPlayer.isReady())
+				{
+					print ("Networked player ready.");
+					FSM.Fire(Trigger.startGame);
+				}
+				/*
 				if(_agentPlayer.isReady()){
 					print ("Agent player ready.");
 					FSM.Fire(Trigger.startGame);
 				}
+				*/
 			}
 		}
 

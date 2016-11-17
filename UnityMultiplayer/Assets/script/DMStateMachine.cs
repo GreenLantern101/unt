@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+//Dialog Manager State Machine (for voice stuff)
 public enum DMState
 {
 	DMIdle,

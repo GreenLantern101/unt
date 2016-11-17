@@ -70,7 +70,7 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler {
 			GameObject activeObject = GameInfo.blockList [activePiece];
 			curPosition = activeObject.transform.position;
 			targetPosition = GameInfo.getTargetPosition(activePiece);
-			moveBlockFlag = true;	
+			moveBlockFlag = true;
 		} else {
 			moveBlockFlag = false;
 			setActivePiece(-1);
@@ -89,8 +89,6 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler {
 	void Update(){
 
 		//detect the failure actions
-
-
 
 		if (moveBlockFlag) {	
 			if(Vector3.Distance(GameInfo.blockList [activePiece].transform.position, GameInfo.getTargetPosition(activePiece)) > 2.5){

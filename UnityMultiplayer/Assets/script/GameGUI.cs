@@ -64,7 +64,8 @@ public class GameGUI : MonoBehaviour {
 
 		if(MainController.FSM.IsInState(PuzzleState.INTRO_PLAY)){
 			if(textIndex == 0){				
-				text = "Hello again and welcome to the collaborative virtual environment. Now you will play some block puzzles with your partner. Say hello to your partner. ";
+				text = "Hello again and welcome to the collaborative virtual environment. " +
+					"Now you will play some block puzzles with your partner. Say hello to your partner. ";
 				buttonText = "Next ";
 				GUI.Label(new Rect(Screen.width/7f, Screen.height/6f, 5f*Screen.width/7f, 2f*Screen.height/6f), text, textStyle);
 				audioPlay(Recording3);
@@ -73,9 +74,13 @@ public class GameGUI : MonoBehaviour {
 					textIndex = 1;
 				}				
 			}else if(textIndex == 1){			
-				text = "You and your partner will see the same virtual environment from different locations.  Both of you will be able to see the blocks moving on the screen.";
-				text += "The virtual environment includes “the selection area”, “the target”, and “the play area” as shown here on your screen.  ";
-				text += "The “target” is the final pattern that you will try to create using your blocks.  The “selection area” will hold the blocks you can use to create the pattern.  The “play area” is where you will both drag your blocks to create the pattern. ";
+				text = "You and your partner will see the same virtual environment from different locations.  " +
+					"Both of you will be able to see the blocks moving on the screen.";
+				text += "The virtual environment includes “the selection area”, “the target”, " +
+					"and “the play area” as shown here on your screen.  ";
+				text += "The “target” is the final pattern that you will try to create using your blocks.  " +
+					"The “selection area” will hold the blocks you can use to create the pattern.  " +
+					"The “play area” is where you will both drag your blocks to create the pattern. ";
 				text += "You can drag any block from the “selection area” to the “play area” to create the same pattern as the target.";			
 				buttonText = "Next ";
 				GUI.Label(new Rect(Screen.width/16, 2*Screen.height/12, 8*Screen.width/14, 2*Screen.height/6), text, textStyle);
@@ -85,9 +90,17 @@ public class GameGUI : MonoBehaviour {
 					textIndex = 2;
 				}
 			}else if(textIndex == 2){
-				text = "In some tasks, you will take turns moving the blocks on your own.  In some tasks, you and your partner will need to move the blocks together, by dragging the same block at the same time.  In some tasks, you will move all the blocks on your own while your partner helps you by giving color or position hints.";
-				text += "Or you may need to help your partner while he or she move the blocks.  The blocks have colors to help you create the pattern.  Sometimes you will be able to see the colors, but your partner will not.";
-				text += "Other times, your partner will see the block colors, but you will not. Remember to ask your partner to help you!  And to rotate a block, click the right and left arrows on the keyboard.  ";
+				text = "In some tasks, you will take turns moving the blocks on your own.  " +
+					"In some tasks, you and your partner will need to move the blocks together, " +
+					"by dragging the same block at the same time.  In some tasks, you will move " +
+					"all the blocks on your own while your partner helps you by giving color or " +
+					"position hints.";
+				text += "Or you may need to help your partner while he or she move the blocks.  " +
+					"The blocks have colors to help you create the pattern.  S" +
+					"ometimes you will be able to see the colors, but your partner will not.";
+				text += "Other times, your partner will see the block colors, but you will not. " +
+					"Remember to ask your partner to help you!  And to rotate a block, click the right " +
+					"and left arrows on the keyboard.  ";
 				buttonText = "I am ready! ";
 				GUI.Label(new Rect(Screen.width/7, Screen.height/6, 5*Screen.width/7, 2*Screen.height/6), text, textStyle);
 				audioPlay(Recording5);
@@ -113,6 +126,22 @@ public class GameGUI : MonoBehaviour {
 					LocalPlayer.readyFlag = true;
 					MainController.FSM.Fire(Trigger.endIntro);
 				}
+
+
+				//Host a new game
+				if(GUI.Button(new Rect(5f*Screen.width/7, 4*Screen.height/6, 0.5f*Screen.width/7, 0.5f*Screen.height/6), "Host game")){
+					LocalPlayer.readyFlag = true;
+					MainController.FSM.Fire(Trigger.endIntro);
+				}
+
+				//Connect to an existing network game
+				if(GUI.Button(new Rect(5f*Screen.width/7, 4.5f*Screen.height/6, 0.5f*Screen.width/7, 0.5f*Screen.height/6), "Connect")){
+					LocalPlayer.readyFlag = true;
+					MainController.FSM.Fire(Trigger.endIntro);
+				}
+
+
+
 			}
 		}
 

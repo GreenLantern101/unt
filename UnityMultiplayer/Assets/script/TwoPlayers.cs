@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class TwoPlayers : MonoBehaviour, IPlayerHandler {
 	private IPlayerHandler player1;
 	private IPlayerHandler player2;	
