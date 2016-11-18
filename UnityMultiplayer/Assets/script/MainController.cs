@@ -27,8 +27,12 @@ public class MainController : MonoBehaviour {
 	public static IPlayerHandler white_player;
 
 	public static int curGameNum;
-	public static NODE curNode;
-	public static Camera mainCam ;
+
+	//HARD-CODED, OTHER PLAYER NEEDS TO HAVE OTHER NODE!!!!!
+	public static NODE curNode = NODE.BLACK_NODE;
+
+
+	public static Camera mainCam;
 	public static Camera progressCam;
 
 	
@@ -50,7 +54,6 @@ public class MainController : MonoBehaviour {
 
 
 		curGameNum = 0;
-		curNode = NODE.BLACK_NODE;
 		totalGameNum = 10;
 
 

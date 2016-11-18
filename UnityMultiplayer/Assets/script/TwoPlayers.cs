@@ -2,6 +2,7 @@
 using System.Collections;
 
 
+//for collaborative games --> combines the actions of two cooperative players
 public class TwoPlayers : MonoBehaviour, IPlayerHandler {
 	private IPlayerHandler player1;
 	private IPlayerHandler player2;	

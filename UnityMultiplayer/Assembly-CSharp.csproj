@@ -192,6 +192,8 @@
     <Reference Include="Stateless">
       <HintPath>C:\Users\Apache\Documents\GitHub\unt\UnityMultiplayer\Assets\Plugins\Stateless.dll</HintPath>
     </Reference>
+    <Compile Include="Assets\script\MultiplayerManager.cs" />
+    <Compile Include="Assets\script\Message.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
