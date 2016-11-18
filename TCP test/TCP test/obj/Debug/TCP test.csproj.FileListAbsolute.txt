@@ -1,0 +1,8 @@
+C:\Users\Apache\Documents\GitHub\unt\TCP test\TCP test\bin\Debug\TCP test.exe.config
+C:\Users\Apache\Documents\GitHub\unt\TCP test\TCP test\bin\Debug\TCP test.exe
+C:\Users\Apache\Documents\GitHub\unt\TCP test\TCP test\bin\Debug\TCP test.pdb
+C:\Users\Apache\Documents\GitHub\unt\TCP test\TCP test\obj\Debug\TCP test.csprojResolveAssemblyReference.cache
+C:\Users\Apache\Documents\GitHub\unt\TCP test\TCP test\obj\Debug\TCP_test.MainForm.resources
+C:\Users\Apache\Documents\GitHub\unt\TCP test\TCP test\obj\Debug\TCP test.csproj.GenerateResource.Cache
+C:\Users\Apache\Documents\GitHub\unt\TCP test\TCP test\obj\Debug\TCP test.exe
+C:\Users\Apache\Documents\GitHub\unt\TCP test\TCP test\obj\Debug\TCP test.pdb

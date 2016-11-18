@@ -11,7 +11,8 @@ namespace TCP_test
 	/// </summary>
 	public partial class MainForm : Form
 	{
-		MultiPlayerManager manager = new MultiPlayerManager();
+		
+		Game game;
 		public MainForm()
 		{
 			//
@@ -19,7 +20,7 @@ namespace TCP_test
 			//
 			InitializeComponent();
 			
-			
+			game = new Game(richTextBox1);
 		}
 	}
 }

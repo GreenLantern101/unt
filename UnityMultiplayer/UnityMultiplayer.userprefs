@@ -1,21 +1,21 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\AgentPlayer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\MultiplayerManager.cs">
     <Files>
-      <File FileName="Assets\script\MainController.cs" Line="63" Column="34" />
-      <File FileName="Assets\script\GameInfo.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\GameController.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\MainInfo.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\NetworkedPlayer.cs" Line="47" Column="29" />
+      <File FileName="Assets\script\MainController.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\NetworkedPlayer.cs" Line="1" Column="1" />
       <File FileName="Assets\script\LocalPlayer.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\AgentPlayer.cs" Line="12" Column="26" />
+      <File FileName="Assets\script\AgentPlayer.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\MultiplayerManager.cs" Line="28" Column="3" />
+      <File FileName="Assets\script\NetworkConnection.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\Message.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="script" expanded="True">
-              <Node name="AgentPlayer.cs" selected="True" />
+              <Node name="MultiplayerManager.cs" selected="True" />
             </Node>
           </Node>
         </State>
