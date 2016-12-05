@@ -61,7 +61,9 @@
      <Compile Include="Assets\script\LogTimeData.cs" />
      <Compile Include="Assets\script\MainController.cs" />
      <Compile Include="Assets\script\MainInfo.cs" />
+     <Compile Include="Assets\script\Message.cs" />
      <Compile Include="Assets\script\MoveValidator.cs" />
+     <Compile Include="Assets\script\MultiplayerManager.cs" />
      <Compile Include="Assets\script\NetworkConnection.cs" />
      <Compile Include="Assets\script\NetworkedPlayer.cs" />
      <Compile Include="Assets\script\SavWav.cs" />

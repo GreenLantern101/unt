@@ -73,7 +73,7 @@ public class GameController : MonoBehaviour {
 	//gameInitialization depends on the feature of each game
 	//Initilize all the blocks
 	public static void gameInitialization(){
-//		GameInfo.InitializeParameters ();
+		GameInfo.InitializeParameters ();
 		print ("arget paramet");
 		//get the game configuration
 		string gameName = MainInfo.getAssignmentName ();

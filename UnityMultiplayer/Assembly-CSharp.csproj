@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -60,6 +60,7 @@
     <Compile Include="Assets\script\LogTimeData.cs" />
     <Compile Include="Assets\script\MainController.cs" />
     <Compile Include="Assets\script\MainInfo.cs" />
+    <Compile Include="Assets\script\Message.cs" />
     <Compile Include="Assets\script\MoveValidator.cs" />
     <Compile Include="Assets\script\NetworkConnection.cs" />
     <Compile Include="Assets\script\NetworkedPlayer.cs" />
@@ -192,8 +193,10 @@
     <Reference Include="Stateless">
       <HintPath>C:\Users\Apache\Documents\GitHub\unt\UnityMultiplayer\Assets\Plugins\Stateless.dll</HintPath>
     </Reference>
-    <Compile Include="Assets\script\MultiplayerManager.cs" />
-    <Compile Include="Assets\script\Message.cs" />
+    <Compile Include="Assets\script\_Server.cs" />
+    <Compile Include="Assets\script\_Packet.cs" />
+    <Compile Include="Assets\script\_Client.cs" />
+    <None Include="Assets\script\config.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
