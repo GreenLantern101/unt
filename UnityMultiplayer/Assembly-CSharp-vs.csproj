@@ -61,9 +61,7 @@
      <Compile Include="Assets\script\LogTimeData.cs" />
      <Compile Include="Assets\script\MainController.cs" />
      <Compile Include="Assets\script\MainInfo.cs" />
-     <Compile Include="Assets\script\Message.cs" />
      <Compile Include="Assets\script\MoveValidator.cs" />
-     <Compile Include="Assets\script\MultiplayerManager.cs" />
      <Compile Include="Assets\script\NetworkConnection.cs" />
      <Compile Include="Assets\script\NetworkedPlayer.cs" />
      <Compile Include="Assets\script\SavWav.cs" />
@@ -72,6 +70,9 @@
      <Compile Include="Assets\script\TargetPosition.cs" />
      <Compile Include="Assets\script\TwoPlayers.cs" />
      <Compile Include="Assets\script\VoiceSpeaker.cs" />
+     <Compile Include="Assets\script\_Client.cs" />
+     <Compile Include="Assets\script\_Packet.cs" />
+     <Compile Include="Assets\script\_Server.cs" />
      <None Include="Assets\Data\TEST_04_18_55_GamePositionLog.txt" />
      <None Include="Assets\Resources\Assignment3.xml" />
      <None Include="Assets\Resources\Position0.xml" />
@@ -105,6 +106,7 @@
      <None Include="Assets\Data\TEST_04_32_16_GamePositionLog.txt" />
      <None Include="Assets\Resources\Assignment12.xml" />
      <None Include="Assets\Data\TEST_11_25_38_GamePositionLog.txt" />
+     <None Include="Assets\script\config.txt" />
      <None Include="Assets\Data\TEST_11_17_52_GamePositionLog.txt" />
      <None Include="Assets\Data\TEST_10_01_12_GamePositionLog.txt" />
      <None Include="Assets\Resources\Assignment13.xml" />

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Net;
+using System.Net.Sockets;
 using System.Xml;
 
 public enum stepType{
@@ -74,7 +76,7 @@ public class GameController : MonoBehaviour {
 	//Initilize all the blocks
 	public static void gameInitialization(){
 		GameInfo.InitializeParameters ();
-		print ("arget paramet");
+		//print ("arget paramet");
 		//get the game configuration
 		string gameName = MainInfo.getAssignmentName ();
 		string targetName = MainInfo.getTargetName ();
@@ -421,5 +423,73 @@ public class GameController : MonoBehaviour {
 			tempSorting[j] = tempID;
 		}
 	}
+
+
+	/* ------------------------------------------------------------------------------
+	 * Networking code below
+	 * ------------------------------------------------------------------------------ 
+	 */
+	TcpClient _player;
+	int numCandies;
+
+	//temporary stub
+	public void HandleInputAction(string s)
+	{
+
+	}
+	//temporary stub
+	public void Run()
+	{
+
+	}
+
+
+	public void SyncGame_command(){
+		//Packet syncPacket = new Packet("sync", this.numCandies.ToString());
+		//Packet.SendPacket(_player.GetStream(), syncPacket).GetAwaiter().GetResult();
+	}
+	
+	// obey with an order to sync game
+	public void SyncGame_obey(string message)
+	{
+		int num;
+		if (int.TryParse(message, out num)) {
+			this.numCandies = num;
+			print("SYNCED: " + numCandies + " candies left.");
+		} else {
+			print("Unable to sync.");
+		}
+	}
+	
+	// Adds only a single player to the game
+	public bool AddPlayer(TcpClient client)
+	{
+		// Make sure only one player was added
+		if (_player == null) {
+			_player = client;
+			return true;
+		}
+		return false;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

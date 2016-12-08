@@ -1,202 +1,202 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.20506</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6BA5A117-4103-EFF2-4E0B-7134D517EB78}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <BaseDirectory>Assets</BaseDirectory>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<ProductVersion>10.0.20506</ProductVersion>
+	<SchemaVersion>2.0</SchemaVersion>
+	<ProjectGuid>{6BA5A117-4103-EFF2-4E0B-7134D517EB78}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace></RootNamespace>
+	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	<FileAlignment>512</FileAlignment>
+	<BaseDirectory>Assets</BaseDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>True</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>False</Optimize>
-    <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_4_5_3;UNITY_4_5;UNITY_64;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <NoWarn>0169</NoWarn>
+	<DebugSymbols>true</DebugSymbols>
+	<DebugType>full</DebugType>
+	<Optimize>false</Optimize>
+	<OutputPath>Temp\bin\Debug\</OutputPath>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_5_3;UNITY_4_5;UNITY_64;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>True</Optimize>
-    <OutputPath>Temp\bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <NoWarn>0169</NoWarn>
+	<DebugType>pdbonly</DebugType>
+	<Optimize>true</Optimize>
+	<OutputPath>Temp\bin\Release\</OutputPath>
+	<DefineConstants>TRACE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="UnityEngine">
-      <HintPath>C:\Program Files %28x86%29\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor">
-      <HintPath>C:\Program Files %28x86%29\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml" />
+	<Reference Include="System" />
+    <Reference Include="System.XML" />
+	<Reference Include="System.Core" />
+	<Reference Include="System.Xml.Linq" />
+	<Reference Include="UnityEngine">
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityEditor">
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	</Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\script\AI.cs" />
-    <Compile Include="Assets\script\AgentPlayer.cs" />
-    <Compile Include="Assets\script\BlockController.cs" />
-    <Compile Include="Assets\script\CLZF2.cs" />
-    <Compile Include="Assets\script\DMStateMachine.cs" />
-    <Compile Include="Assets\script\EdgeDetectionShader.cs" />
-    <Compile Include="Assets\script\GameController.cs" />
-    <Compile Include="Assets\script\GameGUI.cs" />
-    <Compile Include="Assets\script\GameInfo.cs" />
-    <Compile Include="Assets\script\IPlayerHandler.cs" />
-    <Compile Include="Assets\script\LanguageManager.cs" />
-    <Compile Include="Assets\script\LocalPlayer.cs" />
-    <Compile Include="Assets\script\LogTimeData.cs" />
-    <Compile Include="Assets\script\MainController.cs" />
-    <Compile Include="Assets\script\MainInfo.cs" />
-    <Compile Include="Assets\script\Message.cs" />
-    <Compile Include="Assets\script\MoveValidator.cs" />
-    <Compile Include="Assets\script\NetworkConnection.cs" />
-    <Compile Include="Assets\script\NetworkedPlayer.cs" />
-    <Compile Include="Assets\script\SavWav.cs" />
-    <Compile Include="Assets\script\SingleMicrophoneCapture.cs" />
-    <Compile Include="Assets\script\StateMachine.cs" />
-    <Compile Include="Assets\script\TargetPosition.cs" />
-    <Compile Include="Assets\script\TwoPlayers.cs" />
-    <Compile Include="Assets\script\VoiceSpeaker.cs" />
-    <None Include="Assets\Data\TEST_04_18_55_GamePositionLog.txt" />
-    <None Include="Assets\Resources\Assignment3.xml" />
-    <None Include="Assets\Resources\Position0.xml" />
-    <None Include="Assets\Materials\block\Materials\outline.shader" />
-    <None Include="Assets\Data\TEST_04_53_25_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_09_48_16_GamePositionLog.txt" />
-    <None Include="Assets\Resources\Position1.xml" />
-    <None Include="Assets\Data\TEST_05_26_26_GamePositionLog.txt" />
-    <None Include="Assets\Resources\Position6.xml" />
-    <None Include="Assets\Resources\Position7.xml" />
-    <None Include="Assets\Data\TEST_11_43_40_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_09_55_25_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_05_33_33_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_09_36_33_GameTimeLog.txt" />
-    <None Include="Assets\Data\TEST_01_56_11_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_05_15_37_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_11_58_56_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_02_44_36_GamePositionLog.txt" />
-    <None Include="Assets\Resources\Assignment6.xml" />
-    <None Include="Assets\Data\TEST_09_55_25_GameTimeLog.txt" />
-    <None Include="Assets\Data\TEST_11_13_12_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_11_56_24_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_02_01_13_GamePositionLog.txt" />
-    <None Include="Assets\Asset\Shaders\Normal-Diffuse.shader" />
-    <None Include="Assets\Data\TEST_03_38_06_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_11_13_37_GamePositionLog.txt" />
-    <None Include="Assets\Resources\Assignment2.xml" />
-    <None Include="Assets\Data\TEST_09_46_17_GameTimeLog.txt" />
-    <None Include="Assets\Data\TEST_05_16_02_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_09_36_33_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_04_32_16_GamePositionLog.txt" />
-    <None Include="Assets\Resources\Assignment12.xml" />
-    <None Include="Assets\Data\TEST_11_25_38_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_11_17_52_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_10_01_12_GamePositionLog.txt" />
-    <None Include="Assets\Resources\Assignment13.xml" />
-    <None Include="Assets\Data\TEST_02_24_26_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_05_24_46_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_10_49_20_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_09_40_38_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_GameTimeLog.txt" />
-    <None Include="Assets\Data\TEST_09_57_40_GameTimeLog.txt" />
-    <None Include="Assets\Data\TEST_11_19_33_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_09_57_40_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_05_03_31_GamePositionLog.txt" />
-    <None Include="Assets\Resources\Target1.xml" />
-    <None Include="Assets\Resources\Target2.xml" />
-    <None Include="Assets\Resources\Target4.xml" />
-    <None Include="Assets\Data\TEST_11_53_53_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_09_46_17_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_11_47_06_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_04_01_06_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_02_22_05_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_10_38_52_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_09_26_14_GameTimeLog.txt" />
-    <None Include="Assets\Data\TEST_11_23_05_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_04_54_05_GamePositionLog.txt" />
-    <None Include="Assets\Resources\Position5.xml" />
-    <None Include="Assets\Resources\Assignment11.xml" />
-    <None Include="Assets\Data\TEST_05_24_46_GameTimeLog.txt" />
-    <None Include="Assets\Resources\Assignment5.xml" />
-    <None Include="Assets\Data\TEST_04_25_13_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_11_57_53_GamePositionLog.txt" />
-    <None Include="Assets\Resources\Assignment10.xml" />
-    <None Include="Assets\Resources\Assignment9.xml" />
-    <None Include="Assets\Data\TEST_03_52_59_GamePositionLog.txt" />
-    <None Include="Assets\Resources\Position2.xml" />
-    <None Include="Assets\Data\TEST_02_36_59_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_01_56_58_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_04_55_57_GamePositionLog.txt" />
-    <None Include="Assets\Resources\Target3.xml" />
-    <None Include="Assets\Data\TEST_04_35_42_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_05_13_34_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_10_47_32_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_11_08_00_GamePositionLog.txt" />
-    <None Include="Assets\Resources\Assignment1.xml" />
-    <None Include="Assets\Data\TEST_09_28_38_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_10_57_09_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_11_27_15_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_09_05_40_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_01_53_56_GameTimeLog.txt" />
-    <None Include="Assets\Resources\Assignment4.xml" />
-    <None Include="Assets\Data\TEST_04_00_24_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_11_05_43_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_11_00_03_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_11_15_51_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_11_08_04_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_02_54_52_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_01_53_56_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_05_00_28_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_05_13_47_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_10_01_12_GameTimeLog.txt" />
-    <None Include="Assets\Resources\Assignment7.xml" />
-    <None Include="Assets\Resources\Assignment8.xml" />
-    <None Include="Assets\Data\TEST_11_08_36_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_05_50_02_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_05_51_10_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_09_28_38_GameTimeLog.txt" />
-    <None Include="Assets\Data\TEST_11_17_07_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_04_05_24_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_09_09_10_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_09_10_49_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_09_47_53_GamePositionLog.txt" />
-    <None Include="Assets\Resources\Position4.xml" />
-    <None Include="Assets\Data\TEST_11_40_12_GamePositionLog.txt" />
-    <None Include="Assets\Resources\Position3.xml" />
-    <None Include="Assets\Resources\SysResponsesNew.txt" />
-    <None Include="Assets\Data\TEST_05_06_10_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_11_01_38_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_03_26_17_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_06_32_22_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_04_50_32_GamePositionLog.txt" />
-    <None Include="Assets\Data\TEST_12_00_13_GamePositionLog.txt" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>C:\Users\Apache\Documents\GitHub\unt\UnityMultiplayer\Assets\Plugins\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="SocketDLL">
-      <HintPath>C:\Users\Apache\Documents\GitHub\unt\UnityMultiplayer\Assets\Plugins\SocketDLL.dll</HintPath>
-    </Reference>
-    <Reference Include="Stateless">
-      <HintPath>C:\Users\Apache\Documents\GitHub\unt\UnityMultiplayer\Assets\Plugins\Stateless.dll</HintPath>
-    </Reference>
-    <Compile Include="Assets\script\_Server.cs" />
-    <Compile Include="Assets\script\_Packet.cs" />
-    <Compile Include="Assets\script\_Client.cs" />
-    <None Include="Assets\script\config.txt" />
+     <Compile Include="Assets\script\AI.cs" />
+     <Compile Include="Assets\script\AgentPlayer.cs" />
+     <Compile Include="Assets\script\BlockController.cs" />
+     <Compile Include="Assets\script\CLZF2.cs" />
+     <Compile Include="Assets\script\DMStateMachine.cs" />
+     <Compile Include="Assets\script\EdgeDetectionShader.cs" />
+     <Compile Include="Assets\script\GameController.cs" />
+     <Compile Include="Assets\script\GameGUI.cs" />
+     <Compile Include="Assets\script\GameInfo.cs" />
+     <Compile Include="Assets\script\IPlayerHandler.cs" />
+     <Compile Include="Assets\script\LanguageManager.cs" />
+     <Compile Include="Assets\script\LocalPlayer.cs" />
+     <Compile Include="Assets\script\LogTimeData.cs" />
+     <Compile Include="Assets\script\MainController.cs" />
+     <Compile Include="Assets\script\MainInfo.cs" />
+     <Compile Include="Assets\script\MoveValidator.cs" />
+     <Compile Include="Assets\script\NetworkConnection.cs" />
+     <Compile Include="Assets\script\NetworkedPlayer.cs" />
+     <Compile Include="Assets\script\SavWav.cs" />
+     <Compile Include="Assets\script\SingleMicrophoneCapture.cs" />
+     <Compile Include="Assets\script\StateMachine.cs" />
+     <Compile Include="Assets\script\TargetPosition.cs" />
+     <Compile Include="Assets\script\TwoPlayers.cs" />
+     <Compile Include="Assets\script\VoiceSpeaker.cs" />
+     <Compile Include="Assets\script\_Client.cs" />
+     <Compile Include="Assets\script\_Packet.cs" />
+     <Compile Include="Assets\script\_Server.cs" />
+     <None Include="Assets\Data\TEST_04_18_55_GamePositionLog.txt" />
+     <None Include="Assets\Resources\Assignment3.xml" />
+     <None Include="Assets\Resources\Position0.xml" />
+     <None Include="Assets\Materials\block\Materials\outline.shader" />
+     <None Include="Assets\Data\TEST_04_53_25_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_09_48_16_GamePositionLog.txt" />
+     <None Include="Assets\Resources\Position1.xml" />
+     <None Include="Assets\Data\TEST_05_26_26_GamePositionLog.txt" />
+     <None Include="Assets\Resources\Position6.xml" />
+     <None Include="Assets\Resources\Position7.xml" />
+     <None Include="Assets\Data\TEST_11_43_40_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_09_55_25_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_05_33_33_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_09_36_33_GameTimeLog.txt" />
+     <None Include="Assets\Data\TEST_01_56_11_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_05_15_37_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_11_58_56_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_02_44_36_GamePositionLog.txt" />
+     <None Include="Assets\Resources\Assignment6.xml" />
+     <None Include="Assets\Data\TEST_09_55_25_GameTimeLog.txt" />
+     <None Include="Assets\Data\TEST_11_13_12_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_11_56_24_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_02_01_13_GamePositionLog.txt" />
+     <None Include="Assets\Asset\Shaders\Normal-Diffuse.shader" />
+     <None Include="Assets\Data\TEST_03_38_06_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_11_13_37_GamePositionLog.txt" />
+     <None Include="Assets\Resources\Assignment2.xml" />
+     <None Include="Assets\Data\TEST_09_46_17_GameTimeLog.txt" />
+     <None Include="Assets\Data\TEST_05_16_02_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_09_36_33_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_04_32_16_GamePositionLog.txt" />
+     <None Include="Assets\Resources\Assignment12.xml" />
+     <None Include="Assets\Data\TEST_11_25_38_GamePositionLog.txt" />
+     <None Include="Assets\script\config.txt" />
+     <None Include="Assets\Data\TEST_11_17_52_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_10_01_12_GamePositionLog.txt" />
+     <None Include="Assets\Resources\Assignment13.xml" />
+     <None Include="Assets\Data\TEST_02_24_26_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_05_24_46_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_10_49_20_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_09_40_38_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_GameTimeLog.txt" />
+     <None Include="Assets\Data\TEST_09_57_40_GameTimeLog.txt" />
+     <None Include="Assets\Data\TEST_11_19_33_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_09_57_40_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_05_03_31_GamePositionLog.txt" />
+     <None Include="Assets\Resources\Target1.xml" />
+     <None Include="Assets\Resources\Target2.xml" />
+     <None Include="Assets\Resources\Target4.xml" />
+     <None Include="Assets\Data\TEST_11_53_53_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_09_46_17_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_11_47_06_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_04_01_06_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_02_22_05_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_10_38_52_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_09_26_14_GameTimeLog.txt" />
+     <None Include="Assets\Data\TEST_11_23_05_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_04_54_05_GamePositionLog.txt" />
+     <None Include="Assets\Resources\Position5.xml" />
+     <None Include="Assets\Resources\Assignment11.xml" />
+     <None Include="Assets\Data\TEST_05_24_46_GameTimeLog.txt" />
+     <None Include="Assets\Resources\Assignment5.xml" />
+     <None Include="Assets\Data\TEST_04_25_13_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_11_57_53_GamePositionLog.txt" />
+     <None Include="Assets\Resources\Assignment10.xml" />
+     <None Include="Assets\Resources\Assignment9.xml" />
+     <None Include="Assets\Data\TEST_03_52_59_GamePositionLog.txt" />
+     <None Include="Assets\Resources\Position2.xml" />
+     <None Include="Assets\Data\TEST_02_36_59_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_01_56_58_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_04_55_57_GamePositionLog.txt" />
+     <None Include="Assets\Resources\Target3.xml" />
+     <None Include="Assets\Data\TEST_04_35_42_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_05_13_34_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_10_47_32_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_11_08_00_GamePositionLog.txt" />
+     <None Include="Assets\Resources\Assignment1.xml" />
+     <None Include="Assets\Data\TEST_09_28_38_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_10_57_09_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_11_27_15_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_09_05_40_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_01_53_56_GameTimeLog.txt" />
+     <None Include="Assets\Resources\Assignment4.xml" />
+     <None Include="Assets\Data\TEST_04_00_24_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_11_05_43_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_11_00_03_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_11_15_51_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_11_08_04_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_02_54_52_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_01_53_56_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_05_00_28_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_05_13_47_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_10_01_12_GameTimeLog.txt" />
+     <None Include="Assets\Resources\Assignment7.xml" />
+     <None Include="Assets\Resources\Assignment8.xml" />
+     <None Include="Assets\Data\TEST_11_08_36_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_05_50_02_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_05_51_10_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_09_28_38_GameTimeLog.txt" />
+     <None Include="Assets\Data\TEST_11_17_07_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_04_05_24_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_09_09_10_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_09_10_49_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_09_47_53_GamePositionLog.txt" />
+     <None Include="Assets\Resources\Position4.xml" />
+     <None Include="Assets\Data\TEST_11_40_12_GamePositionLog.txt" />
+     <None Include="Assets\Resources\Position3.xml" />
+     <None Include="Assets\Resources\SysResponsesNew.txt" />
+     <None Include="Assets\Data\TEST_05_06_10_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_11_01_38_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_03_26_17_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_06_32_22_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_04_50_32_GamePositionLog.txt" />
+     <None Include="Assets\Data\TEST_12_00_13_GamePositionLog.txt" />
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>C:/Users/Apache/Documents/GitHub/unt/UnityMultiplayer/Assets/Plugins/Newtonsoft.Json.dll</HintPath>
+ </Reference>
+ <Reference Include="SocketDLL">
+ <HintPath>C:/Users/Apache/Documents/GitHub/unt/UnityMultiplayer/Assets/Plugins/SocketDLL.dll</HintPath>
+ </Reference>
+ <Reference Include="Stateless">
+ <HintPath>C:/Users/Apache/Documents/GitHub/unt/UnityMultiplayer/Assets/Plugins/Stateless.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -206,4 +206,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  
 </Project>

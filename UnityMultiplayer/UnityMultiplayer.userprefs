@@ -1,19 +1,20 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\MultiplayerManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\DMStateMachine.cs">
     <Files>
-      <File FileName="Assets\script\MultiplayerManager.cs" Line="15" Column="25" />
-      <File FileName="Assets\script\MainController.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\NetworkedPlayer.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\LocalPlayer.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\NetworkConnection.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\Message.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\DMStateMachine.cs" Line="81" Column="14" />
+      <File FileName="Assets\script\GameController.cs" Line="1" Column="1" />
+      <File FileName="c:\Users\Apache\Documents\GitHub\unt\UnityMultiplayer\Assets\script\LanguageManager.cs" Line="1" Column="1" />
+      <File FileName="c:\Users\Apache\Documents\GitHub\unt\UnityMultiplayer\Assets\script\DMStateMachine.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\_Packet.cs" Line="1" Column="81" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Assembly-CSharp" expanded="True" selected="True">
-            <Node name="script" expanded="True" />
+          <Node name="Assembly-CSharp" expanded="True">
+            <Node name="script" expanded="True">
+              <Node name="_Packet.cs" selected="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
