@@ -30,8 +30,6 @@ public class GameController : MonoBehaviour {
 	public static IPlayerHandler active_player;
 	public static IPlayerHandler inactive_player;
 
-
-
 	public static int totalStepNum;
 	public static float GameTimer;	// Time for the count down
 	public static AudioSource audioP;
@@ -53,6 +51,12 @@ public class GameController : MonoBehaviour {
 	public static PlayState curPlayState;
 	public static string targetTName;
 	private LogTimeData logTimeDataScript;
+	
+	//--------- networking vars ---------
+	public Server _server;
+	private TcpClient _player;
+	private int numCandies;
+	
 
 	// Use this for initialization
 	void Start () {
@@ -67,6 +71,11 @@ public class GameController : MonoBehaviour {
 		print ("secondary active2 " + secondaryActivePiece);
 		secondaryActivePiece = -1;
 		curPlayState = PlayState.Unknown;
+		
+		//--------------- initialize networking ------------------
+		this._server = new Server();
+		_server.Start(this);
+		
 	}
 
 	//GameController should be initialized for each game
@@ -427,8 +436,7 @@ public class GameController : MonoBehaviour {
 	 * Networking code below
 	 * ------------------------------------------------------------------------------ 
 	 */
-	TcpClient _player;
-	int numCandies;
+	
 
 	//temporary stub
 	public void HandleInputAction(string s)

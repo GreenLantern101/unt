@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.IO;
 using System.Threading;
+using UnityEngine;
 
 //essentially a wrapper over TcpClient
 public class Client
@@ -22,7 +23,7 @@ public class Client
 		tcpClient = new TcpClient(AddressFamily.InterNetwork);
 			
 		//ip address and port of opposing server should be put in "config.txt"
-		string[] lines = File.ReadAllLines(Directory.GetCurrentDirectory() + "/../../config.txt");	
+		string[] lines = File.ReadAllLines(Directory.GetCurrentDirectory() + "/Assets/script/config.txt");	
 		ipAddress_other = IPAddress.Parse(lines[0]);
 		Port = int.Parse(lines[1]);
 	}

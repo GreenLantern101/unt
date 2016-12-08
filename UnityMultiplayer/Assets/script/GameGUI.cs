@@ -126,21 +126,6 @@ public class GameGUI : MonoBehaviour {
 					MainController.FSM.Fire(Trigger.endIntro);
 				}
 
-
-				//Host a new game
-				if(GUI.Button(new Rect(5f*Screen.width/7, 4*Screen.height/6, 0.5f*Screen.width/7, 0.5f*Screen.height/6), "Host game")){
-					LocalPlayer.readyFlag = true;
-					MainController.FSM.Fire(Trigger.endIntro);
-				}
-
-				//Connect to an existing network game
-				if(GUI.Button(new Rect(5f*Screen.width/7, 4.5f*Screen.height/6, 0.5f*Screen.width/7, 0.5f*Screen.height/6), "Connect")){
-					LocalPlayer.readyFlag = true;
-					MainController.FSM.Fire(Trigger.endIntro);
-				}
-
-
-
 			}
 		}
 
