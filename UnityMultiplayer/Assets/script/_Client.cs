@@ -36,15 +36,15 @@ public class Client
 			try {
 				tcpClient.Connect(ipAddress_other, Port);
 			} catch (SocketException se) {
-				Console.WriteLine("[ERROR] {0}", se.Message);
-				Console.WriteLine("Failed to connect. Trying again.");
+				Debug.Log("[ERROR]" + se.Message);
+				Debug.Log("Failed to connect. Trying again.");
 				Thread.Sleep(3000);
 			}
 		}
 
 		// check that we've connected
 		if (tcpClient.Connected) {
-			Console.WriteLine("Connected to server at {0}.", tcpClient.Client.RemoteEndPoint);
+			Debug.Log("Connected to server at" + tcpClient.Client.RemoteEndPoint);
 
 			// Get the message stream
 			_msgStream = tcpClient.GetStream();
@@ -55,13 +55,13 @@ public class Client
 	// This should only be called by the user
 	public void Disconnect()
 	{
-		Console.WriteLine("Disconnecting...");
+		Debug.Log("Disconnecting...");
 		_clientRequestedDisconnect = true;
 		Packet.SendPacket(this._msgStream, new Packet("bye", ""));
 	}
 	public void _cleanupNetworkResources()
 	{
-		//Console.WriteLine("Cleaning up network resources...");
+		//Debug.Log("Cleaning up network resources...");
 		if (_msgStream != null)
 			_msgStream.Close();
 		_msgStream = null;
@@ -92,7 +92,7 @@ public class Client
 					_handleSync(packet.Message);
 					break;
 				default:
-					Console.WriteLine("Invalid packet command received.");
+					Debug.Log("Invalid packet command received.");
 					break;
 						
 			}
@@ -102,10 +102,10 @@ public class Client
 	#region Command Handlers
 	private void _handleBye(string message)
 	{
-		Console.WriteLine(message);
+		Debug.Log(message);
 	}
 
-	// Just prints out a message sent from the server
+	// Just Debug.Logs out a message sent from the server
 	private void _handleMessage(string message)
 	{
 		Console.Write(message);
@@ -119,7 +119,7 @@ public class Client
 	// Gets input from the user and sends it to the server
 	private bool _handleInput(string message)
 	{
-		// Print the prompt and get a response to send
+		// Debug.Log the prompt and get a response to send
 		Console.Write(message);
 			
 		string responseMsg = Console.ReadLine();

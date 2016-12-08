@@ -25,6 +25,7 @@ public class Server
 
 	public Server()
 	{
+		Debug.Log("HELLO FROM A SERVER!");
 		Name = "SERVER_ONE";
 		port_me = 32887;
 		Running = false;
@@ -42,7 +43,7 @@ public class Server
 		var host = Dns.GetHostEntry(Dns.GetHostName());
 		foreach (var ip in host.AddressList) {
 			if (ip.AddressFamily == AddressFamily.InterNetwork) {
-				Console.WriteLine("IP: " + ip);
+				Debug.Log("IP: " + ip);
 				return ip;
 			}
 		}
@@ -53,7 +54,7 @@ public class Server
 	{
 		if (Running) {
 			Running = false;
-			Console.WriteLine("Shutting down server...");
+			Debug.Log("Shutting down server...");
 		}
 		// gracefully disconnect client...
 		if (client != null)
@@ -62,22 +63,23 @@ public class Server
 	public void Start(GameController game)
 	{
 		//------------------------------------------------ start server
-		Console.WriteLine("Starting the \"{0}\" server on port {1}.", Name, port_me); 
-		Console.WriteLine("Press Ctrl-C to shutdown the server at any time.");
+		Debug.Log("Starting the " + Name + " server on port " + port_me + "."); 
+		Debug.Log("Press Ctrl-C to shutdown the server at any time.");
 			
 		// Start running the server
 		tcpListener.Start();
 		Running = true;
-		Console.WriteLine("Waiting for incoming connections...");
+		Debug.Log("Waiting for incoming connections...");
 
 		//------------------------------------------------- start client
-			
+		/*
 		client = new Client();
 		//connect game client...
 		client.Connect();
-			
+		*/
 		//------------------------------------------------- run server & client
-		this.Run(game);
+		
+		//this.Run(game);
 	}
 
 	public void Run(GameController _currentGame)
@@ -98,7 +100,7 @@ public class Server
 				_currentGame.AddPlayer(tcpClient_other);
 
 				// Start the game in a new thread!
-				Console.WriteLine("Starting a new game.");
+				Debug.Log("Starting a new game.");
 				this.gameThread = new Thread(new ThreadStart(_currentGame.Run));
 				gameThread.Start();
 					
@@ -109,7 +111,7 @@ public class Server
 			}
 				
 			//------------------------------------------------- client run cycle
-				
+			/*
 			// Check for new packets
 			client._handleIncomingPackets();
 				
@@ -130,10 +132,10 @@ public class Server
 			if (IsDisconnected(this.client.tcpClient)
 			     && !this.client._clientRequestedDisconnect) {
 				Running = false;
-				Console.WriteLine("Other server disconnected from us ungracefully.");
+				Debug.Log("Other server disconnected from us ungracefully.");
 				Thread.Sleep(3000);
 			}
-				
+			*/	
 				
 			//--------------------------------------------------- Take a small nap
 			Thread.Sleep(10);
@@ -153,7 +155,7 @@ public class Server
 		tcpListener.Stop();
 
 		// Info
-		Console.WriteLine("The server has been shut down.");
+		Debug.Log("The server has been shut down.");
 			
 		//-------------------------------------------------------- client STOP
 
@@ -166,7 +168,7 @@ public class Server
 	{
 		// Get the new client using a Future
 		this.tcpClient_other = tcpListener.AcceptTcpClient();
-		Console.WriteLine("New connection from {0}.", tcpClient_other.Client.RemoteEndPoint);
+		Debug.Log("New connection from " + tcpClient_other.Client.RemoteEndPoint);
 
 		// Send a welcome message
 		string msg = String.Format("Welcome to the \"{0}\" server.\n", Name);
@@ -187,7 +189,7 @@ public class Server
 	// Gracefully disconnect a TcpClient
 	public void DisconnectClient(TcpClient client, string message)
 	{
-		Console.WriteLine("Disconnecting the client from {0}.", client.Client.RemoteEndPoint);
+		Debug.Log("Disconnecting the client from " + client.Client.RemoteEndPoint);
 
 		// If no message set, use the default "Goodbye."
 		if (message == "")
@@ -225,8 +227,8 @@ public class Server
 
 		} catch (Exception e) {
 			// There was an issue in receiving
-			Console.WriteLine("There was an issue receiving a packet from {0}.", client.Client.RemoteEndPoint);
-			Console.WriteLine("Reason: {0}", e.Message);
+			Debug.Log("There was an issue receiving a packet from " + client.Client.RemoteEndPoint);
+			Debug.Log("Reason: " + e.Message);
 		}
 
 		return packet;

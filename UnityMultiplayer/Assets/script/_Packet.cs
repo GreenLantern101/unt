@@ -51,8 +51,8 @@ public class Packet
 			stream.Write(packetBuffer, 0, packetBuffer.Length);
 
 		} catch (Exception e) {
-			Console.WriteLine("Error sending a packet.");
-			Console.WriteLine("Reason: {0}", e.Message);
+			Debug.Log("Error sending a packet.");
+			Debug.Log("Reason: " + e.Message);
 		}
 	}
 	public byte[] getPacketBuffer()
@@ -66,7 +66,7 @@ public class Packet
 		lengthBuffer.CopyTo(packetBuffer, 0);
 		jsonBuffer.CopyTo(packetBuffer, lengthBuffer.Length);
 			
-		//Console.WriteLine(Encoding.UTF8.GetString(packetBuffer));
+		//Debug.Log(Encoding.UTF8.GetString(packetBuffer));
 				
 		return packetBuffer;
 	}
@@ -92,8 +92,8 @@ public class Packet
 		byte[] jsonBuffer = new byte[packetByteSize];
 		_msgStream.Read(jsonBuffer, 0, jsonBuffer.Length);
 			
-		//Console.WriteLine(Encoding.UTF8.GetString(lengthBuffer));
-		//Console.WriteLine(Encoding.UTF8.GetString(jsonBuffer));
+		//Debug.Log(Encoding.UTF8.GetString(lengthBuffer));
+		//Debug.Log(Encoding.UTF8.GetString(jsonBuffer));
 			
 		// Convert to packet datatype
 		string jsonString = Encoding.UTF8.GetString(jsonBuffer);
