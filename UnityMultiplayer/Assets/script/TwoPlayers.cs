@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 
 //for collaborative games --> combines the actions of two cooperative players

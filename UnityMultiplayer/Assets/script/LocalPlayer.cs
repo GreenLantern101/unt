@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class LocalPlayer : MonoBehaviour, IPlayerHandler {
 	public static int activePiece;

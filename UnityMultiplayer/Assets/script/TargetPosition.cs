@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class TargetPosition: MonoBehaviour{
 	private float MoveRate = 20f;

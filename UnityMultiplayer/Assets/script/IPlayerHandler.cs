@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 /*
  * Interface that all players must implement

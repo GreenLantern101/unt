@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.IO;
 using System;
 
 public enum NODE{
@@ -40,8 +38,6 @@ public class MainController : MonoBehaviour {
 
 	void Start()
 	{	//The node start state
-
-
 
 		//sets agent to active (b/c currently player plays with agent)
 		//will need to set to false for networking, true for agent

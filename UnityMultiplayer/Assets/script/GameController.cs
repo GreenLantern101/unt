@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Net;
 using System.Net.Sockets;
 using System.Xml;
 
@@ -445,8 +443,8 @@ public class GameController : MonoBehaviour {
 
 
 	public void SyncGame_command(){
-		//Packet syncPacket = new Packet("sync", this.numCandies.ToString());
-		//Packet.SendPacket(_player.GetStream(), syncPacket).GetAwaiter().GetResult();
+		Packet syncPacket = new Packet("sync", this.numCandies.ToString());
+		Packet.SendPacket(_player.GetStream(), syncPacket);
 	}
 	
 	// obey with an order to sync game
