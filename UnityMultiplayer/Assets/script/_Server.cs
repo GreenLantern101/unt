@@ -71,8 +71,11 @@ public class Server
 		Running = true;
 		Debug.Log("Waiting for incoming connections...");
 		
+		this._currentGame = game;
+		
 		Thread server_conn = new Thread(new ThreadStart(ServerConnectLoop));
 		server_conn.Start();
+		//Thread.Sleep(1);
 
 		//------------------------------------------------- start client
 		
@@ -84,8 +87,8 @@ public class Server
 		
 		//------------------------------------------------- run server & client
 		
-		this._currentGame = game;
-		this.RunLoop();
+		//TODO: make this run in a separate thread also
+		//this.RunLoop();
 	}
 	void ServerConnectLoop()
 	{
@@ -93,10 +96,7 @@ public class Server
 			Thread.Sleep(100);
 		}
 		_handleNewConnection();
-	}
-
-	void RunLoop()
-	{
+		
 		//Start a game for the first new connection
 		
 		//add networked player to game
@@ -105,8 +105,10 @@ public class Server
 					
 		//SYNC GAME AT BEGINNING immediately after connecting
 		this._currentGame.SyncGame_command();
-		
-	
+	}
+
+	void RunLoop()
+	{
 		while (Running) {
 			//------------------------------------------------- client run cycle
 			

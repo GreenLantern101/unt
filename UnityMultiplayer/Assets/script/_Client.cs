@@ -34,15 +34,9 @@ public class Client
 	{
 		Thread client_conn = new Thread(new ThreadStart(ClientConnectLoop));
         client_conn.Start();
+        //Thread.Sleep(1);
         //client_conn.Join();
         
-		// check that we've connected
-		if (tcpClient.Connected) {
-			Debug.Log("Connected to server at" + tcpClient.Client.RemoteEndPoint);
-
-			// Get the message stream
-			_msgStream = tcpClient.GetStream();
-		}
 	}
 	void ClientConnectLoop(){
 		//keep trying to connect to server, once per second
@@ -55,6 +49,14 @@ public class Client
 				Debug.Log("Failed to connect. Trying again.");
 				Thread.Sleep(3000);
 			}
+		}
+		
+		// check that we've connected
+		if (tcpClient.Connected) {
+			Debug.Log("Connected to server at" + tcpClient.Client.RemoteEndPoint);
+
+			// Get the message stream
+			_msgStream = tcpClient.GetStream();
 		}
 	}
 
