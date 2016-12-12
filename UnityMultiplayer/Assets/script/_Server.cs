@@ -22,10 +22,11 @@ public class Server
 	public readonly string Name;
 	public readonly int port_me;
 	public bool Running { get; private set; }
+	
+	public GameController _currentGame;
 
 	public Server()
 	{
-		Debug.Log("HELLO FROM A SERVER!");
 		Name = "SERVER_ONE";
 		port_me = 32887;
 		Running = false;
@@ -63,55 +64,52 @@ public class Server
 	public void Start(GameController game)
 	{
 		//------------------------------------------------ start server
-		Debug.Log("Starting the " + Name + " server on port " + port_me + "."); 
-		Debug.Log("Press Ctrl-C to shutdown the server at any time.");
+		Debug.Log("============= Starting the " + Name + " server on port " + port_me + "."); 
 			
 		// Start running the server
 		tcpListener.Start();
 		Running = true;
 		Debug.Log("Waiting for incoming connections...");
+		
+		Thread server_conn = new Thread(new ThreadStart(ServerConnectLoop));
+		server_conn.Start();
 
 		//------------------------------------------------- start client
-		/*
+		
 		client = new Client();
 		//connect game client...
 		client.Connect();
-		*/
+	
+		//server_conn.Join();
+		
 		//------------------------------------------------- run server & client
 		
-		//this.Run(game);
+		this._currentGame = game;
+		this.RunLoop();
+	}
+	void ServerConnectLoop()
+	{
+		while (!tcpListener.Pending()) {
+			Thread.Sleep(100);
+		}
+		_handleNewConnection();
 	}
 
-	public void Run(GameController _currentGame)
+	void RunLoop()
 	{
-			
+		//Start a game for the first new connection
+		
+		//add networked player to game
+		this._currentGame.AddPlayer(tcpClient_other);
+		Debug.Log("A networked player has been added to the game.");
+					
+		//SYNC GAME AT BEGINNING immediately after connecting
+		this._currentGame.SyncGame_command();
+		
+	
 		while (Running) {
-			//------------------------------------------------- server run cycle
-			bool newconnection = false;
-			// Handle any new clients
-			if (tcpListener.Pending()) {
-				_handleNewConnection();
-				newconnection = true;
-			}
-					
-			//Start a game for the first new connection
-			if (newconnection) {
-				//add networked player to game
-				_currentGame.AddPlayer(tcpClient_other);
-
-				// Start the game in a new thread!
-				Debug.Log("Starting a new game.");
-				this.gameThread = new Thread(new ThreadStart(_currentGame.Run));
-				gameThread.Start();
-					
-					
-				//SYNC GAME AT BEGINNING immediately after connecting
-				_currentGame.SyncGame_command();
-
-			}
-				
 			//------------------------------------------------- client run cycle
-			/*
+			
 			// Check for new packets
 			client._handleIncomingPackets();
 				
@@ -135,17 +133,13 @@ public class Server
 				Debug.Log("Other server disconnected from us ungracefully.");
 				Thread.Sleep(3000);
 			}
-			*/	
+			
 				
 			//--------------------------------------------------- Take a small nap
 			Thread.Sleep(10);
 		}
 
 		//-------------------------------------------------------- server STOP
-
-		// Shutdown all of the threads, regardless if they are done or not
-		if (gameThread != null)
-			gameThread.Abort();
 
 		// Disconnect any clients remaining
 		if (tcpClient_other != null && tcpClient_other.Connected)

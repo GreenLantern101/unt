@@ -26,10 +26,25 @@ public class Client
 		string[] lines = File.ReadAllLines(Directory.GetCurrentDirectory() + "/Assets/script/config.txt");	
 		ipAddress_other = IPAddress.Parse(lines[0]);
 		Port = int.Parse(lines[1]);
+		
+		Debug.Log("============= Client made, will connect to " + ipAddress_other + " at port " + Port);
 	}
 	// Connects to the games server
 	public void Connect()
 	{
+		Thread client_conn = new Thread(new ThreadStart(ClientConnectLoop));
+        client_conn.Start();
+        //client_conn.Join();
+        
+		// check that we've connected
+		if (tcpClient.Connected) {
+			Debug.Log("Connected to server at" + tcpClient.Client.RemoteEndPoint);
+
+			// Get the message stream
+			_msgStream = tcpClient.GetStream();
+		}
+	}
+	void ClientConnectLoop(){
 		//keep trying to connect to server, once per second
 		while (!tcpClient.Connected) {
 			// Connect to the server
@@ -40,14 +55,6 @@ public class Client
 				Debug.Log("Failed to connect. Trying again.");
 				Thread.Sleep(3000);
 			}
-		}
-
-		// check that we've connected
-		if (tcpClient.Connected) {
-			Debug.Log("Connected to server at" + tcpClient.Client.RemoteEndPoint);
-
-			// Get the message stream
-			_msgStream = tcpClient.GetStream();
 		}
 	}
 

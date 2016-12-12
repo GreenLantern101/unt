@@ -75,7 +75,6 @@ public class GameController : MonoBehaviour {
 		//--------------- initialize networking ------------------
 		this._server = new Server();
 		_server.Start(this);
-		
 	}
 
 	//GameController should be initialized for each game
@@ -440,11 +439,6 @@ public class GameController : MonoBehaviour {
 
 	//temporary stub
 	public void HandleInputAction(string s)
-	{
-
-	}
-	//temporary stub
-	public void Run()
 	{
 
 	}
