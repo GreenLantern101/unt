@@ -87,8 +87,10 @@ public class Server
 		
 		//------------------------------------------------- run server & client
 		
-		//TODO: make this run in a separate thread also
-		//this.RunLoop();
+		
+		
+		Thread server_run = new Thread(new ThreadStart(RunLoop));
+		server_run.Start();
 	}
 	void ServerConnectLoop()
 	{
@@ -136,8 +138,6 @@ public class Server
 				Thread.Sleep(3000);
 			}
 			
-				
-			//--------------------------------------------------- Take a small nap
 			Thread.Sleep(10);
 		}
 
