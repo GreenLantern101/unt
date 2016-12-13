@@ -106,7 +106,7 @@ public class GameGUI : MonoBehaviour {
 				if(GUI.Button(new Rect(3*Screen.width/7, 4.5f*Screen.height/6, 0.5f*Screen.width/7, 0.5f*Screen.height/6), buttonText)){
 					audioStop();
 					textIndex = 10;
-					LocalPlayer.readyFlag = true;
+					this.SetLocalPlayerReady();
 					MainController.FSM.Fire(Trigger.endIntro);
 				}
 			}else if(textIndex == 3){		//for post test
@@ -114,7 +114,7 @@ public class GameGUI : MonoBehaviour {
 				buttonText = "I am ready! ";
 				GUI.Label(new Rect(Screen.width/7, Screen.height/6, 5*Screen.width/7, 2*Screen.height/6), text, textStyle);
 				if(GUI.Button(new Rect(3.25f*Screen.width/7, 4*Screen.height/6, 0.5f*Screen.width/7, 0.5f*Screen.height/6), buttonText)){
-					LocalPlayer.readyFlag = true;
+					this.SetLocalPlayerReady();
 					MainController.FSM.Fire(Trigger.endIntro);
 				}
 			}else if(textIndex == 4){		//for post test
@@ -122,7 +122,7 @@ public class GameGUI : MonoBehaviour {
 				buttonText = "I am ready! ";
 				GUI.Label(new Rect(Screen.width/7, Screen.height/6, 5*Screen.width/7, 2*Screen.height/6), text, textStyle);
 				if(GUI.Button(new Rect(3.25f*Screen.width/7, 4*Screen.height/6, 0.5f*Screen.width/7, 0.5f*Screen.height/6), buttonText)){
-					LocalPlayer.readyFlag = true;
+					this.SetLocalPlayerReady();
 					MainController.FSM.Fire(Trigger.endIntro);
 				}
 
@@ -159,28 +159,32 @@ public class GameGUI : MonoBehaviour {
 				text = "Game5: One player moves block. The other player has color information.";
 				
 			}else if(MainController.curGameNum == 5){
-				text = "Game6: Two players need to move blocks togther. ";
+				text = "Game6: Two players need to move blocks together. ";
 				
 			}else if(MainController.curGameNum == 6){
-				text = "Game7: Two players need to move blocks togther. ";				
+				text = "Game7: Two players need to move blocks together. ";				
 			}else if(MainController.curGameNum == 7){
-				text = "Game8: Two players need to move blocks togther. ";				
+				text = "Game8: Two players need to move blocks together. ";				
 			}else if(MainController.curGameNum == 8){
-				text = "Game9: Two players need to move blocks togther. ";				
+				text = "Game9: Two players need to move blocks together. ";				
 			}else if(MainController.curGameNum == 9){
-				text = "Game10: Two players need to move blocks togther. ";				
+				text = "Game10: Two players need to move blocks together. ";				
 			}else if(MainController.curGameNum == 10){
-				text = "Game11: Two players need to move blocks togther. ";				
+				text = "Game11: Two players need to move blocks together. ";				
 			}else if(MainController.curGameNum == 11){
-				text = "Game12: Two players need to move blocks togther. ";				
+				text = "Game12: Two players need to move blocks together. ";				
 			}else if(MainController.curGameNum == 12){
-				text = "Game13: Two players need to move blocks togther. ";				
+				text = "Game13: Two players need to move blocks together. ";				
 			}else if(MainController.curGameNum == 13){
-				text = "Game14: Two players need to move blocks togther. ";				
+				text = "Game14: Two players need to move blocks together. ";				
 			}	
 			GUI.Label(new Rect(Screen.width/7, Screen.height/6, 5*Screen.width/7, 2*Screen.height/6), text, textStyle);
 		}
 
+	}
+	
+	void SetLocalPlayerReady(){
+		MainController._localPlayer.setReadyFlag(true);
 	}
 
 	

@@ -26,7 +26,7 @@ public class MainController : MonoBehaviour {
 
 	public static int curGameNum;
 
-	//HARD-CODED, OTHER PLAYER NEEDS TO HAVE OTHER NODE!!!!!
+	//HARD-CODED, OTHER PLAYER NEEDS TO HAVE OTHER NODE!
 	public static NODE curNode = NODE.BLACK_NODE;
 
 
@@ -68,9 +68,10 @@ public class MainController : MonoBehaviour {
 
 	//is called at the end of game intro by state machine
 	public static void sendPlayerReady(){
-		LocalPlayer.readyFlag = true;
+		_localPlayer.setReadyFlag(true);
 		AgentPlayer.readyFlag = true;
-		NetworkedPlayer.sendReadyFlag();
+		
+		//somehow do something to readyflag of networked player...?
 	}
 
 	void Update(){

@@ -16,7 +16,7 @@ public class NetworkConnection: MonoBehaviour
 	private int pPort;
 	private TcpClient speechClient;
 
-	//what is this hard-coded ip address?
+	//location of google server for AI
 	private string Address = "129.59.79.186";
 	//private string Address = "10.110.10.208";
 
