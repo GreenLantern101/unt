@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Net.Sockets;
+using System;
 using System.Xml;
 
 public enum stepType{
@@ -54,7 +55,7 @@ public class GameController : MonoBehaviour {
 	
 	//--------- networking vars ---------
 	public static Server _server;
-	private static TcpClient _player;
+	private static TcpClient _tcpclient;
 	
 
 	// Use this for initialization
@@ -421,7 +422,7 @@ public class GameController : MonoBehaviour {
 		// Randomize array
 		for (int i = sortingSize - 1; i > 0; --i) {
 			
-			int j = (int)Mathf.Round(Random.Range(0f,(float)i));
+			int j = (int)Mathf.Round(UnityEngine.Random.Range(0f,(float)i));
 			
 			int tempID = tempSorting[i];
 			tempSorting[i] = tempSorting[j];
@@ -450,24 +451,33 @@ public class GameController : MonoBehaviour {
 
 	public static void SyncGame_command(string sync_info){
 		Packet syncPacket = new Packet("sync", sync_info);
-		Packet.SendPacket(_player.GetStream(), syncPacket);
+		Packet.SendPacket(_tcpclient.GetStream(), syncPacket);
 	}
 	
 	// obey with an order to sync game
 	public static void SyncGame_obey(string sync_info)
 	{
-		//do stuff here
+		//TODO: break up "sync_info" based on commas?
 		
+		
+		
+		Debug.Log(sync_info);
+		if(sync_info.Contains("readyFlag")){
+			string s = sync_info.Substring(sync_info.IndexOf("=")+1);
+			bool val = Convert.ToBoolean(s);
+			
+			MainController._networkedPlayer.setReadyFlag(val);
+		}
 		
 		Debug.Log("SYNCED: " + sync_info);
 	}
 	
-	// Adds only a single player to the game
-	public static bool AddPlayer(TcpClient client)
+	// Adds a networked player to the game
+	public static bool AddTcpClient(TcpClient client)
 	{
 		// Make sure only one player was added
-		if (_player == null) {
-			_player = client;
+		if (_tcpclient == null) {
+			_tcpclient = client;
 			return true;
 		}
 		return false;

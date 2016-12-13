@@ -98,7 +98,7 @@ public class Server
 		//Start a game for the first new connection
 		
 		//add networked player to game
-		GameController.AddPlayer(tcpClient_other);
+		GameController.AddTcpClient(tcpClient_other);
 		Debug.Log("A networked player has been added to the game.");
 					
 		//SYNC GAME AT BEGINNING immediately after connecting

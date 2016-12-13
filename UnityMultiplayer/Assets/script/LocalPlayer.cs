@@ -1,18 +1,20 @@
 using UnityEngine;
+using Newtonsoft;
 
 public class LocalPlayer : MonoBehaviour, IPlayerHandler
 {
-	public static int activePiece{get; private set;}
-	public static Vector3 curPosition;
+	public static int activePiece{ get; private set; }
+	public static Vector3 curPosition{ get; private set; }
 	public static Vector3 curOrientation;
-	public static bool readyFlag{get; private set;}
+	public static bool readyFlag{ get; private set; }
 	public static float activeTimer;
 
 	void Start()
 	{
 		setActivePiece(-1);
 	}
-	public void setReadyFlag(bool val){
+	public void setReadyFlag(bool val)
+	{
 		readyFlag = val;
 		
 		//GameController
@@ -26,6 +28,9 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	static void sendReadyFlag()
 	{
 		//send the player is ready to the other player
+		string message = "readyFlag=true";
+		GameController.SyncGame_command(message);
+		Debug.Log("Local player broadcasted that it is ready.");
 	}
 	
 	

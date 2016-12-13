@@ -6,7 +6,7 @@ public class NetworkedPlayer : MonoBehaviour, IPlayerHandler
 	//TODO: implement this with networking functionality
 
 	public static int activePiece{ get; private set; }
-	public static Vector3 curPosition;
+	public static Vector3 curPosition{ get; private set; }
 	public static Vector3 curOrientation;
 	public static bool readyFlag{ get; private set; }
 	public static float activeTimer;
@@ -20,7 +20,7 @@ public class NetworkedPlayer : MonoBehaviour, IPlayerHandler
 	}
 	public bool isReady()
 	{
-		return true;
+		//return true;
 		return readyFlag;
 	}
 	
@@ -59,5 +59,18 @@ public class NetworkedPlayer : MonoBehaviour, IPlayerHandler
 
 	public void skipThisTurn()
 	{
+	}
+	
+	void Update()
+	{
+		if (activePiece != -1 && GameController.active_player.getActivePiece() != activePiece) {
+			activeTimer += Time.deltaTime;
+			if (activeTimer > GameInfo.activeLen) {
+				activeTimer = -1000f;
+				LanguageManager.feedbackTimer1 = 0;
+			}
+		} else {
+			activeTimer = -1000f;				
+		}
 	}
 }
