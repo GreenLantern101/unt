@@ -15,7 +15,7 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	public void setReadyFlag(bool val){
 		readyFlag = val;
 		
-		
+		//GameController
 		//send ready flag immediately after setting
 		sendReadyFlag();
 	}

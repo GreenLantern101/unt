@@ -22,8 +22,6 @@ public class Server
 	public readonly string Name;
 	public readonly int port_me;
 	public bool Running { get; private set; }
-	
-	public GameController _currentGame;
 
 	public Server()
 	{
@@ -71,8 +69,6 @@ public class Server
 		Running = true;
 		Debug.Log("Waiting for incoming connections...");
 		
-		this._currentGame = game;
-		
 		Thread server_conn = new Thread(new ThreadStart(ServerConnectLoop));
 		server_conn.Start();
 		//Thread.Sleep(1);
@@ -102,11 +98,11 @@ public class Server
 		//Start a game for the first new connection
 		
 		//add networked player to game
-		this._currentGame.AddPlayer(tcpClient_other);
+		GameController.AddPlayer(tcpClient_other);
 		Debug.Log("A networked player has been added to the game.");
 					
 		//SYNC GAME AT BEGINNING immediately after connecting
-		this._currentGame.SyncGame_command("");
+		GameController.SyncGame_command("");
 	}
 
 	void RunLoop()
@@ -119,13 +115,13 @@ public class Server
 				
 			//poll for local player input changes
 			if (client.changed_local) {
-				_currentGame.HandleInputAction(client.action_local);
+				GameController.HandleInputAction(client.action_local);
 				//reset flag
 				client.changed_local = false;
 			}
 			//poll for remote player input changes
 			if (client.changed_remote) {
-				_currentGame.SyncGame_obey(client.action_remote);
+				GameController.SyncGame_obey(client.action_remote);
 				//reset flag
 				client.changed_remote = false;
 			}

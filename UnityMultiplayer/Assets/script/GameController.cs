@@ -437,7 +437,7 @@ public class GameController : MonoBehaviour {
 	
 
 	//temporary stub
-	public void HandleInputAction(string sync_info)
+	public static void HandleInputAction(string sync_info)
 	{
 		//if actions change game state, implement here....
 		
@@ -448,13 +448,13 @@ public class GameController : MonoBehaviour {
 	}
 
 
-	public void SyncGame_command(string sync_info){
+	public static void SyncGame_command(string sync_info){
 		Packet syncPacket = new Packet("sync", sync_info);
 		Packet.SendPacket(_player.GetStream(), syncPacket);
 	}
 	
 	// obey with an order to sync game
-	public void SyncGame_obey(string sync_info)
+	public static void SyncGame_obey(string sync_info)
 	{
 		//do stuff here
 		
@@ -463,7 +463,7 @@ public class GameController : MonoBehaviour {
 	}
 	
 	// Adds only a single player to the game
-	public bool AddPlayer(TcpClient client)
+	public static bool AddPlayer(TcpClient client)
 	{
 		// Make sure only one player was added
 		if (_player == null) {
