@@ -106,7 +106,7 @@ public class Server
 		Debug.Log("A networked player has been added to the game.");
 					
 		//SYNC GAME AT BEGINNING immediately after connecting
-		this._currentGame.SyncGame_command();
+		this._currentGame.SyncGame_command("");
 	}
 
 	void RunLoop()

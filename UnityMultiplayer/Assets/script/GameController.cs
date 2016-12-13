@@ -53,9 +53,8 @@ public class GameController : MonoBehaviour {
 	private LogTimeData logTimeDataScript;
 	
 	//--------- networking vars ---------
-	public Server _server;
-	private TcpClient _player;
-	private int numCandies;
+	public static Server _server;
+	private static TcpClient _player;
 	
 
 	// Use this for initialization
@@ -73,7 +72,7 @@ public class GameController : MonoBehaviour {
 		curPlayState = PlayState.Unknown;
 		
 		//--------------- initialize networking ------------------
-		this._server = new Server();
+		_server = new Server();
 		_server.Start(this);
 	}
 
@@ -438,27 +437,29 @@ public class GameController : MonoBehaviour {
 	
 
 	//temporary stub
-	public void HandleInputAction(string s)
+	public void HandleInputAction(string sync_info)
 	{
-
+		//if actions change game state, implement here....
+		
+		
+		
+		//command other game instances to sync.
+		SyncGame_command(sync_info);
 	}
 
 
-	public void SyncGame_command(){
-		Packet syncPacket = new Packet("sync", this.numCandies.ToString());
+	public void SyncGame_command(string sync_info){
+		Packet syncPacket = new Packet("sync", sync_info);
 		Packet.SendPacket(_player.GetStream(), syncPacket);
 	}
 	
 	// obey with an order to sync game
-	public void SyncGame_obey(string message)
+	public void SyncGame_obey(string sync_info)
 	{
-		int num;
-		if (int.TryParse(message, out num)) {
-			this.numCandies = num;
-			print("SYNCED: " + numCandies + " candies left.");
-		} else {
-			print("Unable to sync.");
-		}
+		//do stuff here
+		
+		
+		Debug.Log("SYNCED: " + sync_info);
 	}
 	
 	// Adds only a single player to the game

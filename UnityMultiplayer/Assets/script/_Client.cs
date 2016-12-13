@@ -53,7 +53,7 @@ public class Client
 		
 		// check that we've connected
 		if (tcpClient.Connected) {
-			Debug.Log("Connected to server at" + tcpClient.Client.RemoteEndPoint);
+			Debug.Log("Connected to server at " + tcpClient.Client.RemoteEndPoint);
 
 			// Get the message stream
 			_msgStream = tcpClient.GetStream();
@@ -117,10 +117,12 @@ public class Client
 	// Just Debug.Logs out a message sent from the server
 	private void _handleMessage(string message)
 	{
-		Console.Write(message);
+		Debug.Log(message);
 	}
 	private void _handleSync(string message)
 	{
+		//handle sync
+		
 		this.changed_remote = true;
 		this.action_remote = message;
 	}
@@ -129,7 +131,7 @@ public class Client
 	private bool _handleInput(string message)
 	{
 		// Debug.Log the prompt and get a response to send
-		Console.Write(message);
+		Debug.Log(message);
 			
 		string responseMsg = Console.ReadLine();
 			
