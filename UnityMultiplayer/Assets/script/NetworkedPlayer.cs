@@ -70,7 +70,7 @@ public class NetworkedPlayer : MonoBehaviour, IPlayerHandler
 				LanguageManager.feedbackTimer1 = 0;
 			}
 		} else {
-			activeTimer = -1000f;				
+			activeTimer = -1000f;		
 		}
 	}
 }

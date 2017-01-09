@@ -27,7 +27,7 @@ public class Client
 		ipAddress_other = IPAddress.Parse(lines[0]);
 		Port = int.Parse(lines[1]);
 		
-		Debug.Log("============= Client made, will connect to " + ipAddress_other + " at port " + Port);
+		Debug.Log("===== Client made, will connect to " + ipAddress_other + " at port " + Port);
 	}
 	// Connects to the games server
 	public void Connect()
