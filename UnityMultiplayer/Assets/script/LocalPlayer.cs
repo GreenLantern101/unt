@@ -25,7 +25,7 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	{
 		return readyFlag;
 	}
-	static void sendReadyFlag()
+	private static void sendReadyFlag()
 	{
 		//send the player is ready to the other player
 		string message = "readyFlag: true";
@@ -48,6 +48,14 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 			activeTimer = 0f;			
 		}
 		activePiece = _acI;
+		
+		sendActivePiece();
+	}
+	private static void sendActivePiece(){
+		//send player's active piece
+		string message = "activePiece: " + activePiece;
+		GameController.SyncGame_command(message);
+		Debug.Log("Local player broadcasted active piece.");
 	}
 
 	public Vector3 getPosition()
@@ -57,7 +65,15 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	public void setPosition(Vector3 _position)
 	{
 		curPosition = _position;
+		sendPosition();
 	}
+	private static void sendPosition(){
+		//send player position
+		string message = "position: " + curPosition.x + "," + curPosition.y + "," + curPosition.z;
+		GameController.SyncGame_command(message);
+		Debug.Log("Local player broadcasted current position.");
+	}
+	
 
 	public Vector3 getOrientation()
 	{

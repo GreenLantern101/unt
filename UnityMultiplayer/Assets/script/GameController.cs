@@ -497,14 +497,28 @@ public class GameController : MonoBehaviour
 				throw new Exception("Sync info in improper format.");
 			
 			switch (key) {
+					//sync ready flags
 				case "readyFlag":
-					bool val = Convert.ToBoolean(value);
-					MainController._networkedPlayer.setReadyFlag(val);
+					bool flag = Convert.ToBoolean(value);
+					MainController._networkedPlayer.setReadyFlag(flag);
 					break;
-				case "misc":
+					//sync active piece
+				case "activePiece":
+					int aci = Convert.ToInt16(value);
+					MainController._networkedPlayer.setActivePiece(aci);
 					break;
+					//sync position
+				case "position":
+					String[] locs = value.Split(',');
+					if (locs.Length != 3)
+						throw new Exception("Position could not be parsed to type: UnityEngine.Vector3");
+					Vector3 pos = new Vector3(float.Parse(locs[0]), float.Parse(locs[1]), float.Parse(locs[2]));
+					MainController._networkedPlayer.setPosition(pos);
+					break;
+					
+					//if nothing matches, should throw error
 				default:
-					Debug.Log("nothing found...");
+					throw new Exception("nothing found...");
 					break;
 			}
 			
