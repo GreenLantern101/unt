@@ -97,11 +97,8 @@ public class Server
 		//SYNC GAME AT BEGINNING immediately after connecting
 		GameController.SyncGame_command("");
 		
-		
-		
 		//------------------------------------------------- run server & client
-		Thread server_run = new Thread(new ThreadStart(RunLoop));
-		server_run.Start();
+		RunLoop();
 	}
 
 	void RunLoop()
