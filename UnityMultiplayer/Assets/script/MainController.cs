@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.IO;
 
 public enum NODE
 {
@@ -29,7 +30,7 @@ public class MainController : MonoBehaviour
 	public static int curGameNum;
 
 	//HARD-CODED, OTHER PLAYER NEEDS TO HAVE OTHER NODE!
-	public static NODE curNode = NODE.BLACK_NODE;
+	public static NODE curNode;
 
 
 	public static Camera mainCam;
@@ -40,6 +41,18 @@ public class MainController : MonoBehaviour
 
 	void Start()
 	{	//The node start state
+		
+		string[] lines = File.ReadAllLines(Directory.GetCurrentDirectory() + "/Assets/script/config.txt");
+		
+		if(lines.Length<2)
+			throw new Exception("Node info can't be parsed.");
+		if(lines[2].Trim()=="black")
+			curNode = NODE.BLACK_NODE;
+		else if(lines[2].Trim()=="white")
+			curNode = NODE.WHITE_NODE;
+		else
+			throw new Exception("Node info can't be parsed.");
+		
 
 		//sets agent to active (b/c currently player plays with agent)
 		//set to false for networking, true for agent
@@ -49,6 +62,7 @@ public class MainController : MonoBehaviour
 		//initializes game
 		GameInfo.NodeInfoInitialization();
 		print("GameInfo: Node info initialized");
+		print("NODE: " + curNode.ToString());
 
 
 		curGameNum = 0;
@@ -100,7 +114,6 @@ public class MainController : MonoBehaviour
 
 		//switch cameras based on game state
 		if (FSM.IsInState(PuzzleState.GAME_STEP) || FSM.IsInState(PuzzleState.GAME_END)) {
-
 			mainCam.enabled = true;
 			progressCam.enabled = false;		
 		} else {

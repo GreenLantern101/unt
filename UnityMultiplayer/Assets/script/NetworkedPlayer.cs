@@ -3,8 +3,6 @@
 public class NetworkedPlayer : MonoBehaviour, IPlayerHandler
 {
 
-	//TODO: implement this with networking functionality
-
 	public static int activePiece{ get; private set; }
 	public static Vector3 curPosition{ get; private set; }
 	public static Vector3 curOrientation;

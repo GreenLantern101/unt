@@ -98,6 +98,10 @@ public class Server
 		GameController.SyncGame_command("");
 		
 		//------------------------------------------------- run server & client
+		while (!client.tcpClient.Connected) {
+			//wait for client to connect
+			Thread.Sleep(100);
+		}
 		RunLoop();
 	}
 
