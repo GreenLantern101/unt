@@ -45,9 +45,9 @@ public class Client
 			try {
 				tcpClient.Connect(ipAddress_other, Port);
 			} catch (SocketException se) {
-				Debug.Log("[ERROR]" + se.Message);
+				Debug.Log("[ERROR] " + se.Message);
 				Debug.Log("Failed to connect. Trying again.");
-				Thread.Sleep(3000);
+				Thread.Sleep(1000);
 			}
 		}
 		

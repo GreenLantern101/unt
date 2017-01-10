@@ -469,6 +469,10 @@ public class GameController : MonoBehaviour
 
 	public static void SyncGame_command(string sync_info)
 	{
+		if(_tcpclient==null){
+			Debug.Log("Failed to sync because tcp client is not initialized.");
+			return;
+		}
 		Packet syncPacket = new Packet("sync", sync_info);
 		Packet.SendPacket(_tcpclient.GetStream(), syncPacket);
 	}

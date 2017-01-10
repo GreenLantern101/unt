@@ -26,7 +26,7 @@ public class Server
 	public Server()
 	{
 		Name = "SERVER_ONE";
-		port_me = 32887;
+		port_me = 32890;
 		Running = false;
 			
 		// Create the listener, listening at any ip address
@@ -80,13 +80,6 @@ public class Server
 		client.Connect();
 	
 		//server_conn.Join();
-		
-		//------------------------------------------------- run server & client
-		
-		
-		
-		Thread server_run = new Thread(new ThreadStart(RunLoop));
-		server_run.Start();
 	}
 	void ServerConnectLoop()
 	{
@@ -103,6 +96,12 @@ public class Server
 					
 		//SYNC GAME AT BEGINNING immediately after connecting
 		GameController.SyncGame_command("");
+		
+		
+		
+		//------------------------------------------------- run server & client
+		Thread server_run = new Thread(new ThreadStart(RunLoop));
+		server_run.Start();
 	}
 
 	void RunLoop()
