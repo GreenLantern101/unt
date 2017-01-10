@@ -55,7 +55,7 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 		//send player's active piece
 		string message = "activePiece: " + activePiece;
 		GameController.SyncGame_command(message);
-		Debug.Log("Local player broadcasted active piece.");
+		//Debug.Log("Local player broadcasted active piece.");
 	}
 
 	public Vector3 getPosition()
@@ -71,7 +71,7 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 		//send player position
 		string message = "position: " + curPosition.x + "," + curPosition.y + "," + curPosition.z;
 		GameController.SyncGame_command(message);
-		Debug.Log("Local player broadcasted current position.");
+		//Debug.Log("Local player broadcasted current position.");
 	}
 	
 

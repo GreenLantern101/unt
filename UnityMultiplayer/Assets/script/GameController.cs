@@ -486,8 +486,8 @@ public class GameController : MonoBehaviour
 		// each entry is in the format of "key:value" (trim spaces?)
 		if (sync_info.Length == 0)
 			return;
-		else
-			Debug.Log(sync_info);
+		
+		//Debug.Log(sync_info);
 		
 		String[] entries = sync_info.Split(';');
 		
@@ -527,7 +527,7 @@ public class GameController : MonoBehaviour
 			}
 			
 		}
-		Debug.Log("SYNCED: " + sync_info);
+		//Debug.Log("SYNCED: " + sync_info);
 		
 	}
 	
