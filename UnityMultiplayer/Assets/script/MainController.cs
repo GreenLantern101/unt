@@ -38,17 +38,33 @@ public class MainController : MonoBehaviour
 
 	
 	private static int totalGameNum;
+	
+	//returns who is black_player or white_player
+	public static String WhoIs(IPlayerHandler player)
+	{
+		if (player == MainController._localPlayer)
+			return "Local Player";
+		if (player == MainController._networkedPlayer)
+			return "Networked Player";
+		if (player == MainController._agentPlayer)
+			return "Agent Player";
+		if (player == MainController._twoPlayers)
+			return "Two players";
+		//default
+		return "Unknown player type";
+		
+	}
 
 	void Start()
 	{	//The node start state
 		
 		string[] lines = File.ReadAllLines(Directory.GetCurrentDirectory() + "/Assets/script/config.txt");
 		
-		if(lines.Length<2)
+		if (lines.Length < 2)
 			throw new Exception("Node info can't be parsed.");
-		if(lines[2].Trim()=="black")
+		if (lines[2].Trim() == "black")
 			curNode = NODE.BLACK_NODE;
-		else if(lines[2].Trim()=="white")
+		else if (lines[2].Trim() == "white")
 			curNode = NODE.WHITE_NODE;
 		else
 			throw new Exception("Node info can't be parsed.");

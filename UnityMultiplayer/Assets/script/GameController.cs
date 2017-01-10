@@ -89,16 +89,12 @@ public class GameController : MonoBehaviour
 	//Initilize all the blocks
 	public static void gameInitialization()
 	{
-		GameInfo.InitializeParameters();
-		//print ("arget paramet");
 		//get the game configuration
 		string gameName = MainInfo.getAssignmentName();
 		string targetName = MainInfo.getTargetName();
 
 		//initialize parameters
 		GameInfo.InitializeParameters();
-
-
 		GameInfo.setTarget(targetName);
 
 		//read the feature for the current node 
@@ -121,11 +117,14 @@ public class GameController : MonoBehaviour
 		targetTPosition.z = (float)GameInfo.initialPositionArray[targetTName];
 		GameObject.Find(targetTName).transform.position = targetTPosition;
 		setTargetPosition(targetName);
+		
+		//set players
 		setPlayer();
-
 		//initialize active player as the black player
 		active_player = MainController.black_player;
 		inactive_player = MainController.white_player;
+		print("Active player set as " + MainController.WhoIs(MainController.black_player));
+		
 
 		GameInfo.switchTimer = GameInfo.switchLen; 
 		print("secondary active3 " + GameController.secondaryActivePiece);
@@ -228,7 +227,7 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-	//initilize players (set who can see what)
+	//initialize players (set who can see what)
 	public static void setPlayer()
 	{
 		if (MainController.isAgentActive) {
@@ -246,9 +245,11 @@ public class GameController : MonoBehaviour
 			if (MainController.curNode == NODE.WHITE_NODE) {
 				MainController.black_player = MainController._localPlayer;
 				MainController.white_player = MainController._networkedPlayer;
+				print("MainController.black_player = MainController._localPlayer");
 			} else {
 				MainController.black_player = MainController._networkedPlayer;
 				MainController.white_player = MainController._localPlayer;
+				print("MainController.black_player = MainController._networkedPlayer");
 			}	
 			print("PLAYERS SET --- local player + networked player");
 		}
@@ -380,7 +381,7 @@ public class GameController : MonoBehaviour
 			active_player = MainController._twoPlayers;
 			if (GameInfo.NoColorTaskFlag) {				
 				curPlayState = PlayState.BothMoveAgentColor;
-			} else {		
+			} else {
 				if (GameInfo.OtherNoColorTaskFlag) {
 					curPlayState = PlayState.BothMoveUserColor;
 				} else {
@@ -417,16 +418,7 @@ public class GameController : MonoBehaviour
 			}
 
 			//log player type
-			if (active_player == MainController._localPlayer)
-				print("ACTIVE: LOCAL PLAYER");
-			else if (active_player == MainController._networkedPlayer)
-				print("ACTIVE: NETWORKED PLAYER");
-			else if (active_player == MainController._agentPlayer)
-				print("ACTIVE: AGENT PLAYER");
-			else if (active_player == MainController._twoPlayers)
-				print("ACTIVE: TWOPLAYER");
-			else
-				print("ACTIVE: UNRECOGNIZED");
+			print("ACTIVE: " + MainController.WhoIs(active_player).ToUpper());
 
 		}
 		LogTimeData.setStepIndex(turnNumber);
@@ -469,7 +461,7 @@ public class GameController : MonoBehaviour
 
 	public static void SyncGame_command(string sync_info)
 	{
-		if(_tcpclient==null){
+		if (_tcpclient == null) {
 			Debug.Log("Failed to sync because tcp client is not initialized.");
 			return;
 		}
@@ -501,17 +493,17 @@ public class GameController : MonoBehaviour
 				throw new Exception("Sync info in improper format.");
 			
 			switch (key) {
-					//sync ready flags
+			//sync ready flags
 				case "readyFlag":
 					bool flag = Convert.ToBoolean(value);
 					MainController._networkedPlayer.setReadyFlag(flag);
 					break;
-					//sync active piece
+			//sync active piece
 				case "activePiece":
 					int aci = Convert.ToInt16(value);
 					MainController._networkedPlayer.setActivePiece(aci);
 					break;
-					//sync position
+			//sync position
 				case "position":
 					String[] locs = value.Split(',');
 					if (locs.Length != 3)
@@ -520,7 +512,7 @@ public class GameController : MonoBehaviour
 					MainController._networkedPlayer.setPosition(pos);
 					break;
 					
-					//if nothing matches, should throw error
+			//if nothing matches, should throw error
 				default:
 					throw new Exception("nothing found...");
 					break;
