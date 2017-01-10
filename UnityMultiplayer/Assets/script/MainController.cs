@@ -42,14 +42,14 @@ public class MainController : MonoBehaviour
 	//returns who is black_player or white_player
 	public static String WhoIs(IPlayerHandler player)
 	{
-		if (player == MainController._localPlayer)
-			return "Local Player";
-		if (player == MainController._networkedPlayer)
-			return "Networked Player";
-		if (player == MainController._agentPlayer)
-			return "Agent Player";
 		if (player == MainController._twoPlayers)
 			return "Two players";
+		if (player == MainController._networkedPlayer)
+			return "Networked Player";
+		if (player == MainController._localPlayer)
+			return "Local Player";
+		if (player == MainController._agentPlayer)
+			return "Agent Player";
 		//default
 		return "Unknown player type";
 		

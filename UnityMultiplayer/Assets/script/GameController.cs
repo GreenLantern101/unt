@@ -242,15 +242,15 @@ public class GameController : MonoBehaviour
 			print("PLAYERS SET --- local player + agent player");
 		} else {
 			//HUMAN-HUMAN GAME (networked)
-			if (MainController.curNode == NODE.WHITE_NODE) {
+			//if (MainController.curNode == NODE.WHITE_NODE) {
 				MainController.black_player = MainController._localPlayer;
 				MainController.white_player = MainController._networkedPlayer;
-				print("MainController.black_player = MainController._localPlayer");
+				/*
 			} else {
 				MainController.black_player = MainController._networkedPlayer;
 				MainController.white_player = MainController._localPlayer;
-				print("MainController.black_player = MainController._networkedPlayer");
 			}	
+			*/
 			print("PLAYERS SET --- local player + networked player");
 		}
 
@@ -374,6 +374,8 @@ public class GameController : MonoBehaviour
 
 	public static void DetectPlayState()
 	{
+		
+			
 		if (GameInfo.stepControl[turnNumber] && GameInfo.otherStepControl[turnNumber]) {
 			//two player condition
 			print("ACTIVE: two player");
@@ -392,6 +394,9 @@ public class GameController : MonoBehaviour
 
 		} else {
 			if (GameInfo.stepControl[turnNumber]) {
+				//log player type
+				print("ACTIVE: " + MainController.WhoIs(active_player).ToUpper());
+				print("Set active player to white player - " + MainController.WhoIs(MainController.white_player).ToUpper());
 
 				//active_player = MainController._localPlayer;
 				active_player = MainController.white_player;
@@ -404,6 +409,11 @@ public class GameController : MonoBehaviour
 				}
 				LogTimeData.setActivePerson("p1");
 			} else if (GameInfo.otherStepControl[turnNumber]) {
+				
+				//log player type
+				print("ACTIVE: " + MainController.WhoIs(active_player).ToUpper());
+				print("Set active player to black player - " + MainController.WhoIs(MainController.black_player).ToUpper());
+
 
 				//active_player = MainController._agentPlayer;	
 				active_player = MainController.black_player;
