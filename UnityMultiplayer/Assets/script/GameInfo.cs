@@ -310,7 +310,7 @@ public static class GameInfo{
 
 	public static void Shuffle() {
 		int n = 7;
-		System.Random rnd = new System.Random();
+		System.Random rnd = new System.Random(10);
 		while (n > 1) {
 			int k = (rnd.Next(0, n));
 			n--;
