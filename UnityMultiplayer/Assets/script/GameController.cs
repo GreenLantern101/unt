@@ -379,7 +379,8 @@ public class GameController : MonoBehaviour
 		if (GameInfo.stepControl[turnNumber] && GameInfo.otherStepControl[turnNumber]) {
 			//two player condition
 			print("ACTIVE: two player");
-			MainController._twoPlayers.setPlayers(MainController._localPlayer, MainController._agentPlayer);
+			//MainController._twoPlayers.setPlayers(MainController._localPlayer, MainController._agentPlayer);
+			MainController._twoPlayers.setPlayers(MainController.white_player, MainController.black_player);
 			active_player = MainController._twoPlayers;
 			if (GameInfo.NoColorTaskFlag) {				
 				curPlayState = PlayState.BothMoveAgentColor;
