@@ -21,7 +21,7 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler {
 	}
 
 	public Vector3 getPosition(){
-		//position of first player
+		//get average position of both players' combined movement
 		if(activePiece != -1){
 			curPosition = GameInfo.blockList[activePiece].transform.position;
 			Vector3 newPosition1 = player1.getPosition ();

@@ -242,15 +242,8 @@ public class GameController : MonoBehaviour
 			print("PLAYERS SET --- local player + agent player");
 		} else {
 			//HUMAN-HUMAN GAME (networked)
-			//if (MainController.curNode == NODE.WHITE_NODE) {
-				MainController.black_player = MainController._localPlayer;
-				MainController.white_player = MainController._networkedPlayer;
-				/*
-			} else {
-				MainController.black_player = MainController._networkedPlayer;
-				MainController.white_player = MainController._localPlayer;
-			}	
-			*/
+			MainController.black_player = MainController._networkedPlayer;
+			MainController.white_player = MainController._localPlayer;
 			print("PLAYERS SET --- local player + networked player");
 		}
 
