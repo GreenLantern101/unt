@@ -14,19 +14,24 @@ public class Server
 	public Client client;
 	//tcp client object of whatever is connecting to this server
 	private TcpClient tcpClient_other = null;
+	
+	//return whether other remote client has connected to this server
+	public bool isOtherClientConnected{
+		get{
+			return (tcpClient_other!=null);
+		}
+	}
 
 	// Game stuff
 	private Thread gameThread = null;
 
 	// Other data
-	public readonly string Name;
-	public readonly int port_me;
+	const string Name = "SERVER_ONE";
+	const int port_me = 32890;
 	public bool Running { get; private set; }
 
 	public Server()
 	{
-		Name = "SERVER_ONE";
-		port_me = 32890;
 		Running = false;
 			
 		// Create the listener, listening at any ip address
@@ -66,8 +71,8 @@ public class Server
 			
 		// Start running the server
 		tcpListener.Start();
-		Running = true;
 		Debug.Log("Waiting for incoming connections...");
+		Running = true;
 		
 		Thread server_conn = new Thread(new ThreadStart(ServerConnectLoop));
 		server_conn.Start();
@@ -87,6 +92,7 @@ public class Server
 			Thread.Sleep(100);
 		}
 		_handleNewConnection();
+		
 		
 		//Start a game for the first new connection
 		
@@ -128,7 +134,7 @@ public class Server
 
 			// Make sure that we didn't have a graceless disconnect
 			if (IsDisconnected(this.client.tcpClient)
-			     && !this.client._clientRequestedDisconnect) {
+			    && !this.client._clientRequestedDisconnect) {
 				Running = false;
 				Debug.Log("Other server disconnected from us ungracefully.");
 				Thread.Sleep(3000);

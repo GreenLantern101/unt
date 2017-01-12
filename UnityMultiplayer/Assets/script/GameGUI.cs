@@ -61,7 +61,10 @@ public class GameGUI : MonoBehaviour {
 			}
 		}
 
-		if(MainController.FSM.IsInState(PuzzleState.INTRO_PLAY)){
+		if(MainController.FSM.IsInState(PuzzleState.INTRO_PLAY) 
+		   //ensure other player connected before allowing ready button to be used.
+		   && GameController._server.isOtherClientConnected
+		  ){
 			if(textIndex == 0){				
 				text = "Hello again and welcome to the collaborative virtual environment. " +
 					"Now you will play some block puzzles with your partner. Say hello to your partner. ";

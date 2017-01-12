@@ -120,7 +120,6 @@
      <None Include="Assets\Data\TEST_09_57_40_GamePositionLog.txt" />
      <None Include="Assets\Data\TEST_05_03_31_GamePositionLog.txt" />
      <None Include="Assets\Resources\Target1.xml" />
-     <None Include="Assets\script\config2.txt" />
      <None Include="Assets\Resources\Target2.xml" />
      <None Include="Assets\Resources\Target4.xml" />
      <None Include="Assets\Data\TEST_11_53_53_GamePositionLog.txt" />
@@ -151,6 +150,7 @@
      <None Include="Assets\Data\TEST_10_47_32_GamePositionLog.txt" />
      <None Include="Assets\Data\TEST_11_08_00_GamePositionLog.txt" />
      <None Include="Assets\Resources\Assignment1.xml" />
+     <None Include="Assets\script\config3.txt" />
      <None Include="Assets\Data\TEST_09_28_38_GamePositionLog.txt" />
      <None Include="Assets\Data\TEST_10_57_09_GamePositionLog.txt" />
      <None Include="Assets\Data\TEST_11_27_15_GamePositionLog.txt" />
