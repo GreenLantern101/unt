@@ -73,7 +73,8 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	{
 		curPosition = newposition;
 		//only send if large enough delta
-		if (manhattanDist(lastSentPos, curPosition) > 2) {
+		//if (manhattanDist(lastSentPos, curPosition) > .1) 
+		{
 			lastSentPos = curPosition;
 			sendPosition();
 		}
@@ -82,6 +83,9 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	private static void sendPosition()
 	{
 		string message = "position: " + curPosition.x + "," + curPosition.y + "," + curPosition.z;
+		long time = System.DateTime.Now.Minute*60*1000 + System.DateTime.Now.Second*1000 + System.DateTime.Now.Millisecond;
+		message += ";time: " + time;
+		Debug.Log("TIME SENT: " + time);
 		GameController.SyncGame_command(message);
 	}
 	
@@ -93,9 +97,10 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	public void changeOrientationY(float deltaY)
 	{
 		curOrientation = new Vector3(curOrientation.x, curOrientation.y + deltaY, curOrientation.z);
-		//Debug.Log(curOrientation);
+		Debug.Log(curOrientation);
 		//only send if large enough delta
-		if (manhattanDist(lastSentOrientation, curOrientation) > 2) {
+		//if (manhattanDist(lastSentOrientation, curOrientation) > .1) 
+		{
 			lastSentOrientation = curOrientation;
 			sendOrientation();
 		}

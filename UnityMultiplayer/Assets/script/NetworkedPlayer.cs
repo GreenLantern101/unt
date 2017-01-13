@@ -45,7 +45,7 @@ public class NetworkedPlayer : MonoBehaviour, IPlayerHandler
 	{
 		return curOrientation;
 	}
-	public ovid setOrientation(Vector3 neworientation)
+	public void setOrientation(Vector3 neworientation)
 	{
 		curOrientation = neworientation;
 	}

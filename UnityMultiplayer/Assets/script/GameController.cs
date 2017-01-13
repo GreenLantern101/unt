@@ -500,10 +500,16 @@ public class GameController : MonoBehaviour
 			//sync orientation
 				case "orientation":
 					String[] orients = value.Split(',');
-					if (locs.Length != 3)
+					if (orients.Length != 3)
 						throw new Exception("Orientation could not be parsed to type: UnityEngine.Vector3");
 					Vector3 orient = new Vector3(float.Parse(orients[0]), float.Parse(orients[1]), float.Parse(orients[2]));
 					MainController._networkedPlayer.setOrientation(orient);
+					break;
+				
+				case "time":
+					long time = Convert.ToInt32(value);
+					long now = DateTime.Now.Minute*60*1000 + DateTime.Now.Second*1000 + DateTime.Now.Millisecond;
+					Debug.Log("Packet travel time: " + (now - time));
 					break;
 					
 			//if nothing matches, should throw error
