@@ -85,7 +85,6 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 		GameController.SyncGame_command(message);
 	}
 	
-
 	public Vector3 getOrientation()
 	{
 		return curOrientation;
@@ -95,9 +94,18 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	{
 		curOrientation = new Vector3(curOrientation.x, curOrientation.y + deltaY, curOrientation.z);
 		//Debug.Log(curOrientation);
-
+		//only send if large enough delta
+		if (manhattanDist(lastSentOrientation, curOrientation) > 2) {
+			lastSentOrientation = curOrientation;
+			sendOrientation();
+		}
 	}
-
+	//send player orientation over networking
+	private static void sendOrientation()
+	{
+		string message = "orientation: " + curOrientation.x + "," + curOrientation.y + "," + curOrientation.z;
+		GameController.SyncGame_command(message);
+	}
 
 	public void finishStep()
 	{
