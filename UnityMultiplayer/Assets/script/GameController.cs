@@ -174,49 +174,37 @@ public class GameController : MonoBehaviour
 		XmlDocument XmlDoc = new XmlDocument();
 		AssignmentXmlFile = (TextAsset)Resources.Load(fileName, typeof(TextAsset));
 		XmlDoc.LoadXml(AssignmentXmlFile.text);
+		//set timer info
 		XmlNodeList timerList = XmlDoc.SelectNodes("/Assignment/timer");
-		foreach (XmlNode timerNode in timerList) {
-			gameLen = (float)System.Convert.ToDouble(timerNode["timer"].InnerXml);
-		}
+		gameLen = (float)System.Convert.ToDouble(timerList[0]["timer"].InnerXml);
 		//read the color information
 		XmlNodeList colorList = XmlDoc.SelectNodes("/Assignment/color");
 		foreach (XmlNode colorNode in colorList) {
-			if (colorNode[curNodeStr].InnerXml == "True") {
+			if (colorNode[curNodeStr].InnerXml == "True")
 				GameInfo.setColorful();
-			} else if (colorNode[curNodeStr].InnerXml == "False") {
+			else
 				GameInfo.setNoColor();
-			}
 
-			if (colorNode[otherNodeStr].InnerXml == "True") {
+			if (colorNode[otherNodeStr].InnerXml == "True")
 				GameInfo.setOtherColorful();
-			} else if (colorNode[otherNodeStr].InnerXml == "False") {
+			else
 				GameInfo.setOtherNoColor();
-			}
 		}
 		
 		//read the step control information
 		int stepIndex = 0;
 		XmlNodeList stepList = XmlDoc.SelectNodes("/Assignment/steps/step");
 		foreach (XmlNode stepNode in stepList) {
-			if (System.Convert.ToInt32(stepNode[curNodeStr].InnerXml) == 1) {
-				GameInfo.setStepControl(stepIndex, true);
-			} else {
-				GameInfo.setStepControl(stepIndex, false);
-			}
-
-			if (System.Convert.ToInt32(stepNode[otherNodeStr].InnerXml) == 1) {
-				GameInfo.setOtherStepControl(stepIndex, true);
-			} else {
-				GameInfo.setOtherStepControl(stepIndex, false);
-			}
+			GameInfo.setStepControl(stepIndex, (Convert.ToInt16(stepNode[curNodeStr].InnerXml) == 1));
+			GameInfo.setOtherStepControl(stepIndex, (Convert.ToInt16(stepNode[otherNodeStr].InnerXml) == 1));
 			stepIndex++;
 		}
 		
 		//read the first hint information
 		XmlNodeList Hint1List = XmlDoc.SelectNodes("/Assignment/hint1");
 		foreach (XmlNode stepNode in Hint1List) {
-			GameInfo.setHintsInfor(0, stepNode[curNodeStr].InnerXml.ToString());
-			GameInfo.loadAudio(0, stepNode[curNodeStr + "Audio"].InnerXml.ToString());
+			GameInfo.setHintsInfor(0, stepNode[curNodeStr].InnerXml);
+			GameInfo.loadAudio(0, stepNode[curNodeStr + "Audio"].InnerXml);
 		}
 		
 		//read the second hint information
@@ -367,8 +355,6 @@ public class GameController : MonoBehaviour
 
 	public static void DetectPlayState()
 	{
-		
-			
 		if (GameInfo.stepControl[turnNumber] && GameInfo.otherStepControl[turnNumber]) {
 			//two player condition
 			print("ACTIVE: two player");
@@ -454,10 +440,6 @@ public class GameController : MonoBehaviour
 	//temporary stub
 	public static void HandleInputAction(string sync_info)
 	{
-		//if actions change game state, implement here....
-		
-		
-		
 		//command other game instances to sync.
 		SyncGame_command(sync_info);
 	}
@@ -515,6 +497,7 @@ public class GameController : MonoBehaviour
 					Vector3 pos = new Vector3(float.Parse(locs[0]), float.Parse(locs[1]), float.Parse(locs[2]));
 					MainController._networkedPlayer.setPosition(pos);
 					break;
+
 					
 			//if nothing matches, should throw error
 				default:
