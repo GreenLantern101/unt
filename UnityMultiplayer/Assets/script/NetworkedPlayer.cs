@@ -13,7 +13,8 @@ public class NetworkedPlayer : MonoBehaviour, IPlayerHandler
 	{
 		setActivePiece(-1);
 	}
-	public void setReadyFlag(bool val){
+	public void setReadyFlag(bool val)
+	{
 		readyFlag = val;
 	}
 	public bool isReady()
@@ -35,14 +36,18 @@ public class NetworkedPlayer : MonoBehaviour, IPlayerHandler
 	{
 		return curPosition;
 	}
-	public void setPosition(Vector3 _position)
+	public void setPosition(Vector3 newposition)
 	{
-		curPosition = _position;
+		curPosition = newposition;
 	}
 	
 	public Vector3 getOrientation()
 	{
 		return curOrientation;
+	}
+	public ovid setOrientation(Vector3 neworientation)
+	{
+		curOrientation = neworientation;
 	}
 
 	public void finishStep()

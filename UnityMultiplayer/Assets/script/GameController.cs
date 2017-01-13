@@ -497,17 +497,21 @@ public class GameController : MonoBehaviour
 					Vector3 pos = new Vector3(float.Parse(locs[0]), float.Parse(locs[1]), float.Parse(locs[2]));
 					MainController._networkedPlayer.setPosition(pos);
 					break;
-
+			//sync orientation
+				case "orientation":
+					String[] orients = value.Split(',');
+					if (locs.Length != 3)
+						throw new Exception("Orientation could not be parsed to type: UnityEngine.Vector3");
+					Vector3 orient = new Vector3(float.Parse(orients[0]), float.Parse(orients[1]), float.Parse(orients[2]));
+					MainController._networkedPlayer.setOrientation(orient);
+					break;
 					
 			//if nothing matches, should throw error
 				default:
-					throw new Exception("nothing found...");
+					throw new Exception("Syncing error: No variable match found to sync.");
 					break;
 			}
-			
 		}
-		//Debug.Log("SYNCED: " + sync_info);
-		
 	}
 	
 	// Adds a networked player to the game
