@@ -74,17 +74,19 @@ public class BlockController : MonoBehaviour
 				Vector3 camPosition = cam.transform.position;
 				Vector3 newPosition = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, camPosition.y - curPosition.y));
 				MainController._localPlayer.setPosition(newPosition);
+				
+				float delta = rotateRate * 10* Time.deltaTime;
 
 				//calcuate the changed rotation and update cur player oritation
 				if (Input.GetKey("left")) {
-					MainController._localPlayer.changeOrientationY(rotateRate * 10* Time.deltaTime);
+					MainController._localPlayer.changeOrientationY(-delta);
 					GameObject activeObject = GameInfo.blockList[ID];
-					activeObject.transform.Rotate(Vector3.down * rotateRate * 10 * Time.deltaTime);
+					activeObject.transform.Rotate(Vector3.down * delta);
 					//Debug.Log("LEFT ROTATION");
 				} else if (Input.GetKey("right")) {
-					MainController._localPlayer.changeOrientationY(rotateRate * 10 * Time.deltaTime);
+					MainController._localPlayer.changeOrientationY(delta);
 					GameObject activeObject = GameInfo.blockList[ID];
-					activeObject.transform.Rotate(Vector3.up * rotateRate * 10 * Time.deltaTime);
+					activeObject.transform.Rotate(Vector3.up * delta);
 					//Debug.Log("RIGHT ROTATION");
 				} else if (LocalPlayer.activePiece == ID || AgentPlayer.activePiece == ID) {
 					vibrating();
@@ -102,7 +104,7 @@ public class BlockController : MonoBehaviour
 		if (Mathf.Abs(curRotate - GameInfo.initialRotationArray[ID]) > 20f) {
 			transform.Rotate(Vector3.up * rate);
 		} else {
-			transform.Rotate(Vector3.down * rate);			
+			transform.Rotate(Vector3.down * rate);		
 		}
 	}
 
