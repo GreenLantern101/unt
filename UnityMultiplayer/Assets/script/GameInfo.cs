@@ -6,7 +6,7 @@ using System.Collections.Generic;
 //This class is used to store static information of each game for each node
 public static class GameInfo
 {
-	public static int blockNumber;
+	public const int blockNumber = 7;
 	public static string[] blockNameArray;
 	public static float[] initialRotationArray;
 	private static GameObject SelectionPlan;
@@ -48,12 +48,12 @@ public static class GameInfo
 	private static string[] smoothBlockNameArray;
 	public static int PreActiveBlock;
 	public static float switchTimer;
-	public static float switchLen = 4f;
+	public const float switchLen = 4f;
 	public static string[] blockNameStr;
 	public static string[] blockNameStrOther;
 	public static List<List<string>> blockColorNameList;
 	public static List<List<string>> blockShapeNameList;
-	public static float activeLen = 3f;
+	public const float activeLen = 3f;
 
 	//involved in what blocks agent can see
 	public static int[] peerList;
@@ -62,7 +62,6 @@ public static class GameInfo
 
 	public static void NodeInfoInitialization()
 	{
-		blockNumber = 7;
 		blockNameArray = new string[blockNumber];
 		for (int i = 0; i < blockNumber; i++)
 			blockNameArray[i] = "block" + (1 + i);
