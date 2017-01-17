@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 
 public class BlockController : MonoBehaviour
@@ -23,29 +22,8 @@ public class BlockController : MonoBehaviour
 	
 	public void assignID()
 	{
-		switch (gameObject.name) {
-			case "b1":
-				ID = 0;
-				break;
-			case "b2":
-				ID = 1;
-				break;
-			case "b3":
-				ID = 2;
-				break;
-			case "b4":
-				ID = 3;
-				break;
-			case "b5":
-				ID = 4;
-				break;
-			case "b6":
-				ID = 5;
-				break;
-			case "b7":
-				ID = 6;
-				break;
-		}
+		int b = gameObject.name.IndexOf('b') + 1;
+		ID = Convert.ToInt16(gameObject.name.Substring(b)) - 1;
 	}
 
 	void Update()
@@ -75,7 +53,7 @@ public class BlockController : MonoBehaviour
 				Vector3 newPosition = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, camPosition.y - curPosition.y));
 				MainController._localPlayer.setPosition(newPosition);
 				
-				float delta = rotateRate * 10* Time.deltaTime;
+				float delta = rotateRate * 10 * Time.deltaTime;
 
 				//calcuate the changed rotation and update cur player oritation
 				if (Input.GetKey("left")) {
@@ -115,29 +93,7 @@ public class BlockController : MonoBehaviour
 
 	public void assignName(int name)
 	{
-		switch (name) {
-			case 0:
-				plane = GameObject.Find("Plane1");
-				break;
-			case 1:
-				plane = GameObject.Find("Plane2");
-				break;
-			case 2:
-				plane = GameObject.Find("Plane3");
-				break;
-			case 3:
-				plane = GameObject.Find("Plane4");
-				break;
-			case 4:
-				plane = GameObject.Find("Plane5");
-				break;
-			case 5:
-				plane = GameObject.Find("Plane6");
-				break;
-			case 6:
-				plane = GameObject.Find("Plane7");
-				break;
-		}
+		plane = GameObject.Find("Plane" + (name + 1));
 		Vector3 curPos = gameObject.transform.position;
 		curPos.x = curPos.x - 10f;
 		curPos.y = 1f;
@@ -146,29 +102,7 @@ public class BlockController : MonoBehaviour
 
 	public void relaseName(int name)
 	{
-		switch (name) {
-			case 0:
-				plane = GameObject.Find("Plane1");
-				break;
-			case 1:
-				plane = GameObject.Find("Plane2");
-				break;
-			case 2:
-				plane = GameObject.Find("Plane3");
-				break;
-			case 3:
-				plane = GameObject.Find("Plane4");
-				break;
-			case 4:
-				plane = GameObject.Find("Plane5");
-				break;
-			case 5:
-				plane = GameObject.Find("Plane6");
-				break;
-			case 6:
-				plane = GameObject.Find("Plane7");
-				break;
-		}
+		plane = GameObject.Find("Plane" + (name + 1));
 		Vector3 curPos = new Vector3(-100f, -100f, -100f);
 		plane.transform.position = curPos;
 	}
@@ -186,26 +120,3 @@ public class BlockController : MonoBehaviour
 		LogTimeData.setEvent(LogTimeData.dragEndEvent);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
