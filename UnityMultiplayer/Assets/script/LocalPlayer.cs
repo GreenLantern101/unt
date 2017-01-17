@@ -84,8 +84,8 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	{
 		string message = "position: " + curPosition.x + "," + curPosition.y + "," + curPosition.z;
 		long time = System.DateTime.Now.Minute*60*1000 + System.DateTime.Now.Second*1000 + System.DateTime.Now.Millisecond;
-		message += ";time: " + time;
-		Debug.Log("TIME SENT: " + time);
+		//message += ";time: " + time;
+		//Debug.Log("TIME SENT: " + time);
 		GameController.SyncGame_command(message);
 	}
 	

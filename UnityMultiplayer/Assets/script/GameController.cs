@@ -284,6 +284,17 @@ public class GameController : MonoBehaviour
 
 
 				activePiece = active_player.getActivePiece();
+				
+				//actually rotate block
+				
+				int id = MainController._networkedPlayer.getActivePiece();
+				if (id > 0) {
+					GameObject activeObject = GameInfo.blockList[id];
+					float curOrient = MainController._networkedPlayer.getOrientation().y;
+					activeObject.transform.Rotate(Vector3.up * (curOrient - prevOrient));
+				}
+				
+				
 				bool valid = _moveValid.isMoveValid(activePiece);
 				if (!valid) {
 					if (LogTimeData.getPreEvent() == LogTimeData.moveStartEvent) {
@@ -455,6 +466,8 @@ public class GameController : MonoBehaviour
 		Packet.SendPacket(_tcpclient.GetStream(), syncPacket);
 	}
 	
+	//stores previous orientation, actually rotate in game loop
+	static float prevOrient = 0;
 	// obey with an order to sync game
 	public static void SyncGame_obey(string sync_info)
 	{
@@ -503,12 +516,15 @@ public class GameController : MonoBehaviour
 					if (orients.Length != 3)
 						throw new Exception("Orientation could not be parsed to type: UnityEngine.Vector3");
 					Vector3 orient = new Vector3(float.Parse(orients[0]), float.Parse(orients[1]), float.Parse(orients[2]));
+					
+					prevOrient = MainController._networkedPlayer.getOrientation().y;
+					//set rotation
 					MainController._networkedPlayer.setOrientation(orient);
 					break;
 				
 				case "time":
 					long time = Convert.ToInt32(value);
-					long now = DateTime.Now.Minute*60*1000 + DateTime.Now.Second*1000 + DateTime.Now.Millisecond;
+					long now = DateTime.Now.Minute * 60 * 1000 + DateTime.Now.Second * 1000 + DateTime.Now.Millisecond;
 					Debug.Log("Packet travel time: " + (now - time));
 					break;
 					
@@ -530,11 +546,12 @@ public class GameController : MonoBehaviour
 		}
 		return false;
 	}
-	void OnApplicationQuit() {
-        Debug.Log("Application ending after " + Time.time + " seconds");
-        //shut down server
-        _server.Shutdown();
-    }
+	void OnApplicationQuit()
+	{
+		Debug.Log("Application ending after " + Time.time + " seconds");
+		//shut down server
+		_server.Shutdown();
+	}
 
 
 

@@ -82,15 +82,14 @@ public class BlockController : MonoBehaviour
 					MainController._localPlayer.changeOrientationY(-delta);
 					GameObject activeObject = GameInfo.blockList[ID];
 					activeObject.transform.Rotate(Vector3.down * delta);
-					//Debug.Log("LEFT ROTATION");
 				} else if (Input.GetKey("right")) {
 					MainController._localPlayer.changeOrientationY(delta);
 					GameObject activeObject = GameInfo.blockList[ID];
 					activeObject.transform.Rotate(Vector3.up * delta);
-					//Debug.Log("RIGHT ROTATION");
 				} else if (LocalPlayer.activePiece == ID || AgentPlayer.activePiece == ID) {
-					vibrating();
-				} else if (!GameInfo.blockSucceed[ID]) {
+					//vibrating();
+				}
+				if (GameInfo.blockSucceed[ID]) {
 					resetRotate();
 				}
 			}
@@ -100,11 +99,12 @@ public class BlockController : MonoBehaviour
 	public void vibrating()
 	{
 		float rate = 10f;
+		//cur rotate needs to be set to object orientation?
 		float curRotate = transform.localEulerAngles.y;
 		if (Mathf.Abs(curRotate - GameInfo.initialRotationArray[ID]) > 20f) {
 			transform.Rotate(Vector3.up * rate);
 		} else {
-			transform.Rotate(Vector3.down * rate);		
+			transform.Rotate(Vector3.down * rate);	
 		}
 	}
 
