@@ -530,6 +530,11 @@ public class GameController : MonoBehaviour
 		}
 		return false;
 	}
+	void OnApplicationQuit() {
+        Debug.Log("Application ending after " + Time.time + " seconds");
+        //shut down server
+        _server.Shutdown();
+    }
 
 
 

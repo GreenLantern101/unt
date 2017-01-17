@@ -11,7 +11,7 @@ public class Server
 	private TcpListener tcpListener;
 		
 	// Clients objects
-	public Client client;
+	private Client client;
 	//tcp client object of whatever is connecting to this server
 	private TcpClient tcpClient_other = null;
 	
@@ -54,16 +54,6 @@ public class Server
 		throw new Exception("Local IP Address not found.");
 	}
 
-	public void Shutdown()
-	{
-		if (Running) {
-			Running = false;
-			Debug.Log("Shutting down server...");
-		}
-		// gracefully disconnect client...
-		if (client != null)
-			client.Disconnect();
-	}
 	public void Start(GameController game)
 	{
 		//------------------------------------------------ start server
@@ -142,7 +132,19 @@ public class Server
 			
 			Thread.Sleep(10);
 		}
-
+		
+		Shutdown();
+	}
+	public void Shutdown()
+	{
+		if (Running) {
+			Running = false;
+			Debug.Log("Shutting down server...");
+		}
+		// gracefully disconnect client...
+		if (client != null)
+			client.Disconnect();
+		
 		//-------------------------------------------------------- server STOP
 
 		// Disconnect any clients remaining
@@ -158,7 +160,7 @@ public class Server
 		//-------------------------------------------------------- client STOP
 
 		// Cleanup
-		this.client._cleanupNetworkResources();
+		client._cleanupNetworkResources();
 	}
 
 	// Awaits for a new connection, sets it to networked client
@@ -185,7 +187,7 @@ public class Server
 		}
 	}
 	// Gracefully disconnect a TcpClient
-	public void DisconnectClient(TcpClient client, string message)
+	private static void DisconnectClient(TcpClient client, string message)
 	{
 		Debug.Log("Disconnecting the client from " + client.Client.RemoteEndPoint);
 
@@ -203,7 +205,7 @@ public class Server
 	}
 		
 	// cleans up resources for a TcpClient and closes it
-	public void CleanupClient(TcpClient client)
+	private static void CleanupClient(TcpClient client)
 	{
 		client.GetStream().Close();     // Close network stream
 		client.Close();                 // Close client
@@ -212,7 +214,7 @@ public class Server
 
 	// Will get a single packet from a TcpClient
 	// Returns null if no data available or issue
-	public Packet ReceivePacket(TcpClient client)
+	private Packet ReceivePacket(TcpClient client)
 	{
 		Packet packet = null;
 		try {
