@@ -553,24 +553,4 @@ public class GameController : MonoBehaviour
 		_server.Shutdown();
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
