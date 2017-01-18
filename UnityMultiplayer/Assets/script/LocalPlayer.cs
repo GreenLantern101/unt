@@ -62,7 +62,7 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 		//send player's active piece
 		string message = "activePiece: " + activePiece;
 		GameController.SyncGame_command(message);
-		//Debug.Log("Local player broadcasted active piece.");
+		Debug.Log("Local player broadcasted active piece.");
 	}
 
 	public Vector3 getPosition()
@@ -73,19 +73,16 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	{
 		curPosition = newposition;
 		//only send if large enough delta
-		//if (manhattanDist(lastSentPos, curPosition) > .1) 
+		if (manhattanDist(lastSentPos, curPosition) > 1) 
 		{
-			lastSentPos = curPosition;
 			sendPosition();
+			lastSentPos = curPosition;
 		}
 	}
 	//send player position over networking
 	private static void sendPosition()
 	{
 		string message = "position: " + curPosition.x + "," + curPosition.y + "," + curPosition.z;
-		long time = System.DateTime.Now.Minute * 60 * 1000 + System.DateTime.Now.Second * 1000 + System.DateTime.Now.Millisecond;
-		//message += ";time: " + time;
-		//Debug.Log("TIME SENT: " + time);
 		GameController.SyncGame_command(message);
 	}
 	

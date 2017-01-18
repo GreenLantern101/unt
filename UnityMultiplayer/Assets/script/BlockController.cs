@@ -59,10 +59,9 @@ public class BlockController : MonoBehaviour
 				
 				float delta = rotateRate * 10 * Time.deltaTime;
 
-				//calcuate the changed rotation and update cur player oritation
+				//calculate the changed rotation and update cur player orientation
 				if (Input.GetKey("left")) {
 					MainController._localPlayer.changeOrientationY(-delta);
-					
 					activeObject.transform.Rotate(Vector3.down * delta);
 				} else if (Input.GetKey("right")) {
 					MainController._localPlayer.changeOrientationY(delta);
