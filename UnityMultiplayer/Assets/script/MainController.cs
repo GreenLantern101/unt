@@ -81,7 +81,7 @@ public class MainController : MonoBehaviour
 		print("NODE: " + curNode.ToString());
 
 
-		curGameNum = 1;
+		curGameNum = 2;
 		totalGameNum = 10;
 
 
