@@ -31,25 +31,13 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 			Vector3 p2 = player2.getPosition();
 			
 			curPosition = GameInfo.blockList[activePiece].transform.position;
-			
-			float ang1 = Angle(p1.x, p1.z, curPosition.x, curPosition.z);
-			float ang2 = Angle(p2.x, p2.z, curPosition.x, curPosition.z);
-			float avgAng = (ang1 + ang2) / 2.00f;
-			float vel = 80 * Time.deltaTime;
-			curPosition += new Vector3(vel * (float)Math.Cos(avgAng), 0f, vel * (float)Math.Sin(avgAng));
-			/*
-			Vector3 diff1 = newPosition1 - curPosition;
-			Vector3 diff2 = newPosition2 - curPosition;
-			float averageX = 0f;
-			float averageZ = 0f;
-			if (diff1.x * diff2.x > 0) {
-				averageX = (diff1.x + diff2.x) / 2.0f;
-			}
-			if (diff1.z * diff2.z > 0) {
-				averageZ = (diff1.z + diff2.z) / 2.0f;
-			}
+
+			Vector3 diff1 = p1 - curPosition;
+			Vector3 diff2 = p2 - curPosition;
+			float averageX = (diff1.x + diff2.x) / 2.0f;
+			float averageZ = (diff1.z + diff2.z) / 2.0f;
 			curPosition += new Vector3(averageX, 0f, averageZ);
-			*/
+			
 		}
 		return curPosition;
 	}
