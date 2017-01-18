@@ -43,7 +43,9 @@ public class BlockController : MonoBehaviour
 
 
 		if (MainController.FSM.IsInState(PuzzleState.GAME_STEP)) {
-
+			if (GameController.active_player != MainController._localPlayer &&
+			    GameController.active_player != MainController._twoPlayers)
+				return;
 			if (LocalPlayer.activePiece == ID) {
 				//calculate the changed position
 				Camera cam = Camera.main;
@@ -111,13 +113,21 @@ public class BlockController : MonoBehaviour
 
 	void OnMouseDown()
 	{
-		print("set active play" + ID);
+		if (GameController.active_player != MainController._localPlayer &&
+		    GameController.active_player != MainController._twoPlayers)
+			return;
+		
+		print("Set active piece: " + ID);
 		MainController._localPlayer.setActivePiece(ID);
 		LogTimeData.setEvent(LogTimeData.dragStartEvent);
 	}
 
 	void OnMouseUp()
 	{
+		if (GameController.active_player != MainController._localPlayer &&
+		    GameController.active_player != MainController._twoPlayers)
+			return;
+		
 		MainController._localPlayer.setActivePiece(-1);
 		LogTimeData.setEvent(LogTimeData.dragEndEvent);
 	}
