@@ -1,5 +1,5 @@
 using UnityEngine;
-using Newtonsoft;
+using System;
 
 public class LocalPlayer : MonoBehaviour, IPlayerHandler
 {
@@ -7,9 +7,9 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	
 	public static Vector3 curPosition{ get; private set; }
 	//keep track of last sent position
-	private Vector3 lastSentPos = new Vector3(0, 0, 0);
+	private static Vector3 lastSentPos = new Vector3(0, 0, 0);
 	//keep track of last sent orientation
-	private Vector3 lastSentOrientation = new Vector3(0, 0, 0);
+	private static Vector3 lastSentOrientation = new Vector3(0, 0, 0);
 	
 	public static Vector3 curOrientation{ get; private set; }
 	public static bool readyFlag{ get; private set; }
@@ -97,27 +97,23 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	public void changeOrientationY(float deltaY)
 	{
 		curOrientation = new Vector3(curOrientation.x, curOrientation.y + deltaY, curOrientation.z);
-		//Debug.Log(curOrientation);
-		//only send if large enough delta
-		//if (manhattanDist(lastSentOrientation, curOrientation) > .1) 
-		{
-			lastSentOrientation = curOrientation;
-			sendOrientation();
-		}
+		trySendOrientation();
 	}
 	//set orientation
 	public void setOrientation(Vector3 neworient)
 	{
 		curOrientation = neworient;
-		Debug.Log("SET: " + curOrientation);
-		lastSentOrientation = curOrientation;
-		sendOrientation();
+		trySendOrientation();
 	}
 	//send player orientation over networking
-	private static void sendOrientation()
+	private static void trySendOrientation()
 	{
-		string message = "orientation: " + curOrientation.x + "," + curOrientation.y + "," + curOrientation.z;
-		GameController.SyncGame_command(message);
+		//smart: only send if large enough delta
+		if (Math.Abs(curOrientation.y - lastSentOrientation.y) > 2) {
+			string message = "orientation: " + curOrientation.x + "," + curOrientation.y + "," + curOrientation.z;
+			GameController.SyncGame_command(message);
+			lastSentOrientation = curOrientation;
+		}
 	}
 
 	public void finishStep()
