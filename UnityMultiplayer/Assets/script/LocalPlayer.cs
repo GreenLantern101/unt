@@ -6,10 +6,10 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	public static int activePiece{ get; private set; }
 	
 	public static Vector3 curPosition{ get; private set; }
-	//keep track of last sent position
-	private static Vector3 lastSentPos = new Vector3(0, 0, 0);
-	//keep track of last sent orientation
-	private static Vector3 lastSentOrientation = new Vector3(0, 0, 0);
+	//last sent position
+	private static Vector3 lastSentPos;
+	//last sent orientation
+	private static Vector3 lastSentOrientation;
 	
 	public static Vector3 curOrientation{ get; private set; }
 	public static bool readyFlag{ get; private set; }
@@ -62,7 +62,6 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 		//send player's active piece
 		string message = "activePiece: " + activePiece;
 		GameController.SyncGame_command(message);
-		Debug.Log("Local player broadcasted active piece.");
 	}
 
 	public Vector3 getPosition()
@@ -73,8 +72,7 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	{
 		curPosition = newposition;
 		//only send if large enough delta
-		if (manhattanDist(lastSentPos, curPosition) > 1) 
-		{
+		if (manhattanDist(lastSentPos, curPosition) > 1) {
 			sendPosition();
 			lastSentPos = curPosition;
 		}
@@ -112,7 +110,6 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 			lastSentOrientation = curOrientation;
 		}
 	}
-
 	public void finishStep()
 	{
 
@@ -136,7 +133,7 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 				LanguageManager.feedbackTimer1 = 0;
 			}
 		} else {
-			activeTimer = -1000f;		
+			activeTimer = -1000f;	
 		}
 	}
 	

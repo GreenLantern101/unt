@@ -517,9 +517,9 @@ public class GameController : MonoBehaviour
 						throw new Exception("Orientation could not be parsed to type: UnityEngine.Vector3");
 					Vector3 orient = new Vector3(float.Parse(orients[0]), float.Parse(orients[1]), float.Parse(orients[2]));
 					
-					newOrient = MainController._networkedPlayer.getOrientation().y;
 					//set rotation
 					MainController._networkedPlayer.setOrientation(orient);
+					newOrient = orient.y;
 					break;
 				
 				case "time":
