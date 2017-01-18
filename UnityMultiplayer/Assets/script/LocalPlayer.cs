@@ -83,7 +83,7 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	private static void sendPosition()
 	{
 		string message = "position: " + curPosition.x + "," + curPosition.y + "," + curPosition.z;
-		long time = System.DateTime.Now.Minute*60*1000 + System.DateTime.Now.Second*1000 + System.DateTime.Now.Millisecond;
+		long time = System.DateTime.Now.Minute * 60 * 1000 + System.DateTime.Now.Second * 1000 + System.DateTime.Now.Millisecond;
 		//message += ";time: " + time;
 		//Debug.Log("TIME SENT: " + time);
 		GameController.SyncGame_command(message);
@@ -93,17 +93,25 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	{
 		return curOrientation;
 	}
-	
+	//change orientation by delta
 	public void changeOrientationY(float deltaY)
 	{
 		curOrientation = new Vector3(curOrientation.x, curOrientation.y + deltaY, curOrientation.z);
-		Debug.Log(curOrientation);
+		//Debug.Log(curOrientation);
 		//only send if large enough delta
 		//if (manhattanDist(lastSentOrientation, curOrientation) > .1) 
 		{
 			lastSentOrientation = curOrientation;
 			sendOrientation();
 		}
+	}
+	//set orientation
+	public void setOrientation(Vector3 neworient)
+	{
+		curOrientation = neworient;
+		Debug.Log("SET: " + curOrientation);
+		lastSentOrientation = curOrientation;
+		sendOrientation();
 	}
 	//send player orientation over networking
 	private static void sendOrientation()

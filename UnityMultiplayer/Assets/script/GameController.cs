@@ -288,10 +288,10 @@ public class GameController : MonoBehaviour
 				//actually rotate block
 				
 				int id = MainController._networkedPlayer.getActivePiece();
-				if (id > 0) {
+				if (id > -1) {
 					GameObject activeObject = GameInfo.blockList[id];
-					float curOrient = MainController._networkedPlayer.getOrientation().y;
-					activeObject.transform.Rotate(Vector3.up * (curOrient - prevOrient));
+					float curOrient = activeObject.transform.localEulerAngles.y;
+					activeObject.transform.Rotate(Vector3.up * (newOrient - curOrient));
 				}
 				
 				
@@ -467,7 +467,7 @@ public class GameController : MonoBehaviour
 	}
 	
 	//stores previous orientation, actually rotate in game loop
-	static float prevOrient = 0;
+	static float newOrient;
 	// obey with an order to sync game
 	public static void SyncGame_obey(string sync_info)
 	{
@@ -517,7 +517,7 @@ public class GameController : MonoBehaviour
 						throw new Exception("Orientation could not be parsed to type: UnityEngine.Vector3");
 					Vector3 orient = new Vector3(float.Parse(orients[0]), float.Parse(orients[1]), float.Parse(orients[2]));
 					
-					prevOrient = MainController._networkedPlayer.getOrientation().y;
+					newOrient = MainController._networkedPlayer.getOrientation().y;
 					//set rotation
 					MainController._networkedPlayer.setOrientation(orient);
 					break;

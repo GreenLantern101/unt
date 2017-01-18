@@ -51,18 +51,21 @@ public class BlockController : MonoBehaviour
 				Vector3 curPosition = gameObject.transform.position;
 				Vector3 camPosition = cam.transform.position;
 				Vector3 newPosition = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, camPosition.y - curPosition.y));
+				
+				GameObject activeObject = GameInfo.blockList[ID];
+				
 				MainController._localPlayer.setPosition(newPosition);
+				MainController._localPlayer.setOrientation(activeObject.transform.localEulerAngles);
 				
 				float delta = rotateRate * 10 * Time.deltaTime;
 
 				//calcuate the changed rotation and update cur player oritation
 				if (Input.GetKey("left")) {
 					MainController._localPlayer.changeOrientationY(-delta);
-					GameObject activeObject = GameInfo.blockList[ID];
+					
 					activeObject.transform.Rotate(Vector3.down * delta);
 				} else if (Input.GetKey("right")) {
 					MainController._localPlayer.changeOrientationY(delta);
-					GameObject activeObject = GameInfo.blockList[ID];
 					activeObject.transform.Rotate(Vector3.up * delta);
 				} else if (LocalPlayer.activePiece == ID || AgentPlayer.activePiece == ID) {
 					//vibrating();
