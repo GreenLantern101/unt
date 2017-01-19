@@ -16,14 +16,11 @@ public class Server
 	private TcpClient tcpClient_other = null;
 	
 	//return whether other remote client has connected to this server
-	public bool isOtherClientConnected{
-		get{
-			return (tcpClient_other!=null);
+	public bool isOtherClientConnected {
+		get {
+			return (tcpClient_other != null);
 		}
 	}
-
-	// Game stuff
-	private Thread gameThread = null;
 
 	// Other data
 	const string Name = "SERVER_ONE";
@@ -33,25 +30,8 @@ public class Server
 	public Server()
 	{
 		Running = false;
-			
 		// Create the listener, listening at any ip address
 		tcpListener = new TcpListener(IPAddress.Any, port_me);
-			
-		//might need to use something like this to make public host
-		//tcpListener = new TcpListener(IPAddress.Parse(Dns.GetHostName()), port_me);
-	}
-		
-	// returns the private network IP address of server
-	public static IPAddress GetLocalIPAddress()
-	{
-		var host = Dns.GetHostEntry(Dns.GetHostName());
-		foreach (var ip in host.AddressList) {
-			if (ip.AddressFamily == AddressFamily.InterNetwork) {
-				Debug.Log("IP: " + ip);
-				return ip;
-			}
-		}
-		throw new Exception("Local IP Address not found.");
 	}
 
 	public void Start(GameController game)
@@ -59,22 +39,18 @@ public class Server
 		//------------------------------------------------ start server
 		Debug.Log("============= Starting the " + Name + " server on port " + port_me + "."); 
 			
-		// Start running the server
+		//------------------ Start server
 		tcpListener.Start();
 		Debug.Log("Waiting for incoming connections...");
 		Running = true;
 		
 		Thread server_conn = new Thread(new ThreadStart(ServerConnectLoop));
 		server_conn.Start();
-		//Thread.Sleep(1);
 
-		//------------------------------------------------- start client
-		
+		//------------------- start client
 		client = new Client();
 		//connect game client...
 		client.Connect();
-	
-		//server_conn.Join();
 	}
 	void ServerConnectLoop()
 	{
@@ -89,9 +65,6 @@ public class Server
 		//add networked player to game
 		GameController.AddTcpClient(tcpClient_other);
 		Debug.Log("A networked player has been added to the game.");
-					
-		//SYNC GAME AT BEGINNING immediately after connecting
-		GameController.SyncGame_command("");
 		
 		//------------------------------------------------- run server & client
 		while (!client.tcpClient.Connected) {
@@ -137,16 +110,18 @@ public class Server
 	}
 	public void Shutdown()
 	{
-		if (Running) {
-			Running = false;
-			Debug.Log("Shutting down server...");
-		}
+		
+		Running = false;
+		Debug.Log("Shutting down server...");
+		
+		//-------------------------------------------------------- client STOP
 		// gracefully disconnect client...
 		if (client != null)
 			client.Disconnect();
+		// Cleanup
+		client._cleanupNetworkResources();
 		
 		//-------------------------------------------------------- server STOP
-
 		// Disconnect any clients remaining
 		if (tcpClient_other != null && tcpClient_other.Connected)
 			DisconnectClient(tcpClient_other, "Other server is shutting down.");
@@ -156,11 +131,6 @@ public class Server
 
 		// Info
 		Debug.Log("The server has been shut down.");
-			
-		//-------------------------------------------------------- client STOP
-
-		// Cleanup
-		client._cleanupNetworkResources();
 	}
 
 	// Awaits for a new connection, sets it to networked client

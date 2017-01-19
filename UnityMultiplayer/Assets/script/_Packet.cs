@@ -75,12 +75,6 @@ public class Packet
 	#region RECEIVING
 	public static Packet getPacketFromStream(NetworkStream _msgStream)
 	{
-		Packet getfromstream = Packet.getTaskFromStream(_msgStream);
-		Packet packet = getfromstream;
-		return packet;
-	}
-	private static Packet getTaskFromStream(NetworkStream _msgStream)
-	{
 		Packet packet;
 			
 		// First two bytes are the size of the Packet
