@@ -3,7 +3,7 @@ using System;
 
 public class BlockController : MonoBehaviour
 {
-	public int ID;
+	public int ID{ get; private set; }
 	public bool Ownership = false;
 	//whether this block is owned by this node
 	public int collided = 0;
@@ -47,35 +47,46 @@ public class BlockController : MonoBehaviour
 			    GameController.active_player != MainController._twoPlayers)
 				return;
 			if (LocalPlayer.activePiece == ID) {
-				//calculate the changed position
-				Camera cam = Camera.main;
-				Vector3 mousePos = Input.mousePosition;
-				Vector3 curPosition = gameObject.transform.position;
-				Vector3 camPosition = cam.transform.position;
-				Vector3 newPosition = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, camPosition.y - curPosition.y));
 				
-				GameObject activeObject = GameInfo.blockList[ID];
-				
-				MainController._localPlayer.setPosition(newPosition);
-				MainController._localPlayer.setOrientation(activeObject.transform.localEulerAngles);
-				
+				GameObject activeObject = updateObj(ID);
 				float delta = rotateRate * 10 * Time.deltaTime;
 
 				//calculate the changed rotation and update cur player orientation
-				if (Input.GetKey("left")) {
-					MainController._localPlayer.changeOrientationY(-delta);
-					activeObject.transform.Rotate(Vector3.down * delta);
-				} else if (Input.GetKey("right")) {
-					MainController._localPlayer.changeOrientationY(delta);
-					activeObject.transform.Rotate(Vector3.up * delta);
-				} else if (LocalPlayer.activePiece == ID || AgentPlayer.activePiece == ID) {
-					//vibrating();
+				if (activeObject != null) {
+					if (Input.GetKey("left")) {
+						MainController._localPlayer.changeOrientationY(-delta);
+						activeObject.transform.Rotate(Vector3.down * delta);
+					} else if (Input.GetKey("right")) {
+						MainController._localPlayer.changeOrientationY(delta);
+						activeObject.transform.Rotate(Vector3.up * delta);
+					} else if (LocalPlayer.activePiece == ID || AgentPlayer.activePiece == ID) {
+						//vibrating();
+					}
 				}
 				if (GameInfo.blockSucceed[ID]) {
 					resetRotate();
 				}
 			}
 		}
+	}
+	
+	GameObject updateObj(int ID)
+	{
+		Debug.Log("UPDATED OBJ");
+		//calculate the changed position
+		Camera cam = Camera.main;
+		Vector3 mousePos = Input.mousePosition;
+		Vector3 curPosition = gameObject.transform.position;
+		Vector3 camPosition = cam.transform.position;
+		Vector3 newPosition = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, camPosition.y - curPosition.y));
+		MainController._localPlayer.setPosition(newPosition);
+		
+		if (ID != -1) {
+			GameObject activeObject = GameInfo.blockList[ID];
+			MainController._localPlayer.setOrientation(activeObject.transform.localEulerAngles);
+			return activeObject;
+		} else
+			return null;
 	}
 
 	public void vibrating()
@@ -119,7 +130,6 @@ public class BlockController : MonoBehaviour
 		
 		print("Set active piece: " + ID);
 		MainController._localPlayer.setActivePiece(ID);
-		
 		LogTimeData.setEvent(LogTimeData.dragStartEvent);
 	}
 
