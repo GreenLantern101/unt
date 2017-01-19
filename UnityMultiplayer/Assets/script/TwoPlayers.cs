@@ -46,8 +46,10 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 	{	
 		if (GameInfo.NoColorTaskFlag) {
 			curOrientation = player1.getOrientation();		
+		} else if (GameInfo.OtherNoColorTaskFlag) {
+			curOrientation = player2.getOrientation();				
 		} else {
-			curOrientation = player2.getOrientation();					
+			return (player1.getOrientation() + player2.getOrientation())/2;
 		}
 		return curOrientation;
 	}
