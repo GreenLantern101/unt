@@ -84,8 +84,7 @@ public class Client
 		if (tcpClient.Available <= 0)
 			return;
 				
-		Packet packet = new Packet("", "");		
-		packet = Packet.getPacketFromStream(_msgStream);
+		Packet packet = Packet.getPacketFromStream(_msgStream);
 
 		switch (packet.Command) {
 			case "bye":

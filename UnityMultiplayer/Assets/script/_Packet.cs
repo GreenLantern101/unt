@@ -28,72 +28,50 @@ public class Packet
 			"  Message=`{1}`]",
 			Command, Message);
 	}
-
-	// Serialize to Json --> TODO: put at end of constructor?
-	public string ToJson()
+	string ToJson()
 	{
 		return JsonConvert.SerializeObject(this);
 	}
 
 	// Deserialize
-	public static Packet FromJson(string jsonData)
+	static Packet FromJson(string jsonData)
 	{
 		return JsonConvert.DeserializeObject<Packet>(jsonData);
 	}
 		
 	#region SENDING
-	// Sends a packet to a client asynchronously
 	public static void SendPacket(NetworkStream stream, Packet packet)
 	{
-		try {
-			byte[] packetBuffer = packet.getPacketBuffer();
-			// Send the packet
-			stream.Write(packetBuffer, 0, packetBuffer.Length);
+		// encode content
+		byte[] jsonbytes = Encoding.UTF8.GetBytes(packet.ToJson());
+		// encode length of content (16 bit unsigned short)
+		byte[] lengthbytes = BitConverter.GetBytes(Convert.ToUInt16(jsonbytes.Length));
 
-		} catch (Exception e) {
-			Debug.Log("Error sending a packet.");
-			Debug.Log("Reason: " + e.Message);
-		}
-	}
-	public byte[] getPacketBuffer()
-	{
-		// convert JSON to buffer and its length to a 16 bit unsigned short buffer
-		byte[] jsonBuffer = Encoding.UTF8.GetBytes(this.ToJson());
-		byte[] lengthBuffer = BitConverter.GetBytes(Convert.ToUInt16(jsonBuffer.Length));
-
-		// Join the buffers
-		byte[] packetBuffer = new byte[lengthBuffer.Length + jsonBuffer.Length];
-		lengthBuffer.CopyTo(packetBuffer, 0);
-		jsonBuffer.CopyTo(packetBuffer, lengthBuffer.Length);
-			
-		//Debug.Log(Encoding.UTF8.GetString(packetBuffer));
-				
-		return packetBuffer;
+		// Join the byte arrays
+		byte[] packetbytes = new byte[lengthbytes.Length + jsonbytes.Length];
+		lengthbytes.CopyTo(packetbytes, 0);
+		jsonbytes.CopyTo(packetbytes, lengthbytes.Length);
+		
+		//write bytes to stream
+		stream.Write(packetbytes, 0, packetbytes.Length);
 	}
 	#endregion
 		
 	#region RECEIVING
 	public static Packet getPacketFromStream(NetworkStream _msgStream)
 	{
-		Packet packet;
-			
-		// First two bytes are the size of the Packet
+		// First two bytes(16 bits) indicate size of the Packet
 		byte[] lengthBuffer = new byte[2];
 		_msgStream.Read(lengthBuffer, 0, 2);
 		ushort packetByteSize = BitConverter.ToUInt16(lengthBuffer, 0);
 
-		// Remaining bytes in the stream must be the Packet
+		// Remaining bytes in the stream is packet content
 		byte[] jsonBuffer = new byte[packetByteSize];
 		_msgStream.Read(jsonBuffer, 0, jsonBuffer.Length);
 			
-		//Debug.Log(Encoding.UTF8.GetString(lengthBuffer));
-		//Debug.Log(Encoding.UTF8.GetString(jsonBuffer));
-			
-		// Convert to packet datatype
+		// Convert Json to packet
 		string jsonString = Encoding.UTF8.GetString(jsonBuffer);
-		packet = Packet.FromJson(jsonString);
-			
-		return packet;
+		return Packet.FromJson(jsonString);
 	}
 	#endregion
 }
