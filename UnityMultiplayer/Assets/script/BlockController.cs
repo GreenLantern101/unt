@@ -72,7 +72,6 @@ public class BlockController : MonoBehaviour
 	
 	GameObject updateObj(int ID)
 	{
-		Debug.Log("UPDATED OBJ");
 		//calculate the changed position
 		Camera cam = Camera.main;
 		Vector3 mousePos = Input.mousePosition;

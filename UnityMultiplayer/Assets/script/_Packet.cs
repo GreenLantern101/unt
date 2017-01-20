@@ -3,7 +3,6 @@ using System;
 using System.Text;
 using System.Net.Sockets;
 using Newtonsoft.Json;
-using UnityEngine;
 
 public class Packet
 {

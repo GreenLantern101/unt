@@ -62,17 +62,18 @@ public class Client
 	// This should only be called by the user
 	public void Disconnect()
 	{
-		Debug.Log("Disconnecting...");
+		Debug.Log("Client disconnecting...");
 		_clientRequestedDisconnect = true;
 		Packet.SendPacket(this._msgStream, new Packet("bye", ""));
 	}
 	public void _cleanupNetworkResources()
 	{
-		//Debug.Log("Cleaning up network resources...");
+		Debug.Log("Cleaning up network resources...");
 		if (_msgStream != null)
 			_msgStream.Close();
 		_msgStream = null;
 		tcpClient.Close();
+		Debug.Log("Client disconnected.");
 	}
 
 	// Checks for new incoming messages and handles them

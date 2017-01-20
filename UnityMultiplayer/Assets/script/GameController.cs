@@ -282,16 +282,23 @@ public class GameController : MonoBehaviour
 					}
 				}
 
-
 				activePiece = active_player.getActivePiece();
 				
-				//actually rotate block
 				
 				int id = MainController._networkedPlayer.getActivePiece();
 				if (id > -1) {
 					GameObject activeObject = GameInfo.blockList[id];
+					//actually rotate block
 					float curOrient = activeObject.transform.localEulerAngles.y;
 					activeObject.transform.Rotate(Vector3.up * (newOrient - curOrient));
+					
+					//NEW: reduce flicker
+					if(activePieceChanged){
+						MainController._networkedPlayer.setPosition(activeObject.transform.position);
+						MainController._networkedPlayer.setOrientation(activeObject.transform.localEulerAngles);
+						//reset
+						activePieceChanged = false;
+					}
 				}
 				
 				
@@ -468,6 +475,9 @@ public class GameController : MonoBehaviour
 	
 	//stores previous orientation, actually rotate in game loop
 	static float newOrient;
+	//store whether active piece changed --> primarily to reduce flicker caused by slight network delay
+	static bool activePieceChanged = false;
+	
 	// obey with an order to sync game
 	public static void SyncGame_obey(string sync_info)
 	{
@@ -501,6 +511,7 @@ public class GameController : MonoBehaviour
 				case "activePiece":
 					int aci = Convert.ToInt16(value);
 					MainController._networkedPlayer.setActivePiece(aci);
+					activePieceChanged = true;
 					break;
 			//sync position
 				case "position":
