@@ -283,22 +283,25 @@ public class GameController : MonoBehaviour
 				}
 
 				activePiece = active_player.getActivePiece();
-				
-				
 				int id = MainController._networkedPlayer.getActivePiece();
-				if (id > -1) {
+
+				if (activePieceChanged && id != -1) {
+					GameObject activeObject = GameInfo.blockList[id];
+					//NEW: reduce flicker by setting player pos/orient to match active block
+					//flicker caused by player pos/orient matching last active block before packet update
+
+					MainController._networkedPlayer.setPosition(activeObject.transform.position);
+					MainController._networkedPlayer.setOrientation(activeObject.transform.localEulerAngles);
+						
+					//reset flag
+					activePieceChanged = false;
+					newOrient = activeObject.transform.localEulerAngles.y;
+				}
+				if (id != -1) {
 					GameObject activeObject = GameInfo.blockList[id];
 					//actually rotate block
 					float curOrient = activeObject.transform.localEulerAngles.y;
 					activeObject.transform.Rotate(Vector3.up * (newOrient - curOrient));
-					
-					//NEW: reduce flicker
-					if(activePieceChanged){
-						MainController._networkedPlayer.setPosition(activeObject.transform.position);
-						MainController._networkedPlayer.setOrientation(activeObject.transform.localEulerAngles);
-						//reset
-						activePieceChanged = false;
-					}
 				}
 				
 				

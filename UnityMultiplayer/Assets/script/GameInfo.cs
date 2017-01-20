@@ -457,7 +457,7 @@ public static class GameInfo
 //		}
 		//reset the secondary block
 		if (theBlockIdx != -1) {
-			UnityEngine.Debug.Log("set secondary active block to -1 " + theBlockIdx);
+			Debug.Log("set secondary active block to -1 " + theBlockIdx);
 			GameController.secondaryActivePiece = -1;		
 		}
 		return theBlockIdx;
