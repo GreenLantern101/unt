@@ -88,6 +88,11 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 			sendDiff();
 			lastSentPos = curPosition;
 		}
+		else if(Math.Abs(Vector3.Magnitude(diff - Vector3.zero)) < .1)
+		{
+			diff = Vector3.zero;
+			sendDiff();
+		}
 	}
 	//send player position over networking
 	private static void sendPosition()
