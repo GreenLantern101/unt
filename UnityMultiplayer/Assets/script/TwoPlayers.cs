@@ -26,7 +26,7 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 	public Vector3 getDiff()
 	{
 		//should never be used
-		return (player1.getDiff() + player2.getDiff()) / 2;
+		return Vector3.zero;
 	}
 
 	public Vector3 getPosition()

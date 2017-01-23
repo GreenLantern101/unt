@@ -56,6 +56,7 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler {
 			activeTimer = 0f;			
 		}
 		activePiece = _acI;
+		diff = Vector3.zero;
 	}
 
 	public bool isControllable(int _block){

@@ -55,6 +55,8 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 			activeTimer = 0f;
 		}
 		activePiece = _acI;
+		//reset diff
+		diff = Vector3.zero;
 
 		sendActivePiece();
 	}

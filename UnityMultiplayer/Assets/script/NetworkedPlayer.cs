@@ -31,6 +31,8 @@ public class NetworkedPlayer : MonoBehaviour, IPlayerHandler
 	public void setActivePiece(int _acI)
 	{
 		activePiece = _acI;
+		//reset diff
+		diff = Vector3.zero;
 	}
 
 	public Vector3 getPosition()
