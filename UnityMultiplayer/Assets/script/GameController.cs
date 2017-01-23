@@ -491,8 +491,6 @@ public class GameController : MonoBehaviour
 		if (sync_info.Length == 0)
 			return;
 		
-		//Debug.Log(sync_info);
-		
 		String[] entries = sync_info.Split(';');
 		
 		foreach (String entry in entries) {

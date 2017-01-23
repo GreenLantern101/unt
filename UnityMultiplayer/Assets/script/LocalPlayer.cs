@@ -78,10 +78,14 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	public void setPosition(Vector3 newposition)
 	{
 		diff = newposition - curPosition;
+		//prevent abrupt jumps
+		if(Math.Abs(diff.x) + Math.Abs(diff.z) > 50)
+			diff = Vector3.zero;
 		curPosition = newposition;
 		//only send if large enough delta
 		if (manhattanDist(lastSentPos, curPosition) > 1) {
 			sendPosition();
+			sendDiff();
 			lastSentPos = curPosition;
 		}
 	}
@@ -89,8 +93,10 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	private static void sendPosition()
 	{
 		string message = "position: " + curPosition.x + "," + curPosition.y + "," + curPosition.z;
-		//sync diff also
-		message += ";diff: " + diff.x + "," + diff.y + "," + diff.z;
+		GameController.SyncGame_command(message);
+	}
+	private static void sendDiff(){
+		string message = "diff: " + diff.x + "," + diff.y + "," + diff.z;
 		GameController.SyncGame_command(message);
 	}
 	
