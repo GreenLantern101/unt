@@ -43,16 +43,22 @@ public class NetworkedPlayer : MonoBehaviour, IPlayerHandler
 	{
 		return diff;
 	}
+	public Vector3 getOrientation()
+	{
+		return curOrientation;
+	}
+	
+	//for syncing
+	public void setDiff(Vector3 newdiff){
+		diff = newdiff;
+	}
+	//for syncing
 	public void setPosition(Vector3 newposition)
 	{
 		diff = newposition - curPosition;
 		curPosition = newposition;
 	}
-	
-	public Vector3 getOrientation()
-	{
-		return curOrientation;
-	}
+	//for syncing
 	public void setOrientation(Vector3 neworientation)
 	{
 		curOrientation = neworientation;

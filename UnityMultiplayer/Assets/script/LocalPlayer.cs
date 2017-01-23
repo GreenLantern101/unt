@@ -89,6 +89,8 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	private static void sendPosition()
 	{
 		string message = "position: " + curPosition.x + "," + curPosition.y + "," + curPosition.z;
+		//sync diff also
+		message += ";diff: " + diff.x + "," + diff.y + "," + diff.z;
 		GameController.SyncGame_command(message);
 	}
 	
