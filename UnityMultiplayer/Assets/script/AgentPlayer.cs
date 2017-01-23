@@ -6,6 +6,7 @@ using System.Globalization;
 public class AgentPlayer : MonoBehaviour, IPlayerHandler {
 	public static int activePiece;	
 	public static Vector3 curPosition;
+	private static Vector3 diff;
 	public static Vector3 curOrientation;
 	private Vector3 targetPosition;
 	private Vector3 targetOrientation;
@@ -30,7 +31,9 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler {
 		return curPosition;
 	}
 
+    public Vector3 getDiff()
     {
+    	return diff;
     }
 	
 	public Vector3 getOrientation(){
