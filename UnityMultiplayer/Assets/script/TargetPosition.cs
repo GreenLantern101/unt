@@ -12,7 +12,7 @@ public class TargetPosition: MonoBehaviour{
 			threshDown = -160f;
 		} else {
 			threshUp = -150f;
-			threshDown = -200f;				
+			threshDown = -200f;	
 		}
 	}
 

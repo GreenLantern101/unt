@@ -29,6 +29,9 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler {
 	public Vector3 getPosition(){
 		return curPosition;
 	}
+
+    {
+    }
 	
 	public Vector3 getOrientation(){
 		return curOrientation;

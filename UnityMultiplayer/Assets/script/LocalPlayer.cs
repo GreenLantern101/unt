@@ -3,16 +3,17 @@ using System;
 
 public class LocalPlayer : MonoBehaviour, IPlayerHandler
 {
-	public static int activePiece{ get; private set; }
-	
-	public static Vector3 curPosition{ get; private set; }
+	public static int activePiece { get; private set; }
+
+	public static Vector3 curPosition { get; private set; }
+	private static Vector3 diff;
 	//last sent position
 	private static Vector3 lastSentPos;
 	//last sent orientation
 	private static Vector3 lastSentOrientation;
-	
-	public static Vector3 curOrientation{ get; private set; }
-	public static bool readyFlag{ get; private set; }
+
+	public static Vector3 curOrientation { get; private set; }
+	public static bool readyFlag { get; private set; }
 	public static float activeTimer;
 
 	void Start()
@@ -22,7 +23,7 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	public void setReadyFlag(bool val)
 	{
 		readyFlag = val;
-		
+
 		//GameController
 		//send ready flag immediately after setting
 		sendReadyFlag();
@@ -38,8 +39,8 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 		GameController.SyncGame_command(message);
 		Debug.Log("Local player broadcasted that it is ready.");
 	}
-	
-	
+
+
 	public int getActivePiece()
 	{
 		return activePiece;
@@ -47,14 +48,14 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	public void setActivePiece(int _acI)
 	{
 		if (_acI == -1) {
-			activeTimer = -1000f;				
+			activeTimer = -1000f;
 		} else {
 			GameController.secondaryActivePiece = _acI;
 			print("set active and secondary active player" + GameController.secondaryActivePiece);
-			activeTimer = 0f;			
+			activeTimer = 0f;
 		}
 		activePiece = _acI;
-		
+
 		sendActivePiece();
 	}
 	private static void sendActivePiece()
@@ -68,8 +69,13 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	{
 		return curPosition;
 	}
+	public Vector3 getDiff()
+	{
+		return diff;
+	}
 	public void setPosition(Vector3 newposition)
 	{
+		diff = newposition - curPosition;
 		curPosition = newposition;
 		//only send if large enough delta
 		if (manhattanDist(lastSentPos, curPosition) > 1) {

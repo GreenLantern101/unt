@@ -3,12 +3,13 @@
 public class NetworkedPlayer : MonoBehaviour, IPlayerHandler
 {
 
-	public static int activePiece{ get; private set; }
-	public static Vector3 curPosition{ get; private set; }
+	public static int activePiece { get; private set; }
+	public static Vector3 curPosition { get; private set; }
+	private static Vector3 diff;
 	public static Vector3 curOrientation;
-	public static bool readyFlag{ get; private set; }
+	public static bool readyFlag { get; private set; }
 	public static float activeTimer;
-	
+
 	void Start()
 	{
 		setActivePiece(-1);
@@ -22,7 +23,7 @@ public class NetworkedPlayer : MonoBehaviour, IPlayerHandler
 		//return true;
 		return readyFlag;
 	}
-	
+
 	public int getActivePiece()
 	{
 		return activePiece;
@@ -31,13 +32,18 @@ public class NetworkedPlayer : MonoBehaviour, IPlayerHandler
 	{
 		activePiece = _acI;
 	}
-	
+
 	public Vector3 getPosition()
 	{
 		return curPosition;
 	}
+	public Vector3 getDiff()
+	{
+		return diff;
+	}
 	public void setPosition(Vector3 newposition)
 	{
+		diff = newposition - curPosition;
 		curPosition = newposition;
 	}
 	

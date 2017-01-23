@@ -256,10 +256,26 @@ public static class GameInfo
 		suObj.transform.localEulerAngles = new Vector3(tempRotation.x, tempRotation.y, tempRotation.z);
 		//remove plant 
 		suObj.GetComponent<BlockController>().relaseName(RandomList[blockI]);
+		
+		//makes block success info even worse...
+		//if (!blockSucceed[blockI])
+			//SendSucceed(blockI, suObj.transform.position, suObj.transform.localEulerAngles);
+		
 		blockSucceed[blockI] = true;
+		
 //		Debug.Log ("secondary active6 " + GameController.secondaryActivePiece);
 //		GameController.secondaryActivePiece = -1;
 //		MainController._localPlayer.setActivePiece (-1);
+	}
+	//send block succeeded sync message
+	private static void SendSucceed(int id, Vector3 pos, Vector3 orient)
+	{
+		string message = "activePiece: " + id + ";";
+		message += "position: " + pos.x + "," + pos.y + "," + pos.z + ";";
+		message += "orientation: " + orient.x + "," + orient.y + "," + orient.z + ";";
+		
+		GameController.SyncGame_command(message);
+		Debug.Log("!!!succeed message sent");
 	}
 
 	public static GameObject getSmoothBlock(int id)

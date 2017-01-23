@@ -34,9 +34,10 @@ public class BlockController : MonoBehaviour
 				if (!GameInfo.NoColorTaskFlag) {
 					renderer.material.mainTexture = defaultTexture;	
 				} else {
-					renderer.material.mainTexture = grayTexture;	
+					renderer.material.mainTexture = grayTexture;
 				}
 			} else {
+				//if GameInfo.blockSucceed[ID]==true
 				GameInfo.setSucceed(ID);
 			}
 		}

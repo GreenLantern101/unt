@@ -23,19 +23,27 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 		activePiece = _acI;
 	}
 
+	public Vector3 getDiff()
+	{
+		//should never be used
+		return (player1.getDiff() + player2.getDiff()) / 2;
+	}
+
 	public Vector3 getPosition()
 	{
 		//get average position of both players' combined movement
 		if (activePiece != -1) {
-			Vector3 p1 = player1.getPosition();
-			Vector3 p2 = player2.getPosition();
 			
 			curPosition = GameInfo.blockList[activePiece].transform.position;
 
-			Vector3 diff1 = p1 - curPosition;
-			Vector3 diff2 = p2 - curPosition;
-			float averageX = (diff1.x + diff2.x) / 2.0f;
-			float averageZ = (diff1.z + diff2.z) / 2.0f;
+			Vector3 diff1 = player1.getDiff();
+			Vector3 diff2 = player2.getDiff();
+			float averageX = 0;
+			float averageZ = 0;
+			if (diff1.x * diff2.x > 0)
+				averageX = (diff1.x + diff2.x) / 2.0f;
+			if (diff1.z * diff2.z > 0)
+				averageZ = (diff1.z + diff2.z) / 2.0f;
 			curPosition += new Vector3(averageX, 0f, averageZ);
 			
 		}
@@ -49,7 +57,7 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 		} else if (GameInfo.OtherNoColorTaskFlag) {
 			curOrientation = player2.getOrientation();				
 		} else {
-			return (player1.getOrientation() + player2.getOrientation())/2;
+			return (player1.getOrientation() + player2.getOrientation()) / 2;
 		}
 		return curOrientation;
 	}

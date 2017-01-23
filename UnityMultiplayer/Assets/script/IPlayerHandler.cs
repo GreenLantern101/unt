@@ -10,6 +10,9 @@ public interface IPlayerHandler {
 	//get current position 
 	Vector3 getPosition();
 
+    //get d(pos)/d(t) = velocity --> used for collaborative two-player game
+    Vector3 getDiff();
+
 	//get current orientation 
 	Vector3 getOrientation();
 
