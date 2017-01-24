@@ -48,31 +48,30 @@ public class BlockController : MonoBehaviour
 			    GameController.active_player != MainController._twoPlayers)
 				return;
 			if (LocalPlayer.activePiece == ID) {
-				
 				GameObject activeObject = updateObj(ID);
-				float delta = rotateRate * 10 * Time.deltaTime;
-
-				//calculate the changed rotation and update cur player orientation
-				if (activeObject != null) {
-					if (Input.GetKey("left")) {
-						MainController._localPlayer.changeOrientationY(-delta);
-						activeObject.transform.Rotate(Vector3.down * delta);
-					} else if (Input.GetKey("right")) {
-						MainController._localPlayer.changeOrientationY(delta);
-						activeObject.transform.Rotate(Vector3.up * delta);
-					} else if (LocalPlayer.activePiece == ID || AgentPlayer.activePiece == ID) {
-						//vibrating();
-					}
-				}
-				if (GameInfo.blockSucceed[ID]) {
-					resetRotate();
-					//send player position over networking
-					Vector3 orient = activeObject.transform.localEulerAngles;
-					string message = "orientation: " + orient.x + "," + orient.y + "," + orient.z;
-					GameController.SyncGame_command(message);
-					Debug.Log("synced final block orientation on success: " + orient);
-				}
+				manipulateObject(activeObject);
 			}
+		}
+	}
+	
+	void manipulateObject(GameObject activeObject)
+	{
+		float delta = rotateRate * 10 * Time.deltaTime;
+
+		//calculate the changed rotation and update cur player orientation
+		if (activeObject != null) {
+			if (Input.GetKey("left")) {
+				MainController._localPlayer.changeOrientationY(-delta);
+				activeObject.transform.Rotate(Vector3.down * delta);
+			} else if (Input.GetKey("right")) {
+				MainController._localPlayer.changeOrientationY(delta);
+				activeObject.transform.Rotate(Vector3.up * delta);
+			} else if (LocalPlayer.activePiece == ID || AgentPlayer.activePiece == ID) {
+				//vibrating();
+			}
+		}
+		if (GameInfo.blockSucceed[ID]) {
+			resetRotate();
 		}
 	}
 	
@@ -109,7 +108,6 @@ public class BlockController : MonoBehaviour
 	public void resetRotate()
 	{
 		transform.localEulerAngles = new Vector3(0f, GameInfo.initialRotationArray[ID], 0f);
-		
 	}
 
 	public void assignName(int name)
@@ -145,6 +143,22 @@ public class BlockController : MonoBehaviour
 		    GameController.active_player != MainController._twoPlayers)
 			return;
 		
+		//force send final orientation/position
+		if (GameInfo.blockSucceed[ID]) {
+			//set and send final orientation
+			Vector3 finalOrient = new Vector3(0f, GameInfo.getTargetRotation(ID), 0f);
+			MainController._localPlayer.setOrientation(finalOrient);
+			resetRotate();
+			MainController._localPlayer.sendOrientation();
+		
+			
+			Debug.Log("player position: " + MainController._localPlayer.getPosition());
+			Debug.Log("target position: " + GameInfo.getTargetPosition(ID));
+			//set and send final position
+			MainController._localPlayer.setPosition(GameInfo.getTargetPosition(ID));
+			MainController._localPlayer.sendPosition();
+			
+		}
 		MainController._localPlayer.setActivePiece(-1);
 		LogTimeData.setEvent(LogTimeData.dragEndEvent);
 	}

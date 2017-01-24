@@ -53,7 +53,7 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler {
 		} else {
 			GameController.secondaryActivePiece = _acI;
 			print ("secondary active1 " + GameController.secondaryActivePiece);
-			activeTimer = 0f;			
+			activeTimer = 0f;		
 		}
 		activePiece = _acI;
 		diff = Vector3.zero;

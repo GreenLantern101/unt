@@ -89,7 +89,6 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 			if (Math.Abs(diff.x) + Math.Abs(diff.z) > 50)
 				diff = Vector3.zero;
 			sendDiff();
-			lastSentPos = curPosition;
 			diffIsReset = false;
 		} else if (!diffIsReset) {
 			diff = Vector3.zero;
@@ -98,12 +97,13 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 		}
 	}
 	//send player position over networking
-	private static void sendPosition()
+	public void sendPosition()
 	{
 		string message = "position: " + curPosition.x + "," + curPosition.y + "," + curPosition.z;
 		GameController.SyncGame_command(message);
+		lastSentPos = curPosition;
 	}
-	private static void sendDiff()
+	private void sendDiff()
 	{
 		if (GameController.active_player != MainController._twoPlayers)
 			return;
@@ -128,14 +128,18 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 		trySendOrientation();
 	}
 	//send player orientation over networking
-	private static void trySendOrientation()
+	private void trySendOrientation()
 	{
 		//smart: only send if large enough delta
 		if (Math.Abs(curOrientation.y - lastSentOrientation.y) > 2) {
-			string message = "orientation: " + curOrientation.x + "," + curOrientation.y + "," + curOrientation.z;
-			GameController.SyncGame_command(message);
-			lastSentOrientation = curOrientation;
+			sendOrientation();
 		}
+	}
+	public void sendOrientation()
+	{
+		string message = "orientation: " + curOrientation.x + "," + curOrientation.y + "," + curOrientation.z;
+		GameController.SyncGame_command(message);
+		lastSentOrientation = curOrientation;
 	}
 	public void finishStep()
 	{
