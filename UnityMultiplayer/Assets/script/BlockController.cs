@@ -66,6 +66,11 @@ public class BlockController : MonoBehaviour
 				}
 				if (GameInfo.blockSucceed[ID]) {
 					resetRotate();
+					//send player position over networking
+					Vector3 orient = activeObject.transform.localEulerAngles;
+					string message = "orientation: " + orient.x + "," + orient.y + "," + orient.z;
+					GameController.SyncGame_command(message);
+					Debug.Log("synced final block orientation on success: " + orient);
 				}
 			}
 		}
@@ -104,6 +109,7 @@ public class BlockController : MonoBehaviour
 	public void resetRotate()
 	{
 		transform.localEulerAngles = new Vector3(0f, GameInfo.initialRotationArray[ID], 0f);
+		
 	}
 
 	public void assignName(int name)

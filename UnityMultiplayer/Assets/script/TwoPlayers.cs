@@ -35,8 +35,7 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 		if (activePiece != -1) {
 			
 			curPosition = GameInfo.blockList[activePiece].transform.position;
-
-			Debug.Log("X: " + player1.getDiff().x + " Z: " + player1.getDiff().z);
+			
 			double aX = Math.Round(player1.getDiff().x, 4);
 			double aZ = Math.Round(player1.getDiff().z, 4);
 			double bX = Math.Round(player2.getDiff().x, 4);
