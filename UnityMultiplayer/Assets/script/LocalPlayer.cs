@@ -75,6 +75,9 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	{
 		return diff;
 	}
+	
+	//check whether already sent diff reset (zero vector) --> for optimization
+	private static bool diffIsReset = false;
 	public void setPosition(Vector3 newposition)
 	{
 		diff = newposition - curPosition;
@@ -87,11 +90,13 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 			sendPosition();
 			sendDiff();
 			lastSentPos = curPosition;
+			diffIsReset = false;
 		}
-		else if(Math.Abs(Vector3.Magnitude(diff - Vector3.zero)) < .1)
+		else if(!diffIsReset)
 		{
 			diff = Vector3.zero;
 			sendDiff();
+			diffIsReset = true;
 		}
 	}
 	//send player position over networking
