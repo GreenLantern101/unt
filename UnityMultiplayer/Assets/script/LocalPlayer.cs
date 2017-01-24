@@ -80,20 +80,18 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	private static bool diffIsReset = false;
 	public void setPosition(Vector3 newposition)
 	{
-		diff = newposition - curPosition;
-		//prevent abrupt jumps
-		if(Math.Abs(diff.x) + Math.Abs(diff.z) > 50)
-			diff = Vector3.zero;
 		curPosition = newposition;
 		//only send if large enough delta
 		if (manhattanDist(lastSentPos, curPosition) > 1) {
 			sendPosition();
+			diff = newposition - lastSentPos;
+			//prevent abrupt jumps
+			if (Math.Abs(diff.x) + Math.Abs(diff.z) > 50)
+				diff = Vector3.zero;
 			sendDiff();
 			lastSentPos = curPosition;
 			diffIsReset = false;
-		}
-		else if(!diffIsReset)
-		{
+		} else if (!diffIsReset) {
 			diff = Vector3.zero;
 			sendDiff();
 			diffIsReset = true;
@@ -105,8 +103,9 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 		string message = "position: " + curPosition.x + "," + curPosition.y + "," + curPosition.z;
 		GameController.SyncGame_command(message);
 	}
-	private static void sendDiff(){
-		if(GameController.active_player != MainController._twoPlayers)
+	private static void sendDiff()
+	{
+		if (GameController.active_player != MainController._twoPlayers)
 			return;
 		string message = "diff: " + diff.x + "," + diff.y + "," + diff.z;
 		GameController.SyncGame_command(message);
