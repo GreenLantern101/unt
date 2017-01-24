@@ -106,6 +106,8 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 		GameController.SyncGame_command(message);
 	}
 	private static void sendDiff(){
+		if(GameController.active_player != MainController._twoPlayers)
+			return;
 		string message = "diff: " + diff.x + "," + diff.y + "," + diff.z;
 		GameController.SyncGame_command(message);
 	}
