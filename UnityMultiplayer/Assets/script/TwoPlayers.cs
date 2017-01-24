@@ -36,14 +36,18 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 			
 			curPosition = GameInfo.blockList[activePiece].transform.position;
 
-			Vector3 diff1 = player1.getDiff();
-			Vector3 diff2 = player2.getDiff();
+			Debug.Log("X: " + player1.getDiff().x + " Z: " + player1.getDiff().z);
+			double aX = Math.Round(player1.getDiff().x, 4);
+			double aZ = Math.Round(player1.getDiff().z, 4);
+			double bX = Math.Round(player2.getDiff().x, 4);
+			double bZ = Math.Round(player2.getDiff().z, 4);
 			float averageX = 0;
 			float averageZ = 0;
-			if (diff1.x * diff2.x > 0)
-				averageX = (diff1.x + diff2.x) / 2.0f;
-			if (diff1.z * diff2.z > 0)
-				averageZ = (diff1.z + diff2.z) / 2.0f;
+			//can't use float b/c 0f may not be equal to 0
+			if (aX * bX > 0)
+				averageX = (float)(aX + bX) / 2.0f;
+			if (aZ * bZ > 0)
+				averageZ = (float)(aZ + bZ) / 2.0f;
 			curPosition += new Vector3(averageX, 0f, averageZ);
 			
 		}
