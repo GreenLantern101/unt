@@ -43,9 +43,6 @@ public class BlockController : MonoBehaviour
 
 
 		if (MainController.FSM.IsInState(PuzzleState.GAME_STEP)) {
-			if (GameController.active_player != MainController._localPlayer &&
-			    GameController.active_player != MainController._twoPlayers)
-				return;
 			if (LocalPlayer.activePiece == ID) {
 				GameObject activeObject = updateObj(ID);
 				manipulateObject(activeObject);
@@ -138,9 +135,6 @@ public class BlockController : MonoBehaviour
 
 	void OnMouseUp()
 	{
-		if (GameController.active_player != MainController._localPlayer &&
-		    GameController.active_player != MainController._twoPlayers)
-			return;
 		
 		MainController._localPlayer.setActivePiece(-1);
 		LogTimeData.setEvent(LogTimeData.dragEndEvent);

@@ -321,13 +321,13 @@ public class GameController : MonoBehaviour
 
 				//check the success of the block
 				if (_moveValid.isSucceeded(activePiece)) {
+					//send block succeed message to networked player
+					string message = "SENT BLOCK SUCCESS: " + activePiece;
+					GameController.SyncGame_command(message);
+					
 					secondaryActivePiece = -1;					
 					LogTimeData.setEvent(LogTimeData.stepSuccessEvent);
 					GameInfo.setSucceed(activePiece);
-					
-					//send block succeed message to networked player
-					string message = "blocksuccess: " + activePiece;
-					GameController.SyncGame_command(message);
 					
 					thisStep = stepType.successStep;
 					MainController.FSM.Fire(Trigger.endStep);
@@ -342,11 +342,12 @@ public class GameController : MonoBehaviour
 					obj.transform.localEulerAngles = finalOrient;
 					
 					Vector3 finalpos = GameInfo.getTargetPosition(blocksuccess_index);
-					obj.transform.localPosition = finalpos;
+					obj.transform.position = finalpos;
+					Debug.Log("POS: " + finalpos);
+					Debug.Log("ORIENT: " + finalOrient);
 					//reset
 					blocksuccess_index = -1;
 				}
-				
 
 			}
 			if (LogTimeData.getPreEvent() == LogTimeData.moveStartEvent) {
@@ -387,7 +388,7 @@ public class GameController : MonoBehaviour
 			LanguageManager.DMFSM.Fire(DMTrigger.Done);
 		}
 		secondaryActivePiece = -1;
-		print("secondary active5 " + secondaryActivePiece);
+		print("stepstart(), secondary active = " + secondaryActivePiece);
 		LanguageManager.feedbackTimer0 = LanguageManager.TimerLen0;		
 		LanguageManager.curIntention = intention.IntentNone;
 		LanguageManager.correctNum = 0;
@@ -415,10 +416,6 @@ public class GameController : MonoBehaviour
 
 		} else {
 			if (GameInfo.stepControl[turnNumber]) {
-				//log player type
-				print("ACTIVE: " + MainController.WhoIs(active_player).ToUpper());
-				print("Set active player to white player - " + MainController.WhoIs(MainController.white_player).ToUpper());
-
 				//active_player = MainController._localPlayer;
 				active_player = MainController.white_player;
 
@@ -430,11 +427,6 @@ public class GameController : MonoBehaviour
 				}
 				LogTimeData.setActivePerson("p1");
 			} else if (GameInfo.otherStepControl[turnNumber]) {
-				
-				//log player type
-				print("ACTIVE: " + MainController.WhoIs(active_player).ToUpper());
-				print("Set active player to black player - " + MainController.WhoIs(MainController.black_player).ToUpper());
-
 
 				//active_player = MainController._agentPlayer;	
 				active_player = MainController.black_player;
@@ -575,7 +567,7 @@ public class GameController : MonoBehaviour
 				case "blocksuccess":
 					int id = Convert.ToInt32(value);
 					blocksuccess_index = id;
-					Debug.Log("Block success: " + id);
+					Debug.Log("RECEIVED BLOCK SUCCESS: " + id);
 					break;
 					
 			//if nothing matches, should throw error

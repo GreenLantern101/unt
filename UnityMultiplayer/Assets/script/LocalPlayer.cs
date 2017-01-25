@@ -51,7 +51,7 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 			activeTimer = -1000f;
 		} else {
 			GameController.secondaryActivePiece = _acI;
-			print("set active and secondary active player" + GameController.secondaryActivePiece);
+			print("set active and secondary active piece: " + _acI);
 			activeTimer = 0f;
 		}
 		activePiece = _acI;
@@ -63,7 +63,7 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	private static void sendActivePiece()
 	{
 		//send player's active piece
-		string message = "activePiece: " + activePiece;
+		string message = "sent activePiece: " + activePiece;
 		GameController.SyncGame_command(message);
 	}
 

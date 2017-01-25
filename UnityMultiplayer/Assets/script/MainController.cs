@@ -29,7 +29,7 @@ public class MainController : MonoBehaviour
 
 	public static int curGameNum;
 
-	//HARD-CODED, OTHER PLAYER NEEDS TO HAVE OTHER NODE!
+	//hard-coded into config file
 	public static NODE curNode;
 
 
