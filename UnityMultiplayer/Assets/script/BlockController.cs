@@ -28,7 +28,7 @@ public class BlockController : MonoBehaviour
 
 	void Update()
 	{
-		if (MainController.FSM.IsInState(PuzzleState.GAME)) {	
+		if (MainController.FSM.IsInState(PuzzleState.GAME)) {		
 			if (!GameInfo.blockSucceed[ID]) {
 				assignName(GameInfo.RandomList[ID]);
 				if (!GameInfo.NoColorTaskFlag) {
@@ -41,8 +41,10 @@ public class BlockController : MonoBehaviour
 			}
 		}
 
-
 		if (MainController.FSM.IsInState(PuzzleState.GAME_STEP)) {
+			if (GameController.active_player != MainController._localPlayer &&
+			    GameController.active_player != MainController._twoPlayers)
+				return;
 			if (LocalPlayer.activePiece == ID) {
 				GameObject activeObject = updateObj(ID);
 				manipulateObject(activeObject);
@@ -127,7 +129,6 @@ public class BlockController : MonoBehaviour
 		if (GameController.active_player != MainController._localPlayer &&
 		    GameController.active_player != MainController._twoPlayers)
 			return;
-		
 		print("Set active piece: " + ID);
 		MainController._localPlayer.setActivePiece(ID);
 		LogTimeData.setEvent(LogTimeData.dragStartEvent);
@@ -135,7 +136,6 @@ public class BlockController : MonoBehaviour
 
 	void OnMouseUp()
 	{
-		
 		MainController._localPlayer.setActivePiece(-1);
 		LogTimeData.setEvent(LogTimeData.dragEndEvent);
 	}
