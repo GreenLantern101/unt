@@ -37,7 +37,6 @@ public class BlockController : MonoBehaviour
 					renderer.material.mainTexture = grayTexture;
 				}
 			} else {
-				//if GameInfo.blockSucceed[ID]==true
 				GameInfo.setSucceed(ID);
 			}
 		}
@@ -143,22 +142,6 @@ public class BlockController : MonoBehaviour
 		    GameController.active_player != MainController._twoPlayers)
 			return;
 		
-		//force send final orientation/position
-		if (GameInfo.blockSucceed[ID]) {
-			//set and send final orientation
-			Vector3 finalOrient = new Vector3(0f, GameInfo.getTargetRotation(ID), 0f);
-			MainController._localPlayer.setOrientation(finalOrient);
-			resetRotate();
-			MainController._localPlayer.sendOrientation();
-		
-			
-			Debug.Log("player position: " + MainController._localPlayer.getPosition());
-			Debug.Log("target position: " + GameInfo.getTargetPosition(ID));
-			//set and send final position
-			MainController._localPlayer.setPosition(GameInfo.getTargetPosition(ID));
-			MainController._localPlayer.sendPosition();
-			
-		}
 		MainController._localPlayer.setActivePiece(-1);
 		LogTimeData.setEvent(LogTimeData.dragEndEvent);
 	}

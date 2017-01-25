@@ -324,9 +324,29 @@ public class GameController : MonoBehaviour
 					secondaryActivePiece = -1;					
 					LogTimeData.setEvent(LogTimeData.stepSuccessEvent);
 					GameInfo.setSucceed(activePiece);
+					
+					//send block succeed message to networked player
+					string message = "blocksuccess: " + activePiece;
+					GameController.SyncGame_command(message);
+					
 					thisStep = stepType.successStep;
 					MainController.FSM.Fire(Trigger.endStep);
 				}
+				
+				//sync block success from networked player
+				if (blocksuccess_index > -1) {
+					float y = GameInfo.getTargetRotation(blocksuccess_index);
+					Vector3 finalOrient = new Vector3(0f, y, 0f);
+					
+					GameObject obj = GameInfo.blockList[blocksuccess_index];
+					obj.transform.localEulerAngles = finalOrient;
+					
+					Vector3 finalpos = GameInfo.getTargetPosition(blocksuccess_index);
+					obj.transform.localPosition = finalpos;
+					//reset
+					blocksuccess_index = -1;
+				}
+				
 
 			}
 			if (LogTimeData.getPreEvent() == LogTimeData.moveStartEvent) {
@@ -480,6 +500,8 @@ public class GameController : MonoBehaviour
 	static float newOrient;
 	//store whether active piece changed --> primarily to reduce flicker caused by slight network delay
 	static bool activePieceChanged = false;
+	//store whether block has succeeded on networked player's computer
+	static int blocksuccess_index = -1;
 	
 	// obey with an order to sync game
 	public static void SyncGame_obey(string sync_info)
@@ -533,7 +555,7 @@ public class GameController : MonoBehaviour
 					MainController._networkedPlayer.setOrientation(orient);
 					newOrient = orient.y;
 					break;
-				//sync diff
+			//sync diff
 				case "diff":
 					String[] diffs = value.Split(',');
 					if (diffs.Length != 3)
@@ -541,11 +563,19 @@ public class GameController : MonoBehaviour
 					Vector3 diff = new Vector3(float.Parse(diffs[0]), float.Parse(diffs[1]), float.Parse(diffs[2]));
 					MainController._networkedPlayer.setDiff(diff);
 					break;
-				
+			/*
 				case "time":
 					long time = Convert.ToInt32(value);
 					long now = DateTime.Now.Minute * 60 * 1000 + DateTime.Now.Second * 1000 + DateTime.Now.Millisecond;
 					Debug.Log("Packet travel time: " + (now - time));
+					break;
+				*/
+				
+			//sync block success
+				case "blocksuccess":
+					int id = Convert.ToInt32(value);
+					blocksuccess_index = id;
+					Debug.Log("Block success: " + id);
 					break;
 					
 			//if nothing matches, should throw error
