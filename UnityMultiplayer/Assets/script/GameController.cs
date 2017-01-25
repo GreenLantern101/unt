@@ -366,7 +366,7 @@ public class GameController : MonoBehaviour
 			MainController.FSM.Fire(Trigger.startStep);
 		} else {			
 			LanguageManager.DMFSM.Fire(DMTrigger.GameEnd);
-			MainController.FSM.Fire(Trigger.endGame);	
+			MainController.FSM.Fire(Trigger.endGame);
 		}
 	}
 
@@ -493,7 +493,7 @@ public class GameController : MonoBehaviour
 	//store whether active piece changed --> primarily to reduce flicker caused by slight network delay
 	static bool activePieceChanged = false;
 	//store whether block has succeeded on networked player's computer
-	static int blocksuccess_index = -1;
+	public static int blocksuccess_index = -1;
 	
 	// obey with an order to sync game
 	public static void SyncGame_obey(string sync_info)
