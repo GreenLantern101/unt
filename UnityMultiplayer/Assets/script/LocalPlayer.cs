@@ -63,7 +63,7 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	private static void sendActivePiece()
 	{
 		//send player's active piece
-		string message = "sent activePiece: " + activePiece;
+		string message = "activePiece: " + activePiece;
 		GameController.SyncGame_command(message);
 	}
 

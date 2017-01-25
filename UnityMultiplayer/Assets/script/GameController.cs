@@ -322,7 +322,7 @@ public class GameController : MonoBehaviour
 				//check the success of the block
 				if (_moveValid.isSucceeded(activePiece)) {
 					//send block succeed message to networked player
-					string message = "SENT BLOCK SUCCESS: " + activePiece;
+					string message = "blocksuccess: " + activePiece;
 					GameController.SyncGame_command(message);
 					
 					secondaryActivePiece = -1;					
@@ -555,13 +555,13 @@ public class GameController : MonoBehaviour
 					Vector3 diff = new Vector3(float.Parse(diffs[0]), float.Parse(diffs[1]), float.Parse(diffs[2]));
 					MainController._networkedPlayer.setDiff(diff);
 					break;
-			/*
+			
 				case "time":
 					long time = Convert.ToInt32(value);
 					long now = DateTime.Now.Minute * 60 * 1000 + DateTime.Now.Second * 1000 + DateTime.Now.Millisecond;
 					Debug.Log("Packet travel time: " + (now - time));
 					break;
-				*/
+				
 				
 			//sync block success
 				case "blocksuccess":
