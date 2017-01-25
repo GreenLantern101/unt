@@ -572,7 +572,7 @@ public class GameController : MonoBehaviour
 					
 			//if nothing matches, should throw error
 				default:
-					throw new Exception("Syncing error: No variable match found to sync.");
+					Debug.Log("Syncing error: No variable match found to sync.");
 					break;
 			}
 		}
