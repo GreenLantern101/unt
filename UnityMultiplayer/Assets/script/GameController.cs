@@ -339,9 +339,11 @@ public class GameController : MonoBehaviour
 					Vector3 finalOrient = new Vector3(0f, y, 0f);
 					
 					GameObject obj = GameInfo.blockList[blocksuccess_index];
+					Debug.Log("old ang: " + obj.transform.localEulerAngles);
 					obj.transform.localEulerAngles = finalOrient;
 					
 					Vector3 finalpos = GameInfo.getTargetPosition(blocksuccess_index);
+					Debug.Log("old pos: " + obj.transform.position);
 					obj.transform.position = finalpos;
 					Debug.Log("POS: " + finalpos);
 					Debug.Log("ORIENT: " + finalOrient);
@@ -498,6 +500,8 @@ public class GameController : MonoBehaviour
 	// obey with an order to sync game
 	public static void SyncGame_obey(string sync_info)
 	{
+		//Debug.Log("INFO: " + sync_info);
+		
 		// Parse "sync_info":
 		// Rules:
 		// key-value entry pairs set off by semicolon delimiter

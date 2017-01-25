@@ -81,7 +81,7 @@ public class MainController : MonoBehaviour
 		print("NODE: " + curNode.ToString());
 
 
-		curGameNum = 0;
+		curGameNum = 5;
 		totalGameNum = 10;
 
 
@@ -103,8 +103,6 @@ public class MainController : MonoBehaviour
 	{
 		_localPlayer.setReadyFlag(true);
 		AgentPlayer.readyFlag = true;
-		
-		//somehow do something to readyflag of networked player...?
 	}
 
 	void Update()
@@ -118,6 +116,8 @@ public class MainController : MonoBehaviour
 					print("Networked player ready.");
 					FSM.Fire(Trigger.startGame);
 				}
+				//NOTE: when you use "else if(_agentPlayer.isReady())",
+				//networked player connect will be less reliable
 				/*
 				if(_agentPlayer.isReady()){
 					print ("Agent player ready.");
