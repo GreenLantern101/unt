@@ -75,23 +75,25 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	{
 		return diff;
 	}
-	
-	//check whether already sent diff reset (zero vector) --> for optimization
-	private static bool diffIsReset = false;
+
+	bool diffIsReset = false;
 	public void setPosition(Vector3 newposition)
 	{
+		diff = newposition - curPosition;
 		curPosition = newposition;
+		//prevent abrupt jumps
+		if (Math.Abs(diff.x) + Math.Abs(diff.z) > 50)
+			diff = Vector3.zero;
 		//only send if large enough delta
 		if (manhattanDist(lastSentPos, curPosition) > 1) {
 			sendPosition();
-			diff = newposition - lastSentPos;
-			//prevent abrupt jumps
-			if (Math.Abs(diff.x) + Math.Abs(diff.z) > 50)
-				diff = Vector3.zero;
+		}
+		if (diff.magnitude > .01) {
 			sendDiff();
 			diffIsReset = false;
-		} else if (!diffIsReset) {
-			diff = Vector3.zero;
+		}
+		//send zero diff once only
+		else if (!diffIsReset) {
 			sendDiff();
 			diffIsReset = true;
 		}

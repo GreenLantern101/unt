@@ -28,6 +28,9 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 		//should never be used
 		return Vector3.zero;
 	}
+	
+	Vector3 p1diff;
+	Vector3 p2diff;
 
 	public Vector3 getPosition()
 	{
@@ -36,10 +39,13 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 			
 			curPosition = GameInfo.blockList[activePiece].transform.position;
 			
-			double aX = Math.Round(player1.getDiff().x, 4);
-			double aZ = Math.Round(player1.getDiff().z, 4);
-			double bX = Math.Round(player2.getDiff().x, 4);
-			double bZ = Math.Round(player2.getDiff().z, 4);
+			p1diff = player1.getDiff();
+			p2diff = player2.getDiff();
+			
+			double aX = Math.Round(p1diff.x, 3);
+			double aZ = Math.Round(p1diff.z, 3);
+			double bX = Math.Round(p2diff.x, 3);
+			double bZ = Math.Round(p2diff.z, 3);
 			float averageX = 0;
 			float averageZ = 0;
 			//can't use float b/c 0f may not be equal to 0
