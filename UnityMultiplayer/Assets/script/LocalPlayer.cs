@@ -88,7 +88,7 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 		if (manhattanDist(lastSentPos, curPosition) > 1) {
 			sendPosition();
 		}
-		if (diff.magnitude > .01) {
+		if (diff.magnitude > .001) {
 			sendDiff();
 			diffIsReset = false;
 		}

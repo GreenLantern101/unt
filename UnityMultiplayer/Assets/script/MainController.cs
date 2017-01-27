@@ -134,7 +134,7 @@ public class MainController : MonoBehaviour
 			progressCam.enabled = false;		
 		} else {
 			mainCam.enabled = false;
-			progressCam.enabled = true;									
+			progressCam.enabled = true;						
 		}
 	}
 

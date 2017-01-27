@@ -31,6 +31,10 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 	
 	Vector3 p1diff;
 	Vector3 p2diff;
+	
+	public void setPosition(Vector3 newpos){
+		curPosition = newpos;
+	}
 
 	public Vector3 getPosition()
 	{

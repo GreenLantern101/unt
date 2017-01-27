@@ -281,6 +281,7 @@ public class GameController : MonoBehaviour
 						}
 					}
 				}
+				
 
 				activePiece = active_player.getActivePiece();
 				int id = MainController._networkedPlayer.getActivePiece();
@@ -292,7 +293,7 @@ public class GameController : MonoBehaviour
 
 					MainController._networkedPlayer.setPosition(activeObject.transform.position);
 					MainController._networkedPlayer.setOrientation(activeObject.transform.localEulerAngles);
-						
+					
 					//reset flag
 					activePieceChanged = false;
 					newOrient = activeObject.transform.localEulerAngles.y;
@@ -318,6 +319,18 @@ public class GameController : MonoBehaviour
 				}
 				GameInfo.PreActiveBlock = activePiece;
 				GameInfo.blockList[activePiece].transform.position = active_player.getPosition();
+				
+				
+				//if (twoplayerposchanged)
+				if(twoPlayerPos.magnitude > .1)
+				{
+					GameObject obj = GameInfo.blockList[MainController._twoPlayers.getActivePiece()];
+					obj.transform.position = twoPlayerPos;
+					//reset --> not good, causes vibrating
+					//twoPlayerPos = Vector3.zero;
+					twoplayerposchanged = false;
+					//Debug.Log("set block position: " + twoPlayerPos);
+				}
 
 				//check the success of the block
 				if (_moveValid.isSucceeded(activePiece)) {
@@ -497,6 +510,9 @@ public class GameController : MonoBehaviour
 	//store whether block has succeeded on networked player's computer
 	public static int blocksuccess_index = -1;
 	
+	static Vector3 twoPlayerPos = Vector3.zero;
+	static bool twoplayerposchanged = false;
+	
 	// obey with an order to sync game
 	public static void SyncGame_obey(string sync_info)
 	{
@@ -572,6 +588,16 @@ public class GameController : MonoBehaviour
 					int id = Convert.ToInt32(value);
 					blocksuccess_index = id;
 					Debug.Log("RECEIVED BLOCK SUCCESS: " + id);
+					break;
+					
+				case "twoplayerpos":
+					String[] twolocs = value.Split(',');
+					if (twolocs.Length != 3)
+						throw new Exception("Two player position could not be parsed to type: UnityEngine.Vector3");
+					twoPlayerPos = new Vector3(float.Parse(twolocs[0]), float.Parse(twolocs[1]), float.Parse(twolocs[2]));
+					
+					twoplayerposchanged = true;
+					Debug.Log("received position: " + twoPlayerPos);
 					break;
 					
 			//if nothing matches, should throw error
