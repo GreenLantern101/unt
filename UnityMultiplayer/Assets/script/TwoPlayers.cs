@@ -32,6 +32,8 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 	Vector3 p1diff;
 	Vector3 p2diff;
 	
+	Vector3 lastSentPos;
+	
 	public void setPosition(Vector3 newpos){
 		curPosition = newpos;
 	}
@@ -58,6 +60,12 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 			if (aZ * bZ > 0)
 				averageZ = (float)(aZ + bZ) / 2.0f;
 			curPosition += new Vector3(averageX, 0f, averageZ);
+			
+			if(Vector3.Magnitude(curPosition - lastSentPos) > 1){
+				string message = "twoplayerpos: " + curPosition.x + "," + curPosition.y + "," + curPosition.z;
+				GameController.SyncGame_command(message);
+				lastSentPos = curPosition;
+			}
 			
 		}
 		return curPosition;
