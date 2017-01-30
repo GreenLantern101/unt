@@ -5,7 +5,6 @@ public class NetworkedPlayer : MonoBehaviour, IPlayerHandler
 
 	public static int activePiece { get; private set; }
 	public static Vector3 curPosition { get; private set; }
-	private static Vector3 diff;
 	public static Vector3 curOrientation;
 	public static bool readyFlag { get; private set; }
 	public static float activeTimer;
@@ -31,31 +30,19 @@ public class NetworkedPlayer : MonoBehaviour, IPlayerHandler
 	public void setActivePiece(int _acI)
 	{
 		activePiece = _acI;
-		//reset diff
-		diff = Vector3.zero;
 	}
 
 	public Vector3 getPosition()
 	{
 		return curPosition;
 	}
-	public Vector3 getDiff()
-	{
-		return diff;
-	}
 	public Vector3 getOrientation()
 	{
 		return curOrientation;
 	}
-	
-	//for syncing
-	public void setDiff(Vector3 newdiff){
-		diff = newdiff;
-	}
 	//for syncing
 	public void setPosition(Vector3 newposition)
 	{
-		diff = newposition - curPosition;
 		curPosition = newposition;
 	}
 	//for syncing

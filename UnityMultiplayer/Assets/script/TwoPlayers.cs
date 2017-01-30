@@ -23,18 +23,17 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 		activePiece = _acI;
 	}
 
-	public Vector3 getDiff()
-	{
-		//should never be used
-		return Vector3.zero;
-	}
 	
 	Vector3 p1diff;
 	Vector3 p2diff;
 	
 	Vector3 lastSentPos;
 	
-	public void setPosition(Vector3 newpos){
+	Vector3 p1oldpos;
+	Vector3 p2oldpos;
+	
+	public void setPosition(Vector3 newpos)
+	{
 		curPosition = newpos;
 	}
 
@@ -44,14 +43,20 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 		if (activePiece != -1) {
 			
 			curPosition = GameInfo.blockList[activePiece].transform.position;
+
 			
-			p1diff = player1.getDiff();
-			p2diff = player2.getDiff();
+			p1diff = player1.getPosition() - p1oldpos;
+			p2diff = player2.getPosition() - p2oldpos;
 			
-			double aX = Math.Round(p1diff.x, 3);
-			double aZ = Math.Round(p1diff.z, 3);
-			double bX = Math.Round(p2diff.x, 3);
-			double bZ = Math.Round(p2diff.z, 3);
+			if (p1diff.magnitude > 50)
+				p1diff = Vector3.zero;
+			if (p2diff.magnitude > 50)
+				p2diff = Vector3.zero;
+			
+			double aX = Math.Round(p1diff.x, 4);
+			double aZ = Math.Round(p1diff.z, 4);
+			double bX = Math.Round(p2diff.x, 4);
+			double bZ = Math.Round(p2diff.z, 4);
 			float averageX = 0;
 			float averageZ = 0;
 			//can't use float b/c 0f may not be equal to 0
@@ -61,13 +66,20 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 				averageZ = (float)(aZ + bZ) / 2.0f;
 			curPosition += new Vector3(averageX, 0f, averageZ);
 			
-			if(Vector3.Magnitude(curPosition - lastSentPos) > 1){
+			p1oldpos = player1.getPosition();
+			p2oldpos = player2.getPosition();
+			
+			
+			//black node player is more powerful, commands sync
+			if (MainController.curNode == NODE.BLACK_NODE &&
+			   Vector3.Magnitude(curPosition - lastSentPos) > 1) {
 				string message = "twoplayerpos: " + curPosition.x + "," + curPosition.y + "," + curPosition.z;
 				GameController.SyncGame_command(message);
 				lastSentPos = curPosition;
 			}
 			
 		}
+		//Debug.Log("POS: " + curPosition);
 		return curPosition;
 	}
 	
@@ -107,37 +119,5 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 	public void skipThisTurn()
 	{
 
-	}
-	
-	
-	/// <summary>
-	/// calculates distance squared, use only if performance-critical
-	/// </summary>
-	/// <param name="enemy"></param>
-	/// <returns></returns>
-	public static float DistSquared(float x1, float y1, float x2, float y2)
-	{
-		return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
-	}
-	public static float Distance(float x1, float y1, float x2, float y2)
-	{
-		return (float)Math.Sqrt(DistSquared(x1, y1, x2, y2));
-	}
-	/// <summary>
-	///the angle between two points, in radians or degrees
-	/// </summary>
-	public static float Angle(float end_x, float end_y, float start_x, float start_y, bool InDegrees = false)
-	{
-		float n = 0;
-		float dist = Distance(end_x, end_y, start_x, start_y);
-		if (dist <= 0)
-			return 0; //catches NaN errors start div by 0
-		if (end_y >= start_y)
-			n = (float)Math.Acos((end_x - start_x) / dist);
-		else
-			n = -(float)Math.Acos((end_x - start_x) / dist);
-		if (InDegrees)
-			n *= (float)(180 / Math.PI);
-		return n;
 	}
 }

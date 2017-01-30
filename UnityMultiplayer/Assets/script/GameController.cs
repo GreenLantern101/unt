@@ -567,21 +567,12 @@ public class GameController : MonoBehaviour
 					MainController._networkedPlayer.setOrientation(orient);
 					newOrient = orient.y;
 					break;
-			//sync diff
-				case "diff":
-					String[] diffs = value.Split(',');
-					if (diffs.Length != 3)
-						throw new Exception("Diff could not be parsed to type: UnityEngine.Vector3");
-					Vector3 diff = new Vector3(float.Parse(diffs[0]), float.Parse(diffs[1]), float.Parse(diffs[2]));
-					MainController._networkedPlayer.setDiff(diff);
-					break;
 			
 				case "time":
 					long time = Convert.ToInt32(value);
 					long now = DateTime.Now.Minute * 60 * 1000 + DateTime.Now.Second * 1000 + DateTime.Now.Millisecond;
 					Debug.Log("Packet travel time: " + (now - time));
 					break;
-				
 				
 			//sync block success
 				case "blocksuccess":

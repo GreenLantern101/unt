@@ -6,7 +6,6 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	public static int activePiece { get; private set; }
 
 	public static Vector3 curPosition { get; private set; }
-	private static Vector3 diff;
 	//last sent position
 	private static Vector3 lastSentPos;
 	//last sent orientation
@@ -24,7 +23,6 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	{
 		readyFlag = val;
 
-		//GameController
 		//send ready flag immediately after setting
 		sendReadyFlag();
 	}
@@ -55,8 +53,6 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 			activeTimer = 0f;
 		}
 		activePiece = _acI;
-		//reset diff
-		diff = Vector3.zero;
 
 		sendActivePiece();
 	}
@@ -69,33 +65,14 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 
 	public Vector3 getPosition()
 	{
-		return curPosition;
+		return lastSentPos;
 	}
-	public Vector3 getDiff()
-	{
-		return diff;
-	}
-
-	bool diffIsReset = false;
 	public void setPosition(Vector3 newposition)
 	{
-		diff = newposition - curPosition;
 		curPosition = newposition;
-		//prevent abrupt jumps
-		if (Math.Abs(diff.x) + Math.Abs(diff.z) > 50)
-			diff = Vector3.zero;
 		//only send if large enough delta
 		if (manhattanDist(lastSentPos, curPosition) > 1) {
 			sendPosition();
-		}
-		if (diff.magnitude > .001) {
-			sendDiff();
-			diffIsReset = false;
-		}
-		//send zero diff once only
-		else if (!diffIsReset) {
-			sendDiff();
-			diffIsReset = true;
 		}
 	}
 	//send player position over networking
@@ -105,14 +82,7 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 		GameController.SyncGame_command(message);
 		lastSentPos = curPosition;
 	}
-	private void sendDiff()
-	{
-		if (GameController.active_player != MainController._twoPlayers)
-			return;
-		string message = "diff: " + diff.x + "," + diff.y + "," + diff.z;
-		GameController.SyncGame_command(message);
-	}
-	
+
 	public Vector3 getOrientation()
 	{
 		return curOrientation;
