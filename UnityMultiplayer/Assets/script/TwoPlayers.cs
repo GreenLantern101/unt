@@ -21,6 +21,9 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 	public void setActivePiece(int _acI)
 	{
 		activePiece = _acI;
+		
+		//p1oldpos = player1.getPosition();
+		//p2oldpos = player2.getPosition();
 	}
 
 	
@@ -48,9 +51,9 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 			p1diff = player1.getPosition() - p1oldpos;
 			p2diff = player2.getPosition() - p2oldpos;
 			
-			if (p1diff.magnitude > 50)
+			if (p1diff.magnitude > 10)
 				p1diff = Vector3.zero;
-			if (p2diff.magnitude > 50)
+			if (p2diff.magnitude > 10)
 				p2diff = Vector3.zero;
 			
 			double aX = Math.Round(p1diff.x, 4);
@@ -72,7 +75,7 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 			
 			//black node player is more powerful, commands sync
 			if (MainController.curNode == NODE.BLACK_NODE &&
-			   Vector3.Magnitude(curPosition - lastSentPos) > 1) {
+			    Vector3.Magnitude(curPosition - lastSentPos) > 1) {
 				string message = "twoplayerpos: " + curPosition.x + "," + curPosition.y + "," + curPosition.z;
 				GameController.SyncGame_command(message);
 				lastSentPos = curPosition;
