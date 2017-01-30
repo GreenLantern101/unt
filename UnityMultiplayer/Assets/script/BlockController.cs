@@ -131,6 +131,7 @@ public class BlockController : MonoBehaviour
 			return;
 		print("Set active piece: " + ID);
 		MainController._localPlayer.setActivePiece(ID);
+		MainController._twoPlayers.setActivePiece(ID);
 		LogTimeData.setEvent(LogTimeData.dragStartEvent);
 	}
 

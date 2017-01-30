@@ -21,9 +21,16 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 	public void setActivePiece(int _acI)
 	{
 		activePiece = _acI;
+		if (activePiece == -1)
+			return;
 		
-		//p1oldpos = player1.getPosition();
-		//p2oldpos = player2.getPosition();
+		//set old position to current position on block piece switch
+		p1oldpos = GameInfo.blockList[activePiece].transform.position;
+		p2oldpos = GameInfo.blockList[activePiece].transform.position;
+		if (player1 == MainController._localPlayer)
+			p1oldpos = LocalPlayer.curPosition;
+		else
+			p2oldpos = LocalPlayer.curPosition;
 	}
 
 	
@@ -51,9 +58,9 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 			p1diff = player1.getPosition() - p1oldpos;
 			p2diff = player2.getPosition() - p2oldpos;
 			
-			if (p1diff.magnitude > 10)
+			if (p1diff.magnitude > 50)
 				p1diff = Vector3.zero;
-			if (p2diff.magnitude > 10)
+			if (p2diff.magnitude > 50)
 				p2diff = Vector3.zero;
 			
 			double aX = Math.Round(p1diff.x, 4);
