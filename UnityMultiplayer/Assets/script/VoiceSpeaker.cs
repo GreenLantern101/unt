@@ -78,7 +78,7 @@ public class VoiceSpeaker : MonoBehaviour
 
 	public static void speakOut(string _str){
 		LogTimeData.logEvent (LogTimeData.speakEvnet);
-		Say (_str);
+		//Say (_str);
 		LanguageManager.responseText = "";
 	}
 
