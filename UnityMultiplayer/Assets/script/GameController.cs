@@ -322,14 +322,12 @@ public class GameController : MonoBehaviour
 				
 				
 				//if (twoplayerposchanged)
-				if(twoPlayerPos.magnitude > .1)
+				if(GameController.active_player==MainController._twoPlayers
+				   && twoPlayerPos.magnitude > .1)
 				{
 					GameObject obj = GameInfo.blockList[MainController._twoPlayers.getActivePiece()];
 					obj.transform.position = twoPlayerPos;
-					//reset --> not good, causes vibrating
-					//twoPlayerPos = Vector3.zero;
 					twoplayerposchanged = false;
-					//Debug.Log("set block position: " + twoPlayerPos);
 				}
 
 				//check the success of the block
@@ -588,7 +586,6 @@ public class GameController : MonoBehaviour
 					twoPlayerPos = new Vector3(float.Parse(twolocs[0]), float.Parse(twolocs[1]), float.Parse(twolocs[2]));
 					
 					twoplayerposchanged = true;
-					Debug.Log("received position: " + twoPlayerPos);
 					break;
 					
 			//if nothing matches, should throw error
