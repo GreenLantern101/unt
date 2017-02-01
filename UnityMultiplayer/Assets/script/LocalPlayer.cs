@@ -33,9 +33,13 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	private static void sendReadyFlag()
 	{
 		//send the player is ready to the other player
-		string message = "readyFlag: true";
+		string message = "readyFlag: ";
+		if(readyFlag)
+			message += "true";
+		else
+			message += "false";
 		GameController.SyncGame_command(message);
-		Debug.Log("Local player broadcasted that it is ready.");
+		Debug.Log("Local player::" + message);
 	}
 
 
