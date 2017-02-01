@@ -10,12 +10,10 @@ public enum NODE
 
 public class MainController : MonoBehaviour
 {
-
-	// all static because GLOBAL VARS
-	public static LocalPlayer _localPlayer;
-	public static AgentPlayer _agentPlayer;
-	public static NetworkedPlayer _networkedPlayer;
-	public static TwoPlayers _twoPlayers;
+	public static LocalPlayer _localPlayer{ get; private set; }
+	public static AgentPlayer _agentPlayer{ get; private set; }
+	public static NetworkedPlayer _networkedPlayer{ get; private set; }
+	public static TwoPlayers _twoPlayers{ get; private set; }
 
 	//initialized here before Start(), so NetworkConnection can call it remotely
 	public static StateMachine FSM = new StateMachine();
@@ -81,7 +79,7 @@ public class MainController : MonoBehaviour
 		print("NODE: " + curNode.ToString());
 
 
-		curGameNum = 5;
+		curGameNum = 8;
 		totalGameNum = 10;
 
 

@@ -48,8 +48,8 @@ public class GameController : MonoBehaviour
 	public static int secondaryActivePiece;
 
 
-	public static float activeTimer;
-	public static float secondaryActiveTimer;
+	private static float activeTimer;
+	private static float secondaryActiveTimer;
 
 
 	public static float gameLen;
@@ -60,7 +60,7 @@ public class GameController : MonoBehaviour
 	private LogTimeData logTimeDataScript;
 	
 	//--------- networking vars ---------
-	public static Server _server;
+	public static Server _server{ get; private set; }
 	private static TcpClient _tcpclient;
 	
 
@@ -322,9 +322,8 @@ public class GameController : MonoBehaviour
 				
 				
 				//if (twoplayerposchanged)
-				if(GameController.active_player==MainController._twoPlayers
-				   && twoPlayerPos.magnitude > .1)
-				{
+				if (GameController.active_player == MainController._twoPlayers
+				   && twoPlayerPos.magnitude > .1) {
 					GameObject obj = GameInfo.blockList[MainController._twoPlayers.getActivePiece()];
 					obj.transform.position = twoPlayerPos;
 					twoplayerposchanged = false;
