@@ -65,7 +65,7 @@ public class GameGUI : MonoBehaviour
 
 		if (MainController.FSM.IsInState(PuzzleState.INTRO_PLAY)
 		   //ensure other player connected before allowing ready button to be used.
-		   && GameController._server.isOtherClientConnected) {
+		    && GameController._server.isOtherClientConnected) {
 			if (textIndex == 0) {				
 				text = "Hello again and welcome to the collaborative virtual environment. " +
 				"Now you will play some block puzzles with your partner. Say hello to your partner. ";
@@ -143,8 +143,13 @@ public class GameGUI : MonoBehaviour
 		if (MainController.FSM.IsInState(PuzzleState.GAME_END)) {
 			buttonText = "finish";
 			
+			//reset player ready flag to false, until "finish" button clicked
+			if(MainController._localPlayer.isReady())
+				MainController._localPlayer.setReadyFlag(false);
+			
 			if (GUI.Button(new Rect(3.25f * Screen.width / 7, 4.5f * Screen.height / 6f, 0.5f * Screen.width / 7, 0.5f * Screen.height / 6), buttonText)) {
-				
+				//set ready flag to true if button clicked
+				MainController._localPlayer.setReadyFlag(true);
 				MainController.FSM.Fire(Trigger.endGame);
 			}
 		}
