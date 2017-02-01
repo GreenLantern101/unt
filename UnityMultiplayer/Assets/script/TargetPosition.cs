@@ -2,7 +2,7 @@
 
 public class TargetPosition: MonoBehaviour
 {
-	private float MoveRate = 20f;
+	private float MoveRate = 14f;
 	private float threshUp;
 	private float threshDown;
 
