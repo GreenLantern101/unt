@@ -3,7 +3,6 @@
 public class TargetPosition: MonoBehaviour
 {
 	private float MoveRate = 20f;
-	private bool moveFlag = false;
 	private float threshUp;
 	private float threshDown;
 
@@ -39,19 +38,18 @@ public class TargetPosition: MonoBehaviour
 		}
 		
 		//only happens if(gameObject.name == GameController.targetTName)
-		if (MainController.curGameNum == 7 || MainController.curGameNum == 8 || MainController.curGameNum == 9) {						
+		int n = MainController.curGameNum;
+		if (n == 7 || n == 8 || n == 9) {						
 			GameController.setPosition("");
-			if ((curPosition.z > threshUp && !moveFlag) || (curPosition.z < threshDown && moveFlag)) {
-				moveFlag = !moveFlag;
-				MoveRate = 0 - MoveRate;
+			if (curPosition.z > threshUp || curPosition.z < threshDown) {
+				MoveRate *= -1;
 			}
 
 			curPosition.z += Time.deltaTime * MoveRate;
-			curPosition.x += Time.deltaTime * MoveRate * Random.Range(0f, 0.5f);
-			gameObject.transform.position = curPosition;
+			curPosition.x += Time.deltaTime * MoveRate * 0.3f;
 		} else {
-			curPosition.z = (float)GameInfo.initialPositionArray[GameController.targetTName];
-			gameObject.transform.position = curPosition;					
+			curPosition.z = (float)GameInfo.initialPositionArray[GameController.targetTName];				
 		}
+		gameObject.transform.position = curPosition;
 	}
 }
