@@ -32,24 +32,26 @@ public class TargetPosition: MonoBehaviour
 			gameObject.transform.position = targetPosition;
 			return;
 		}
-		if (gameObject.name == GameController.targetTName) {
-			if (MainController.curGameNum == 7 || MainController.curGameNum == 8 || MainController.curGameNum == 9) {						
-				GameController.setPosition("");
-				if ((curPosition.z > threshUp && !moveFlag) || (curPosition.z < threshDown && moveFlag)) {
-					moveFlag = !moveFlag;
-					MoveRate = 0 - MoveRate;
-				}
-
-				curPosition.z += Time.deltaTime * MoveRate;
-				curPosition.x += Time.deltaTime * MoveRate * Random.Range(0f, 0.5f);
-				gameObject.transform.position = curPosition;
-			} else {
-				curPosition.z = (float)GameInfo.initialPositionArray[GameController.targetTName];
-				gameObject.transform.position = curPosition;					
-			}
-		} else {
+		if (gameObject.name != GameController.targetTName) {
 			curPosition.z = 300f;
-			gameObject.transform.position = curPosition;						
+			gameObject.transform.position = curPosition;	
+			return;
+		}
+		
+		//only happens if(gameObject.name == GameController.targetTName)
+		if (MainController.curGameNum == 7 || MainController.curGameNum == 8 || MainController.curGameNum == 9) {						
+			GameController.setPosition("");
+			if ((curPosition.z > threshUp && !moveFlag) || (curPosition.z < threshDown && moveFlag)) {
+				moveFlag = !moveFlag;
+				MoveRate = 0 - MoveRate;
+			}
+
+			curPosition.z += Time.deltaTime * MoveRate;
+			curPosition.x += Time.deltaTime * MoveRate * Random.Range(0f, 0.5f);
+			gameObject.transform.position = curPosition;
+		} else {
+			curPosition.z = (float)GameInfo.initialPositionArray[GameController.targetTName];
+			gameObject.transform.position = curPosition;					
 		}
 	}
 }
