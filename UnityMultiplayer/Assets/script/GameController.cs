@@ -355,16 +355,7 @@ public class GameController : MonoBehaviour
 				
 				//sync block success from networked player
 				if (blocksuccess_index > -1) {
-					GameObject obj = GameInfo.blockList[blocksuccess_index];
-					//move final orient
-					float y = GameInfo.getTargetRotation(blocksuccess_index);
-					Vector3 finalOrient = new Vector3(0f, y, 0f);
-					obj.transform.localEulerAngles = finalOrient;
-					//move final pos
-					Vector3 finalpos = GameInfo.getTargetPosition(blocksuccess_index);
-					obj.transform.position = finalpos;
-					//set block succeed flag
-					GameInfo.blockSucceed[blocksuccess_index] = true;
+					GameInfo.setSucceed(blocksuccess_index);
 					//reset
 					blocksuccess_index = -1;
 				}
