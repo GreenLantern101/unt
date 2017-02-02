@@ -466,6 +466,12 @@ public static class GameInfo
 
 	public static int agentSeeColor(int blockI)
 	{
+		//HACK: prevents array index out of bounds exception
+		if (blockI == -1){
+			Debug.Log("ERROR: blockI is a negative array index.");
+			return -99999;
+		}
+		
 		int peerBlock = peerList[blockI];
 		if (peerBlock == -1 || (peerBlock != -1 && agentColorVisible[peerBlock] == 2) || blockSucceed[peerBlock] || blockSucceed[blockI]) {
 			agentColorVisible[blockI] = 2;	 

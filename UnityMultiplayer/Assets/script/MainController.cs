@@ -79,7 +79,7 @@ public class MainController : MonoBehaviour
 		print("NODE: " + curNode.ToString());
 
 
-		curGameNum = 0;
+		curGameNum = 6;
 		totalGameNum = 10;
 
 
@@ -148,8 +148,6 @@ public class MainController : MonoBehaviour
 		if (curGameNum < totalGameNum) {
 			//reset block success index on game end
 			GameController.blocksuccess_index = -1;
-			
-			//TODO: check that both players are ready (finish buttons clicked) before starting
 			FSM.Fire(Trigger.startGame);
 		} else {
 			FSM.Fire(Trigger.endNode);	
