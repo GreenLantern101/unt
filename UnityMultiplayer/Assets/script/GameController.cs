@@ -37,8 +37,7 @@ public class GameController : MonoBehaviour
 	public static IPlayerHandler inactive_player;
 
 	public static int totalStepNum;
-	public static float GameTimer;
-	// Time for the count down
+	
 	public static AudioSource audioP;
 	private static int succeedBlock;
 	public static stepType thisStep;
@@ -52,7 +51,11 @@ public class GameController : MonoBehaviour
 	private static float secondaryActiveTimer;
 
 
-	public static float gameLen;
+	// Time for the count down
+	public static float GameTimer{ get; private set; }
+	public static float gameLen{ get; private set; }
+	
+	
 	public static bool flag;
 	private int blockNumber = 7;
 	public static PlayState curPlayState;
@@ -82,6 +85,11 @@ public class GameController : MonoBehaviour
 		//--------------- initialize networking ------------------
 		_server = new Server();
 		_server.Start(this);
+	}
+	
+	public static void resetGameTimer()
+	{
+		GameTimer = gameLen;
 	}
 
 	//GameController should be initialized for each game
@@ -247,8 +255,8 @@ public class GameController : MonoBehaviour
 		
 		//WARNING: might be problematic for two-player or agent games
 		if (!MainController._networkedPlayer.isReady() &&
-		   (MainController.black_player == MainController._networkedPlayer
-		   || MainController.white_player == MainController._networkedPlayer))
+		    (MainController.black_player == MainController._networkedPlayer
+		    || MainController.white_player == MainController._networkedPlayer))
 			return;
 		
 		if (MainController.FSM.IsInState(PuzzleState.GAME_INITIALIZATION)) {
@@ -356,6 +364,9 @@ public class GameController : MonoBehaviour
 				//sync block success from networked player
 				if (blocksuccess_index > -1) {
 					GameInfo.setSucceed(blocksuccess_index);
+					//reset timer
+					resetGameTimer();
+					
 					//reset
 					blocksuccess_index = -1;
 				}
@@ -386,7 +397,7 @@ public class GameController : MonoBehaviour
 	{	
 		++turnNumber;	
 		flag = true;
-		GameTimer = gameLen;
+		resetGameTimer();
 		//switch user at each step
 		DetectPlayState();
 		//assign pre active block
