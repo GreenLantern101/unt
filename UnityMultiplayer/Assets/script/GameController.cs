@@ -241,6 +241,16 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		//only update if both players ready
+		if (!MainController._localPlayer.isReady())
+			return;
+		
+		//WARNING: might be problematic for two-player or agent games
+		if (!MainController._networkedPlayer.isReady() &&
+		   (MainController.black_player == MainController._networkedPlayer
+		   || MainController.white_player == MainController._networkedPlayer))
+			return;
+		
 		if (MainController.FSM.IsInState(PuzzleState.GAME_INITIALIZATION)) {
 			GameInfo.switchTimer -= Time.deltaTime;
 			if (GameInfo.switchTimer < 0) {
@@ -323,7 +333,7 @@ public class GameController : MonoBehaviour
 				
 				//if (twoplayerposchanged)
 				if (GameController.active_player == MainController._twoPlayers
-				   && twoPlayerPos.magnitude > .1) {
+				    && twoPlayerPos.magnitude > .1) {
 					GameObject obj = GameInfo.blockList[MainController._twoPlayers.getActivePiece()];
 					obj.transform.position = twoPlayerPos;
 					twoplayerposchanged = false;
