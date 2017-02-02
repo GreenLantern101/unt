@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using System;
 
 public class TargetPosition: MonoBehaviour
 {
-	private float MoveRate = 14f;
+	private float speed = 14f;
 	private float threshUp;
 	private float threshDown;
 
@@ -41,12 +42,17 @@ public class TargetPosition: MonoBehaviour
 		int n = MainController.curGameNum;
 		if (n == 7 || n == 8 || n == 9) {						
 			GameController.setPosition("");
-			if (curPosition.z > threshUp || curPosition.z < threshDown) {
-				MoveRate *= -1;
+			if (curPosition.z > threshUp){
+				//always negative
+				speed = -Math.Abs(speed);
+			}
+			else if(curPosition.z < threshDown) {
+				//always positive
+				speed = Math.Abs(speed);
 			}
 
-			curPosition.z += Time.deltaTime * MoveRate;
-			curPosition.x += Time.deltaTime * MoveRate * 0.3f;
+			curPosition.z += Time.deltaTime * speed;
+			curPosition.x += Time.deltaTime * speed * 0.3f;
 		} else {
 			curPosition.z = (float)GameInfo.initialPositionArray[GameController.targetTName];				
 		}
