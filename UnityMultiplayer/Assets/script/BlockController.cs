@@ -37,7 +37,7 @@ public class BlockController : MonoBehaviour
 				} else {
 					renderer.material.mainTexture = grayTexture;
 				}
-			} else if(!succeed_set){
+			} else if(!succeed_set || MainController.curGameNum>=7){
 				//set succeed once
 				GameInfo.setSucceed(ID);
 				succeed_set = true;
