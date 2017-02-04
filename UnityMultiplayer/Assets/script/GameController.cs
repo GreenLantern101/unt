@@ -249,6 +249,7 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		
 		//only update if both players ready
 		if (!MainController._localPlayer.isReady())
 			return;
@@ -258,6 +259,7 @@ public class GameController : MonoBehaviour
 		    (MainController.black_player == MainController._networkedPlayer
 		    || MainController.white_player == MainController._networkedPlayer))
 			return;
+		
 		
 		if (MainController.FSM.IsInState(PuzzleState.GAME_INITIALIZATION)) {
 			GameInfo.switchTimer -= Time.deltaTime;
@@ -305,6 +307,9 @@ public class GameController : MonoBehaviour
 				int id = MainController._networkedPlayer.getActivePiece();
 
 				if (activePieceChanged && id != -1) {
+					//if block succeeded, do not incorporate synced changes
+					if(GameInfo.blockSucceed[id])
+						return;
 					GameObject activeObject = GameInfo.blockList[id];
 					//NEW: reduce flicker by setting player pos/orient to match active block
 					//flicker caused by player pos/orient matching last active block before packet update
@@ -317,6 +322,9 @@ public class GameController : MonoBehaviour
 					newOrient = activeObject.transform.localEulerAngles.y;
 				}
 				if (id != -1) {
+					//if block succeeded, do not incorporate synced changes
+					if(GameInfo.blockSucceed[id])
+						return;
 					GameObject activeObject = GameInfo.blockList[id];
 					//actually rotate block
 					float curOrient = activeObject.transform.localEulerAngles.y;
@@ -364,6 +372,7 @@ public class GameController : MonoBehaviour
 				//sync block success from networked player
 				if (blocksuccess_index > -1) {
 					GameInfo.setSucceed(blocksuccess_index);
+					
 					//reset timer
 					resetGameTimer();
 					

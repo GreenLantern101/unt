@@ -12,6 +12,7 @@ public class BlockController : MonoBehaviour
 	public Texture grayTexture;
 	public Texture defaultTexture;
 	private float rotateRate;
+	private bool succeed_set = false;
 
 
 	void Start()
@@ -36,8 +37,10 @@ public class BlockController : MonoBehaviour
 				} else {
 					renderer.material.mainTexture = grayTexture;
 				}
-			} else {
+			} else if(!succeed_set){
+				//set succeed once
 				GameInfo.setSucceed(ID);
+				succeed_set = true;
 			}
 		}
 
@@ -105,7 +108,7 @@ public class BlockController : MonoBehaviour
 
 	public void resetRotate()
 	{
-		transform.localEulerAngles = new Vector3(0f, GameInfo.initialRotationArray[ID], 0f);
+		transform.localEulerAngles = new Vector3(0f, GameInfo.targetRotationArray[ID], 0f);
 	}
 
 	public void assignName(int name)
