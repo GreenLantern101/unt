@@ -20,7 +20,7 @@ public class NetworkConnection: MonoBehaviour
 
 	//location of google server for AI
 	//private string Address = "129.59.79.186";
-	private string Address = "129.59.79.171;
+	private string Address = "129.59.79.171";
 
 
 	public Hashtable speechHT;
