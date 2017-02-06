@@ -79,7 +79,8 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 			//black node player is more powerful, commands sync
 			if (MainController.curNode == NODE.BLACK_NODE &&
 			    Vector3.Magnitude(curPosition - lastSentPos) > 1) {
-				string message = "twoplayerpos: " + curPosition.x + "," + curPosition.y + "," + curPosition.z;
+				//message has both position and active piece at time sent
+				string message = "twoplayerpos: " + curPosition.x + "," + curPosition.y + "," + curPosition.z + "," + activePiece;
 				GameController.SyncGame_command(message);
 				lastSentPos = curPosition;
 			}

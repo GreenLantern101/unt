@@ -308,7 +308,7 @@ public class GameController : MonoBehaviour
 
 				if (activePieceChanged && id != -1) {
 					//if block succeeded, do not incorporate synced changes
-					if(GameInfo.blockSucceed[id])
+					if (GameInfo.blockSucceed[id])
 						return;
 					GameObject activeObject = GameInfo.blockList[id];
 					//NEW: reduce flicker by setting player pos/orient to match active block
@@ -323,7 +323,7 @@ public class GameController : MonoBehaviour
 				}
 				if (id != -1) {
 					//if block succeeded, do not incorporate synced changes
-					if(GameInfo.blockSucceed[id])
+					if (GameInfo.blockSucceed[id])
 						return;
 					GameObject activeObject = GameInfo.blockList[id];
 					//actually rotate block
@@ -371,10 +371,10 @@ public class GameController : MonoBehaviour
 				
 				//sync block success from networked player
 				if (blocksuccess_index > -1 && !GameInfo.blockSucceed[blocksuccess_index]) {
-					GameInfo.setSucceed(blocksuccess_index);
 					
-					//reset timer
-					resetGameTimer();
+					secondaryActivePiece = -1;					
+					LogTimeData.setEvent(LogTimeData.stepSuccessEvent);
+					GameInfo.setSucceed(blocksuccess_index);
 					
 					thisStep = stepType.successStep;
 					MainController.FSM.Fire(Trigger.endStep);
@@ -602,11 +602,14 @@ public class GameController : MonoBehaviour
 					
 				case "twoplayerpos":
 					String[] twolocs = value.Split(',');
-					if (twolocs.Length != 3)
+					if (twolocs.Length != 4)
 						throw new Exception("Two player position could not be parsed to type: UnityEngine.Vector3");
-					twoPlayerPos = new Vector3(float.Parse(twolocs[0]), float.Parse(twolocs[1]), float.Parse(twolocs[2]));
-					
-					twoplayerposchanged = true;
+					//only sync if same active piece
+					if (Convert.ToInt32(twolocs[3]) == MainController._localPlayer.getActivePiece()
+					    && MainController._localPlayer.getActivePiece()>-1) {
+						twoPlayerPos = new Vector3(float.Parse(twolocs[0]), float.Parse(twolocs[1]), float.Parse(twolocs[2]));
+						twoplayerposchanged = true;
+					}
 					break;
 					
 			//if nothing matches, should throw error
