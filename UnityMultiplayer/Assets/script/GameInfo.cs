@@ -258,6 +258,13 @@ public static class GameInfo
 		suObj.GetComponent<BlockController>().relaseName(RandomList[blockI]);
 		
 		blockSucceed[blockI] = true;
+		/*
+		string s = "";
+		for (int i = 0; i < blockSucceed.Length; i++) {
+			s += i + " - " + blockSucceed[i] + "\n";
+		}
+		Debug.Log(s);
+		*/
 		
 //		Debug.Log ("secondary active6 " + GameController.secondaryActivePiece);
 //		GameController.secondaryActivePiece = -1;

@@ -251,8 +251,8 @@ public class GameController : MonoBehaviour
 	{
 		
 		//only update if both players ready
-		if (!MainController._localPlayer.isReady())
-			return;
+		//if (!MainController._localPlayer.isReady())
+		//	return;
 		
 		//WARNING: might be problematic for two-player or agent games
 		if (!MainController._networkedPlayer.isReady() &&
@@ -370,11 +370,14 @@ public class GameController : MonoBehaviour
 				}
 				
 				//sync block success from networked player
-				if (blocksuccess_index > -1) {
+				if (blocksuccess_index > -1 && !GameInfo.blockSucceed[blocksuccess_index]) {
 					GameInfo.setSucceed(blocksuccess_index);
 					
 					//reset timer
 					resetGameTimer();
+					
+					thisStep = stepType.successStep;
+					MainController.FSM.Fire(Trigger.endStep);
 					
 					//reset
 					blocksuccess_index = -1;
