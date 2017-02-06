@@ -27,10 +27,6 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 		//set old position to current position on block piece switch
 		p1oldpos = GameInfo.blockList[activePiece].transform.position;
 		p2oldpos = GameInfo.blockList[activePiece].transform.position;
-		if (player1 == MainController._localPlayer)
-			p1oldpos = LocalPlayer.curPosition;
-		else
-			p2oldpos = LocalPlayer.curPosition;
 	}
 
 	
