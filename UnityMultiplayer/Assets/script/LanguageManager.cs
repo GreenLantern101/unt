@@ -628,7 +628,7 @@ public class LanguageManager : MonoBehaviour
 					if (NotRequ("color")) {
 						curInfor = Information.InforProvName;
 					} else if (NotRequ("action")) {
-						
+						IntentionUpdate_UserMove();
 					} else {
 						curIntention = intention.IntentUnknown;
 					}
