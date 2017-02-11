@@ -345,27 +345,22 @@ public class LanguageManager : MonoBehaviour
 							IntentionCorrect();
 							if (curIntention == intention.IntentColorPolicy) {
 								DMFSM.Fire(DMTrigger.ProvInfo);
-								return;
 							} else {
 								DMFSM.Fire(DMTrigger.Confirm);
-								return;
 							}
 							break;
 						case 1://Provide
 							//step1: update the intention based on the previous intention
 							IntentionConvert();
 							DMFSM.Fire(DMTrigger.Confirm);
-							return;
 							break;
 						case 2://DirectMove
 							curIntention = intention.IntentMoveReq;							
 							IntentionCorrect();
 							if (curIntention == intention.IntentMovePolicy) {
 								DMFSM.Fire(DMTrigger.ProvInfo);
-								return;
 							} else {
 								DMFSM.Fire(DMTrigger.Confirm);
-								return;
 							}
 							break;	
 						case 3://Acknowledge
@@ -374,18 +369,16 @@ public class LanguageManager : MonoBehaviour
 //							DMFSM.Fire(DMTrigger.ProvInfo);
 							IntentionConvert();
 							DMFSM.Fire(DMTrigger.Confirm);
-							return;
 							break;
 						case 4://object request
 							curIntention = intention.IntentObjectReq;
 							DMFSM.Fire(DMTrigger.Confirm);
-							return;
 							break;
 						default:
 							DMFSM.Fire(DMTrigger.Reject);
-							return;
 							break;
 					}	
+					return;
 				}
 			}
 		}
@@ -425,12 +418,12 @@ public class LanguageManager : MonoBehaviour
 				print("out domain");
 				print("detect color" + speechHT["color"].ToString());
 				if (speechHT["color"].ToString() != "Requ"
-				     || speechHT["action"].ToString() != "Requ"
-				     || speechHT["policy"].ToString() != "Requ"
-				     || speechHT["object"].ToString() != "Requ"
-				     || speechHT["accept"].ToString() != "Requ"
-				     || speechHT["acknowledge"].ToString() != "Requ"
-				     || speechHT["id"].ToString() != "Requ") {
+				    || speechHT["action"].ToString() != "Requ"
+				    || speechHT["policy"].ToString() != "Requ"
+				    || speechHT["object"].ToString() != "Requ"
+				    || speechHT["accept"].ToString() != "Requ"
+				    || speechHT["acknowledge"].ToString() != "Requ"
+				    || speechHT["id"].ToString() != "Requ") {
 					curInfor = Information.InforRepeatReq;
 					DMFSM.Fire(DMTrigger.ProvInfo);
 					return;
@@ -553,16 +546,16 @@ public class LanguageManager : MonoBehaviour
 		print("(IntentionCorrect) cur intention: " + curIntention.ToString());
 		if (curIntention == intention.IntentMoveReq) {
 			if (GameController.curPlayState == PlayState.UserMoveBothColor
-			   || GameController.curPlayState == PlayState.UserMoveAgentColor) {
+			    || GameController.curPlayState == PlayState.UserMoveAgentColor) {
 				curIntention = intention.IntentMovePolicy;
 				curInfor = Information.InforYourTurn;
 			}
 		} else if (curIntention == intention.IntentColorReq) {
 			if (GameController.curPlayState == PlayState.AgentMoveUserColor
-			   || GameController.curPlayState == PlayState.BothMoveUserColor
-			   || GameController.curPlayState == PlayState.AgentMoveBothColor
-			   || GameController.curPlayState == PlayState.BothMoveBothColor
-			   || GameController.curPlayState == PlayState.UserMoveBothColor) {
+			    || GameController.curPlayState == PlayState.BothMoveUserColor
+			    || GameController.curPlayState == PlayState.AgentMoveBothColor
+			    || GameController.curPlayState == PlayState.BothMoveBothColor
+			    || GameController.curPlayState == PlayState.UserMoveBothColor) {
 				curIntention = intention.IntentColorPolicy;
 			}
 		}
