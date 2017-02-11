@@ -92,6 +92,15 @@ public class LanguageManager : MonoBehaviour
 	public static float TimerLen3 = 8;
 	public static int fd1Frequency;
 	public static int curBlock;
+	/// <summary>
+	/// Name of current block
+	/// </summary>
+	private static string CurBlockName{
+		get{
+			return GameInfo.blockNameStr[GameInfo.RandomList[curBlock]];
+		}
+	}
+	
 	public static string curColor;
 	public static int intDectNum;
 	public static int objDectNum;
@@ -125,7 +134,7 @@ public class LanguageManager : MonoBehaviour
 			if (LocalPlayer.activePiece != -1 || AgentPlayer.activePiece != -1) {
 
 				curBlock = LocalPlayer.activePiece == -1 ? AgentPlayer.activePiece : LocalPlayer.activePiece;
-				string theID = GameInfo.blockNameStr[GameInfo.RandomList[curBlock]];
+				string theID = CurBlockName;
 				responseText = getOneRes("CheckColorWithBlock", "id", theID);
 			} else {
 				responseText = getOneRes("CheckColor");
@@ -145,7 +154,7 @@ public class LanguageManager : MonoBehaviour
 			print("intention move and active piece is: " + LocalPlayer.activePiece.ToString());
 			if (LocalPlayer.activePiece != -1 || AgentPlayer.activePiece != -1) {
 				curBlock = LocalPlayer.activePiece == -1 ? AgentPlayer.activePiece : LocalPlayer.activePiece;
-				string theID = GameInfo.blockNameStr[GameInfo.RandomList[curBlock]];
+				string theID = CurBlockName;
 				print("detect act " + theID);
 				responseText = getOneRes("MoveReqWithBlock", "id", theID);
 				correctNum = 0;
@@ -160,7 +169,7 @@ public class LanguageManager : MonoBehaviour
 		} else if (curIntention == intention.IntentColorProv) {
 			if (LocalPlayer.activePiece != -1 || AgentPlayer.activePiece != -1) {
 				curBlock = LocalPlayer.activePiece == -1 ? AgentPlayer.activePiece : LocalPlayer.activePiece;
-				string theID = GameInfo.blockNameStr[GameInfo.RandomList[curBlock]];
+				string theID = CurBlockName;
 				responseText = getOneRes("CheckColorWithBlock", "id", theID);
 				correctNum = 0;
 			} else {
@@ -177,7 +186,7 @@ public class LanguageManager : MonoBehaviour
 				}
 			}
 			if (GameInfo.agentSeeColor(curBlock) == 0) {
-				string theID = GameInfo.blockNameStr[GameInfo.RandomList[curBlock]];
+				string theID = CurBlockName;
 				responseText = getOneRes("ReqColor", "id", theID);
 				GameInfo.agentColorVisible[curBlock] = 1;
 				correctNum = 0;
@@ -274,18 +283,18 @@ public class LanguageManager : MonoBehaviour
 			} else if (sysResponseName == "ProvColor") {
 				responseText = getOneRes(sysResponseName, "color", GameInfo.blockColorNameList[curBlock][0]);
 			} else if (sysResponseName == "ProvName") {					
-				responseText = getOneRes(sysResponseName, "id", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
+				responseText = getOneRes(sysResponseName, "id", CurBlockName);
 			} else if (sysResponseName == "StartMove") {	
 				if (GameInfo.blockSucceed[curBlock]) {
 					responseText = "Done";
 				} else {				
-					responseText = getOneRes(sysResponseName, "id", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
+					responseText = getOneRes(sysResponseName, "id", CurBlockName);
 				}
 			} else if (sysResponseName == "AgentStartMove") {
 				if (GameInfo.blockSucceed[curBlock]) {
 					responseText = "Done";
 				} else {
-					responseText = getOneRes(sysResponseName, "id", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
+					responseText = getOneRes(sysResponseName, "id", CurBlockName);
 				}
 			} else {
 				responseText = getOneRes(sysResponseName);		
@@ -598,7 +607,7 @@ public class LanguageManager : MonoBehaviour
 	//helper method for above IntentionUpdate_...() methods
 	private static void SpeakCurBlock(string description){
 		curBlock = AI.selectPiece();
-		responseText = getOneRes(description, "ID", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
+		responseText = getOneRes(description, "ID", CurBlockName);
 		VoiceSpeaker.speakOut(responseText);
 	}
 
