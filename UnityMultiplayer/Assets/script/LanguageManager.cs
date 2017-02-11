@@ -115,8 +115,6 @@ public class LanguageManager : MonoBehaviour
 
 	public static void ReqConfIntention()
 	{
-		//temporary disable for local + network player
-		return;
 		print("current state: enter the DMIntentionConf");
 		++intDectNum;
 		feedbackTimer2 = TimerLen2;
@@ -229,8 +227,6 @@ public class LanguageManager : MonoBehaviour
 
 	void Update()
 	{
-		//temporary disable for local + network player
-		//return;
 		
 		if (!MainController.FSM.IsInState(PuzzleState.GAME))
 			return;
