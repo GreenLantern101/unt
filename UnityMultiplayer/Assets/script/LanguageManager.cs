@@ -93,6 +93,14 @@ public class LanguageManager : MonoBehaviour
 			return GameInfo.blockNameStr[GameInfo.RandomList[curBlock]];
 		}
 	}
+	/// <summary>
+	/// Current play state
+	/// </summary>
+	private static PlayState playState{
+		get{
+			return GameController.curPlayState;
+		}
+	}
 	
 	public static string curColor;
 	public static int intDectNum;
@@ -156,7 +164,7 @@ public class LanguageManager : MonoBehaviour
 				responseText = "";
 			}
 
-			if (GameController.curPlayState == PlayState.BothMoveAgentColor && curBlock != -1) {
+			if (playState == PlayState.BothMoveAgentColor && curBlock != -1) {
 				VoiceSpeaker.speakOut(getOneRes("ProvColor", "color", GameInfo.blockColorNameList[curBlock][0]));
 			}
 		} else if (curIntention == intention.IntentColorProv) {
@@ -212,15 +220,15 @@ public class LanguageManager : MonoBehaviour
 
 	public static string getSubject()
 	{
-		if (GameController.curPlayState == PlayState.AgentMoveBothColor
-		    || GameController.curPlayState == PlayState.AgentMoveUserColor) {
+		if (playState == PlayState.AgentMoveBothColor
+		    || playState == PlayState.AgentMoveUserColor) {
 
 			return "me";
 		}
 		
-		if (GameController.curPlayState == PlayState.BothMoveBothColor
-		    || GameController.curPlayState == PlayState.BothMoveAgentColor
-		    || GameController.curPlayState == PlayState.BothMoveUserColor) {
+		if (playState == PlayState.BothMoveBothColor
+		    || playState == PlayState.BothMoveAgentColor
+		    || playState == PlayState.BothMoveUserColor) {
 			return "we";
 		}
 
@@ -476,7 +484,7 @@ public class LanguageManager : MonoBehaviour
 							VoiceSpeaker.speakOut(responseText);
 						}
 						MainController._agentPlayer.startMoveBlock(curBlock);
-						if (GameController.curPlayState == PlayState.BothMoveBothColor) {
+						if (playState == PlayState.BothMoveBothColor) {
 							curInfor = Information.InforStartMove;
 						} else {
 							curInfor = Information.InforAgentStartMove;
@@ -543,20 +551,18 @@ public class LanguageManager : MonoBehaviour
 		//second update based on the game state
 		print("(IntentionCorrect) cur intention: " + curIntention);
 		
-		PlayState ps = GameController.curPlayState;
-		
 		if (curIntention == intention.IntentMoveReq) {
-			if (ps == PlayState.UserMoveBothColor
-			    || ps == PlayState.UserMoveAgentColor) {
+			if (playState == PlayState.UserMoveBothColor
+			    || playState == PlayState.UserMoveAgentColor) {
 				curIntention = intention.IntentMovePolicy;
 				curInfor = Information.InforYourTurn;
 			}
 		} else if (curIntention == intention.IntentColorReq) {
-			if (ps == PlayState.AgentMoveUserColor
-			    || ps == PlayState.BothMoveUserColor
-			    || ps == PlayState.AgentMoveBothColor
-			    || ps == PlayState.BothMoveBothColor
-			    || ps == PlayState.UserMoveBothColor) {
+			if (playState == PlayState.AgentMoveUserColor
+			    || playState == PlayState.BothMoveUserColor
+			    || playState == PlayState.AgentMoveBothColor
+			    || playState == PlayState.BothMoveBothColor
+			    || playState == PlayState.UserMoveBothColor) {
 				curIntention = intention.IntentColorPolicy;
 			}
 		}
@@ -609,7 +615,7 @@ public class LanguageManager : MonoBehaviour
 		print("(IntentionUpdate) cur intention: " + curIntention);
 		if (curIntention == intention.IntentObjectReq) {
 			//second update based on the game state
-			switch (GameController.curPlayState) {
+			switch (playState) {
 				case PlayState.AgentMoveBothColor:
 				//can be moved
 					IntentionUpdate_AgentMove();
@@ -658,7 +664,7 @@ public class LanguageManager : MonoBehaviour
 		if (curIntention == intention.IntentUnknown) {
 //			print ("increase correct number ");
 			//second update based on the game state
-			switch (GameController.curPlayState) {
+			switch (playState) {
 				case PlayState.AgentMoveBothColor:
 				//can be moved
 					curIntention = intention.IntentMoveReq;
@@ -693,7 +699,7 @@ public class LanguageManager : MonoBehaviour
 			}
 		} 
 		if ((curIntention == intention.IntentColorMoveReq || curIntention == intention.IntentMoveReq)
-		    && (GameController.curPlayState == PlayState.AgentMoveUserColor || GameController.curPlayState == PlayState.BothMoveUserColor)
+		    && (playState == PlayState.AgentMoveUserColor || playState == PlayState.BothMoveUserColor)
 		    && curBlock != -1
 		    && GameInfo.agentSeeColor(curBlock) == 0) {
 			print("agen can not see color " + curBlock);
@@ -701,7 +707,7 @@ public class LanguageManager : MonoBehaviour
 		}
 
 		if (curIntention == intention.IntentColorMoveReq
-		    && (GameController.curPlayState == PlayState.AgentMoveUserColor || GameController.curPlayState == PlayState.BothMoveUserColor)
+		    && (playState == PlayState.AgentMoveUserColor || playState == PlayState.BothMoveUserColor)
 		    && curBlock != -1
 		    && GameInfo.agentSeeColor(curBlock) != 0) {
 			curIntention = intention.IntentMoveReq;
@@ -710,11 +716,11 @@ public class LanguageManager : MonoBehaviour
 
 	public void getCurMovePolicy()
 	{
-		if (GameController.curPlayState == PlayState.AgentMoveBothColor
-		    || GameController.curPlayState == PlayState.AgentMoveUserColor) {
+		if (playState == PlayState.AgentMoveBothColor
+		    || playState == PlayState.AgentMoveUserColor) {
 			curInfor = Information.InforMyTurn;
-		} else if (GameController.curPlayState == PlayState.UserMoveBothColor
-		           || GameController.curPlayState == PlayState.UserMoveAgentColor) {
+		} else if (playState == PlayState.UserMoveBothColor
+		           || playState == PlayState.UserMoveAgentColor) {
 			curInfor = Information.InforYourTurn;				
 		} else {
 			curInfor = Information.InforBothTurn;
@@ -723,8 +729,8 @@ public class LanguageManager : MonoBehaviour
 
 	public void getCurGamePolicy()
 	{
-		print("(getCurGamePolicy)current play state is: " + GameController.curPlayState);
-		switch (GameController.curPlayState) {
+		print("(getCurGamePolicy)current play state is: " + playState);
+		switch (playState) {
 			case PlayState.AgentMoveBothColor:
 				curInfor = Information.InforMyTurn;
 				break;
@@ -823,8 +829,8 @@ public class LanguageManager : MonoBehaviour
 
 	public static void IntentionInitilize()
 	{
-		print("(IntentionInitilize)current play state is: " + GameController.curPlayState.ToString());		
-		switch (GameController.curPlayState) {
+		print("(IntentionInitilize)current play state is: " + playState.ToString());		
+		switch (playState) {
 			case PlayState.AgentMoveBothColor:
 			//can be moved
 				curIntention = intention.IntentMoveReq;
