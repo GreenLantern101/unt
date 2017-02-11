@@ -582,24 +582,24 @@ public class LanguageManager : MonoBehaviour
 	
 	private static void IntentionUpdate_BothMove()
 	{
-		curBlock = AI.selectPiece();
-		responseText = getOneRes("UserMoveBlock", "ID", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
-		VoiceSpeaker.speakOut(responseText);
+		SpeakCurBlock("UserMoveBlock");
 		curIntention = intention.IntentMoveReq;
 	}
 	private static void IntentionUpdate_AgentMove()
 	{
-		curBlock = AI.selectPiece();
-		responseText = getOneRes("AgentMoveBlock", "ID", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
-		VoiceSpeaker.speakOut(responseText);
+		SpeakCurBlock("AgentMoveBlock");
 		curIntention = intention.IntentMoveReq;
 	}
 	private static void IntentionUpdate_UserMove()
 	{
-		curBlock = AI.selectPiece();
-		responseText = getOneRes("UserMoveBlock", "ID", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
-		VoiceSpeaker.speakOut(responseText);
+		SpeakCurBlock("UserMoveBlock");
 		curIntention = intention.IntentNone;
+	}
+	//helper method for above IntentionUpdate_...() methods
+	private static void SpeakCurBlock(string description){
+		curBlock = AI.selectPiece();
+		responseText = getOneRes(description, "ID", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
+		VoiceSpeaker.speakOut(responseText);
 	}
 
 	public static void IntentionUpdate()
@@ -721,7 +721,7 @@ public class LanguageManager : MonoBehaviour
 
 	public void getCurGamePolicy()
 	{
-		print("(getCurGamePolicy)current play state is: " + GameController.curPlayState.ToString());
+		print("(getCurGamePolicy)current play state is: " + GameController.curPlayState);
 		switch (GameController.curPlayState) {
 			case PlayState.AgentMoveBothColor:
 				curInfor = Information.InforMyTurn;
