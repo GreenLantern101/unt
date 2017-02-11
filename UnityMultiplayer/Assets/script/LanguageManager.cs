@@ -297,33 +297,33 @@ public class LanguageManager : MonoBehaviour
 
 		if (DMFSM.IsInState(DMState.DMIntentionDetect)) {
 			print("current state: DMIntentionDetect");
-			if (speechHT["outDomain"].ToString() != "Requ") {
+			if (NotRequ("outDomain")) {
 				print("This is out-domain question");
 			}
 
 
 
-			if (speechHT["negative"].ToString() != "Requ") {
+			if (NotRequ("negative")) {
 				curInfor = Information.InforNone;
 				DMFSM.Fire(DMTrigger.ProvInfo);
 				return;
-			} else if (speechHT["accept"].ToString() != "Requ") {
+			} else if (NotRequ("accept")) {
 				print("accept");
 				IntentionConvert();
 				DMFSM.Fire(DMTrigger.Confirm);
 				return;
-			} else if (speechHT["reject"].ToString() != "Requ") {
+			} else if (NotRequ("reject")) {
 				curBlock = -1;
 				DMFSM.Fire(DMTrigger.Done);
 				return;
-			} else if (speechHT["acknowledge"].ToString() != "Requ") {
+			} else if (NotRequ("acknowledge")) {
 				DMFSM.Fire(DMTrigger.Done);
 				return;
-			} else if (speechHT["salutation"].ToString() != "Requ") {
+			} else if (NotRequ("salutation")) {
 				curInfor = Information.InforSalutation;
 				DMFSM.Fire(DMTrigger.ProvInfo);
 				return;
-			} else if (speechHT["outDomain"].ToString() != "Requ") {
+			} else if (NotRequ("outDomain")) {
 				curInfor = Information.InforConversationPolicy;
 				DMFSM.Fire(DMTrigger.ProvInfo);
 				return;
@@ -413,17 +413,17 @@ public class LanguageManager : MonoBehaviour
 //	//					if it is task related, ask to repeat
 				print("out domain");
 				print("detect color" + speechHT["color"].ToString());
-				if (speechHT["color"].ToString() != "Requ"
-				    || speechHT["action"].ToString() != "Requ"
-				    || speechHT["policy"].ToString() != "Requ"
-				    || speechHT["object"].ToString() != "Requ"
-				    || speechHT["accept"].ToString() != "Requ"
-				    || speechHT["acknowledge"].ToString() != "Requ"
-				    || speechHT["id"].ToString() != "Requ") {
+				if (NotRequ("color")
+				    || NotRequ("action")
+				    || NotRequ("policy")
+				    || NotRequ("object")
+				    || NotRequ("accept")
+				    || NotRequ("acknowledge")
+				    || NotRequ("id")) {
 					curInfor = Information.InforRepeatReq;
 					DMFSM.Fire(DMTrigger.ProvInfo);
 					return;
-				} else {//if it is not task related, provid conversation policy
+				} else {//if it is not task related, provide conversation policy
 					print("here provide the conversation policy");
 					curInfor = Information.InforConversationPolicy;
 					DMFSM.Fire(DMTrigger.ProvInfo);
@@ -540,18 +540,21 @@ public class LanguageManager : MonoBehaviour
 		//provide policy if the detected intention (request informtion) is not allowed
 		//second update based on the game state
 		print("(IntentionCorrect) cur intention: " + curIntention.ToString());
+		
+		PlayState ps = GameController.curPlayState;
+		
 		if (curIntention == intention.IntentMoveReq) {
-			if (GameController.curPlayState == PlayState.UserMoveBothColor
-			    || GameController.curPlayState == PlayState.UserMoveAgentColor) {
+			if (ps == PlayState.UserMoveBothColor
+			    || ps == PlayState.UserMoveAgentColor) {
 				curIntention = intention.IntentMovePolicy;
 				curInfor = Information.InforYourTurn;
 			}
 		} else if (curIntention == intention.IntentColorReq) {
-			if (GameController.curPlayState == PlayState.AgentMoveUserColor
-			    || GameController.curPlayState == PlayState.BothMoveUserColor
-			    || GameController.curPlayState == PlayState.AgentMoveBothColor
-			    || GameController.curPlayState == PlayState.BothMoveBothColor
-			    || GameController.curPlayState == PlayState.UserMoveBothColor) {
+			if (ps == PlayState.AgentMoveUserColor
+			    || ps == PlayState.BothMoveUserColor
+			    || ps == PlayState.AgentMoveBothColor
+			    || ps == PlayState.BothMoveBothColor
+			    || ps == PlayState.UserMoveBothColor) {
 				curIntention = intention.IntentColorPolicy;
 			}
 		}
@@ -571,7 +574,7 @@ public class LanguageManager : MonoBehaviour
 
 	public static void updateAgentColorVisible()
 	{
-		if (curBlock != -1 && speechHT["color"].ToString() != "Requ") {
+		if (curBlock != -1 && NotRequ("color")) {
 			print("agent can see1 " + curBlock + "speechHI " + speechHT["color"]);
 			GameInfo.agentColorVisible[curBlock] = 2; 		
 		}
@@ -591,9 +594,9 @@ public class LanguageManager : MonoBehaviour
 					curIntention = intention.IntentMoveReq;
 					break;
 				case PlayState.AgentMoveUserColor:
-					if (speechHT["color"].ToString() != "Requ") {
+					if (NotRequ("color")) {
 						curInfor = Information.InforProvName;
-					} else if (speechHT["action"].ToString() != "Requ") {
+					} else if (NotRequ("action")) {
 						curBlock = AI.selectPiece();
 						responseText = getOneRes("AgentMoveBlock", "ID", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
 						VoiceSpeaker.speakOut(responseText);
@@ -609,9 +612,9 @@ public class LanguageManager : MonoBehaviour
 					curIntention = intention.IntentNone;
 					break;
 				case PlayState.UserMoveAgentColor:
-					if (speechHT["color"].ToString() != "Requ") {
+					if (NotRequ("color")) {
 						curInfor = Information.InforProvName;
-					} else if (speechHT["action"].ToString() != "Requ") {
+					} else if (NotRequ("action")) {
 						curBlock = AI.selectPiece();
 						responseText = getOneRes("UserMoveBlock", "ID", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
 						VoiceSpeaker.speakOut(responseText);
@@ -621,9 +624,9 @@ public class LanguageManager : MonoBehaviour
 					}
 					break;
 				case PlayState.BothMoveAgentColor:
-					if (speechHT["color"].ToString() != "Requ") {
+					if (NotRequ("color")) {
 						curInfor = Information.InforProvName;
-					} else if (speechHT["action"].ToString() != "Requ") {
+					} else if (NotRequ("action")) {
 						curBlock = AI.selectPiece();
 						responseText = getOneRes("UserMoveBlock", "ID", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
 						VoiceSpeaker.speakOut(responseText);
@@ -866,5 +869,14 @@ public class LanguageManager : MonoBehaviour
 			responseStr = responseStr.Replace(theSlot, value);	
 		} 
 		return responseStr;
+	}
+	
+	/// <summary>
+	/// Looks up hashtable entry for given string, returns true if != "Requ"
+	/// </summary>
+	/// <param name="lookup_string">Lookup string</param>
+	/// <returns></returns>
+	private static bool NotRequ(string lookup_string){
+		return (speechHT[lookup_string] != "Requ");
 	}
 }
