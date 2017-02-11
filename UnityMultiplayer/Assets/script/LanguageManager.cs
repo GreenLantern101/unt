@@ -119,7 +119,7 @@ public class LanguageManager : MonoBehaviour
 		++intDectNum;
 		feedbackTimer2 = TimerLen2;
 		AgentPlayer.moveBlockFlag = false;
-		print("current intention: " + curIntention.ToString());
+		print("current intention: " + curIntention);
 		//give some information based on intention 
 		if (curIntention == intention.IntentColorCheck) {			
 			if (LocalPlayer.activePiece != -1 || AgentPlayer.activePiece != -1) {
@@ -192,7 +192,7 @@ public class LanguageManager : MonoBehaviour
 
 	public static void ReqConfObj()
 	{
-		print("current state: DMObjectConf" + curIntention.ToString());
+		print("current state: DMObjectConf" + curIntention);
 		++objDectNum;
 		if (curIntention == intention.IntentColorCheck || curIntention == intention.IntentColorReq) {
 			responseText = getOneRes("ReqObjColor");
@@ -433,7 +433,7 @@ public class LanguageManager : MonoBehaviour
 				return;
 			}
 //				else if(curBlock == -1 && curIntention != intention.IntentUnknown){
-//					print ("cur intention " + curIntention.ToString());
+//					print ("cur intention " + curIntention);
 //					DMFSM.Fire(DMTrigger.Done);
 ////					DMFSM.Fire(DMTrigger.AskObject);
 //					return;
@@ -539,7 +539,7 @@ public class LanguageManager : MonoBehaviour
 	{
 		//provide policy if the detected intention (request informtion) is not allowed
 		//second update based on the game state
-		print("(IntentionCorrect) cur intention: " + curIntention.ToString());
+		print("(IntentionCorrect) cur intention: " + curIntention);
 		
 		PlayState ps = GameController.curPlayState;
 		
@@ -562,7 +562,7 @@ public class LanguageManager : MonoBehaviour
 
 	public static void IntentionConvert()
 	{
-		print("(IntentionConvert) cur intention: " + curIntention.ToString());
+		print("(IntentionConvert) cur intention: " + curIntention);
 		if (curIntention == intention.IntentColorCheck) {
 			curIntention = intention.IntentColorReq;
 		} else if (curIntention == intention.IntentColorMoveReq) {
@@ -582,7 +582,7 @@ public class LanguageManager : MonoBehaviour
 
 	public static void IntentionUpdate()
 	{
-		print("(IntentionUpdate) cur intention: " + curIntention.ToString());
+		print("(IntentionUpdate) cur intention: " + curIntention);
 		if (curIntention == intention.IntentObjectReq) {
 			//second update based on the game state
 			switch (GameController.curPlayState) {
