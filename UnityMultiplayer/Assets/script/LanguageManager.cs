@@ -579,6 +579,28 @@ public class LanguageManager : MonoBehaviour
 			GameInfo.agentColorVisible[curBlock] = 2; 		
 		}
 	}
+	
+	private static void IntentionUpdate_BothMove()
+	{
+		curBlock = AI.selectPiece();
+		responseText = getOneRes("UserMoveBlock", "ID", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
+		VoiceSpeaker.speakOut(responseText);
+		curIntention = intention.IntentMoveReq;
+	}
+	private static void IntentionUpdate_AgentMove()
+	{
+		curBlock = AI.selectPiece();
+		responseText = getOneRes("AgentMoveBlock", "ID", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
+		VoiceSpeaker.speakOut(responseText);
+		curIntention = intention.IntentMoveReq;
+	}
+	private static void IntentionUpdate_UserMove()
+	{
+		curBlock = AI.selectPiece();
+		responseText = getOneRes("UserMoveBlock", "ID", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
+		VoiceSpeaker.speakOut(responseText);
+		curIntention = intention.IntentNone;
+	}
 
 	public static void IntentionUpdate()
 	{
@@ -588,37 +610,25 @@ public class LanguageManager : MonoBehaviour
 			switch (GameController.curPlayState) {
 				case PlayState.AgentMoveBothColor:
 				//can be moved
-					curBlock = AI.selectPiece();
-					responseText = getOneRes("AgentMoveBlock", "ID", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
-					VoiceSpeaker.speakOut(responseText);
-					curIntention = intention.IntentMoveReq;
+					IntentionUpdate_AgentMove();
 					break;
 				case PlayState.AgentMoveUserColor:
 					if (NotRequ("color")) {
 						curInfor = Information.InforProvName;
 					} else if (NotRequ("action")) {
-						curBlock = AI.selectPiece();
-						responseText = getOneRes("AgentMoveBlock", "ID", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
-						VoiceSpeaker.speakOut(responseText);
-						curIntention = intention.IntentMoveReq;
+						IntentionUpdate_AgentMove();
 					} else {
 						curIntention = intention.IntentUnknown;
 					}
 					break;
 				case PlayState.UserMoveBothColor:
-					curBlock = AI.selectPiece();
-					responseText = getOneRes("UserMoveBlock", "ID", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
-					VoiceSpeaker.speakOut(responseText);
-					curIntention = intention.IntentNone;
+					IntentionUpdate_UserMove();
 					break;
 				case PlayState.UserMoveAgentColor:
 					if (NotRequ("color")) {
 						curInfor = Information.InforProvName;
 					} else if (NotRequ("action")) {
-						curBlock = AI.selectPiece();
-						responseText = getOneRes("UserMoveBlock", "ID", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
-						VoiceSpeaker.speakOut(responseText);
-						curIntention = intention.IntentNone;
+						
 					} else {
 						curIntention = intention.IntentUnknown;
 					}
@@ -627,25 +637,16 @@ public class LanguageManager : MonoBehaviour
 					if (NotRequ("color")) {
 						curInfor = Information.InforProvName;
 					} else if (NotRequ("action")) {
-						curBlock = AI.selectPiece();
-						responseText = getOneRes("UserMoveBlock", "ID", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
-						VoiceSpeaker.speakOut(responseText);
-						curIntention = intention.IntentMoveReq;
+						IntentionUpdate_BothMove();
 					} else {
 						curIntention = intention.IntentUnknown;
 					}
 					break;
 				case PlayState.BothMoveBothColor:				
-					curBlock = AI.selectPiece();
-					responseText = getOneRes("UserMoveBlock", "ID", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
-					VoiceSpeaker.speakOut(responseText);
-					curIntention = intention.IntentMoveReq;
+					IntentionUpdate_BothMove();
 					break;
 				case PlayState.BothMoveUserColor:
-					curBlock = AI.selectPiece();
-					responseText = getOneRes("UserMoveBlock", "ID", GameInfo.blockNameStr[GameInfo.RandomList[curBlock]]);
-					VoiceSpeaker.speakOut(responseText);
-					curIntention = intention.IntentMoveReq;
+					IntentionUpdate_BothMove();
 					break;
 				default:
 					curIntention = intention.IntentUnknown;
@@ -876,7 +877,8 @@ public class LanguageManager : MonoBehaviour
 	/// </summary>
 	/// <param name="lookup_string">Lookup string</param>
 	/// <returns></returns>
-	private static bool NotRequ(string lookup_string){
+	private static bool NotRequ(string lookup_string)
+	{
 		return (speechHT[lookup_string] != "Requ");
 	}
 }
