@@ -127,7 +127,7 @@ public class GameController : MonoBehaviour
 		setTargetPosition(targetName);
 		
 		//set players
-		setPlayer();
+		MainController.setPlayer();
 		//initialize active player as the black player
 		active_player = MainController.black_player;
 		inactive_player = MainController.white_player;
@@ -223,27 +223,8 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-	//initialize players (set who can see what)
-	public static void setPlayer()
-	{
-		if (MainController.isAgentActive) {
-			//AI-HUMAN GAME
-			if (MainController.curNode == NODE.BLACK_NODE) {
-				MainController.black_player = MainController._localPlayer;
-				MainController.white_player = MainController._agentPlayer;
-			} else {
-				MainController.black_player = MainController._agentPlayer;
-				MainController.white_player = MainController._localPlayer;
-			}
-			print("PLAYERS SET --- local player + agent player");
-		} else {
-			//HUMAN-HUMAN GAME (networked)
-			MainController.black_player = MainController._networkedPlayer;
-			MainController.white_player = MainController._localPlayer;
-			print("PLAYERS SET --- local player + networked player");
-		}
-
-	}
+	//decides when to switch agent-local to networked-local and vice-versa
+	private static float agent_player_switch_timer = 0;
 
 
 	// Update is called once per frame
@@ -278,6 +259,25 @@ public class GameController : MonoBehaviour
 
 			//game timer
 			GameTimer -= Time.deltaTime;
+
+			//agent timer (2 minutes)
+			agent_player_switch_timer += Time.deltaTime;
+			//switch every 40 seconds
+			if (agent_player_switch_timer > 40) {
+				//switch whether agent active
+				MainController.isAgentActive = !MainController.isAgentActive;
+				//reset timer
+				agent_player_switch_timer = 0;
+				if (MainController.isAgentActive)
+					Debug.Log("SWITCHED: Agent player is active.");
+				else
+					Debug.Log("SWITCHED: Agent player is not active.");
+			} else if (agent_player_switch_timer % 3 < .018f)
+				Debug.Log("TIMER: " + agent_player_switch_timer);
+
+
+
+
 			if (GameTimer <= 0) {
 				//automatically move a block
 				print("reset secondary active 10");
@@ -371,10 +371,13 @@ public class GameController : MonoBehaviour
 				
 				//sync block success from networked player
 				if (blocksuccess_index > -1 && !GameInfo.blockSucceed[blocksuccess_index]) {
-					
-					secondaryActivePiece = -1;					
+
+					secondaryActivePiece = -1;
 					LogTimeData.setEvent(LogTimeData.stepSuccessEvent);
 					GameInfo.setSucceed(blocksuccess_index);
+					
+					//reset timer
+					//resetGameTimer();
 					
 					thisStep = stepType.successStep;
 					MainController.FSM.Fire(Trigger.endStep);
@@ -398,7 +401,10 @@ public class GameController : MonoBehaviour
 		//step 3: trigger end the step
 		if (turnNumber < totalStepNum - 1) {	
 			MainController.FSM.Fire(Trigger.startStep);
-		} else {			
+		} else {
+			//when game ends, reset timers??
+			//agent_player_switch_timer = 0;
+
 			LanguageManager.DMFSM.Fire(DMTrigger.GameEnd);
 			MainController.FSM.Fire(Trigger.endGame);
 		}
@@ -518,6 +524,11 @@ public class GameController : MonoBehaviour
 			Debug.Log("Failed to sync because tcp client is not initialized.");
 			return;
 		}
+
+		//if agent active, IGNORE networked player
+		if (MainController.isAgentActive && !sync_info.Contains("readyFlag"))
+			return;
+
 		Packet syncPacket = new Packet("sync", sync_info);
 		Packet.SendPacket(_tcpclient.GetStream(), syncPacket);
 	}
@@ -543,13 +554,17 @@ public class GameController : MonoBehaviour
 		// each entry is in the format of "key:value" (trim spaces?)
 		if (sync_info.Length == 0)
 			return;
+
+		//if agent active, IGNORE networked player
+		if (MainController.isAgentActive && !sync_info.Contains("readyFlag"))
+			return;
+
+		string[] entries = sync_info.Split(';');
 		
-		String[] entries = sync_info.Split(';');
-		
-		foreach (String entry in entries) {
+		foreach (string entry in entries) {
 			//trim all beginning/ending whitespace in key/value
-			String key = sync_info.Split(':')[0].Trim();
-			String value = sync_info.Split(':')[1].Trim();
+			string key = sync_info.Split(':')[0].Trim();
+			string value = sync_info.Split(':')[1].Trim();
 			
 			//note: key or value may be empty...
 			if (key == null || value == null)
@@ -569,7 +584,7 @@ public class GameController : MonoBehaviour
 					break;
 			//sync position
 				case "position":
-					String[] locs = value.Split(',');
+					string[] locs = value.Split(',');
 					if (locs.Length != 3)
 						throw new Exception("Position could not be parsed to type: UnityEngine.Vector3");
 					Vector3 pos = new Vector3(float.Parse(locs[0]), float.Parse(locs[1]), float.Parse(locs[2]));
@@ -577,7 +592,7 @@ public class GameController : MonoBehaviour
 					break;
 			//sync orientation
 				case "orientation":
-					String[] orients = value.Split(',');
+					string[] orients = value.Split(',');
 					if (orients.Length != 3)
 						throw new Exception("Orientation could not be parsed to type: UnityEngine.Vector3");
 					Vector3 orient = new Vector3(float.Parse(orients[0]), float.Parse(orients[1]), float.Parse(orients[2]));
@@ -601,12 +616,12 @@ public class GameController : MonoBehaviour
 					break;
 					
 				case "twoplayerpos":
-					String[] twolocs = value.Split(',');
+					string[] twolocs = value.Split(',');
 					if (twolocs.Length != 4)
 						throw new Exception("Two player position could not be parsed to type: UnityEngine.Vector3");
-					//only sync if same active piece
+
 					if (Convert.ToInt32(twolocs[3]) == MainController._localPlayer.getActivePiece()
-					    && MainController._localPlayer.getActivePiece()>-1) {
+					                   && MainController._localPlayer.getActivePiece() > -1) {
 						twoPlayerPos = new Vector3(float.Parse(twolocs[0]), float.Parse(twolocs[1]), float.Parse(twolocs[2]));
 						twoplayerposchanged = true;
 					}
