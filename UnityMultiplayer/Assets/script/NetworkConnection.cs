@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using System.Linq;
+using System.Threading;
 using System.Text;
 using Newtonsoft.Json;
 using System.Net;
@@ -12,11 +13,11 @@ using System.Net.Sockets;
 public class NetworkConnection: MonoBehaviour
 {
 	//data
-	private int sPort;
-	private int pPort;
-	private TcpClient speechClient;
+	private int sPort = 10011;
 
-	private TcpClient serverClient;
+	//clients
+	private TcpClient speechClient = new TcpClient();
+
 
 	//location of google server for AI
 	//private string Address = "129.59.79.186";
@@ -32,15 +33,8 @@ public class NetworkConnection: MonoBehaviour
 		
 		Debug.Log("Connecting to speech started.");
 		StartSpeechConnection();
-		Debug.Log("Connected to speech finished.");
-		netStream = speechClient.GetStream();
 		
 		MainController.FSM.Fire(Trigger.startIntro);
-		//start player connection
-		pPort = 10011;
-//		pData = new PlayerData();
-		StartPlayerServer();
-		Debug.Log("Connection to player finished");
 	}
 
 	void Update()
@@ -51,28 +45,50 @@ public class NetworkConnection: MonoBehaviour
 		if (speechClient.Connected && MainController.FSM.IsInState(PuzzleState.GAME)) {            
 
 			if (speechClient.Available > 0) {
+				Debug.Log("AAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHH");
 				string speechDataString = receiveSpeechData();
-				print("the received data is: " + speechDataString);
 				decodeSpeech(speechDataString);
 				LanguageManager.takeAction(speechHT);
+                
+
+				//temporary shim
+				//todo change based on parsing...
+				//only use agent input if it is agent's turn
+				if (MainController.isAgentActive)
+					MainController._agentPlayer.startMoveBlock(6);
+
 			}
 		}
 	}
 
-	void StartPlayerServer()
+	void ClientConnectLoop(TcpClient tcpClient, string ipAddress, int port)
 	{
-		pPort = 10011;
-		serverClient = new TcpClient();
-		serverClient.Connect(Address, pPort);
+		//keep trying to connect to server, once per second
+		while (!tcpClient.Connected) {
+			// Connect to the server
+			try {
+				tcpClient.Connect(ipAddress, port);
+			} catch (SocketException se) {
+				Debug.Log("[ERROR] " + se.Message);
+				Debug.Log("Failed to connect. Trying again.");
+				Thread.Sleep(1000);
+			}
+		}
 
+		// check that we've connected
+		if (tcpClient.Connected) {
+			Debug.Log("Connected to speech server at " + tcpClient.Client.RemoteEndPoint);
+
+			// Get the message stream
+			netStream = tcpClient.GetStream();
+		}
 	}
 
 	// Use this to start the server for speech recognition
 	void StartSpeechConnection()
 	{            
-		sPort = 10010;
-		speechClient = new TcpClient();
-		speechClient.Connect(Address, sPort);
+		Thread client_conn = new Thread(new ThreadStart(() => ClientConnectLoop(speechClient, Address, sPort)));
+		client_conn.Start();
 	}
 
 	string receiveSpeechData()
@@ -86,7 +102,7 @@ public class NetworkConnection: MonoBehaviour
 	void decodeSpeech(string _str)
 	{
 		speechHT = new Hashtable();
-		print("received data: " + _str);
+		Debug.Log("Received data: " + _str);
 		//each element is ended with ','
 		string[] elements = _str.Split(',');
 		for (int i = 0; i < elements.Length; ++i) {
