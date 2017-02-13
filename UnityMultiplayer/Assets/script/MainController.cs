@@ -90,7 +90,7 @@ public class MainController : MonoBehaviour
 
 		//sets agent to active (b/c currently player plays with agent)
 		//set to false for networking, true for agent
-		isAgentActive = true;
+		agentActive = true;
 
 
 		//initializes game
