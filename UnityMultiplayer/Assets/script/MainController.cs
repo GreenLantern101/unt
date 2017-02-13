@@ -18,8 +18,28 @@ public class MainController : MonoBehaviour
 	//initialized here before Start(), so NetworkConnection can call it remotely
 	public static StateMachine FSM = new StateMachine();
 
+	private static bool agentActive = false;
 
-	public static bool isAgentActive;
+	public static bool isAgentActive {
+		get {
+			return agentActive;
+		}
+		set {
+			agentActive = value;
+			//set players again each time agentActive changes.
+			setPlayer();
+
+			//reset all active pieces on switch
+			GameController.active_player.setActivePiece(-1);
+			_localPlayer.setActivePiece(-1);
+			_twoPlayers.setActivePiece(-1);
+			_agentPlayer.setActivePiece(-1);
+			_networkedPlayer.setActivePiece(-1);
+
+			//need to reset positions???
+            
+		}
+	}
 
 	//may be local player, agent player, networked player, twoPlayer
 	public static IPlayerHandler black_player;
@@ -70,7 +90,7 @@ public class MainController : MonoBehaviour
 
 		//sets agent to active (b/c currently player plays with agent)
 		//set to false for networking, true for agent
-		isAgentActive = false;		
+		isAgentActive = true;
 
 
 		//initializes game
@@ -93,6 +113,27 @@ public class MainController : MonoBehaviour
 		//set cameras
 		mainCam = GameObject.Find("Main Camera").camera;
 		progressCam = GameObject.Find("ProgressCamera").camera;
+	}
+
+	//needs to be called each time "isAgentActive" is switched
+	public static void setPlayer()
+	{
+		if (isAgentActive) {
+			//AI-HUMAN GAME
+			if (curNode == NODE.BLACK_NODE) {
+				black_player = _localPlayer;
+				white_player = _agentPlayer;
+			} else {
+				black_player = _agentPlayer;
+				white_player = _localPlayer;
+			}
+			print("PLAYERS SET --- local player + agent player");
+		} else {
+			//HUMAN-HUMAN GAME (networked)
+			black_player = _networkedPlayer;
+			white_player = _localPlayer;
+			print("PLAYERS SET --- local player + networked player");
+		}
 	}
 
 
