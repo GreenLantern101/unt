@@ -76,7 +76,8 @@ public class StateMachine: Stateless.StateMachine<PuzzleState, Trigger> {
 		Configure(PuzzleState.GAME_STEP)
 			.SubstateOf (PuzzleState.GAME)
 				.OnEntry(()=>GameController.stepStart())
-				.Permit (Trigger.endStep, PuzzleState.GAME_SWITCHER);
+                .Permit (Trigger.endStep, PuzzleState.GAME_SWITCHER)
+                .Permit (Trigger.endGame, PuzzleState.NODE_SWITCHER);
 		
 		
 		Configure(PuzzleState.GAME_SWITCHER)
