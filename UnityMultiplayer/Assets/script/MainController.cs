@@ -18,26 +18,29 @@ public class MainController : MonoBehaviour
 	//initialized here before Start(), so NetworkConnection can call it remotely
 	public static StateMachine FSM = new StateMachine();
 
-	private static bool agentActive = false;
-
 	public static bool isAgentActive {
-		get {
-			return agentActive;
-		}
-		set {
-			agentActive = value;
-			//set players again each time agentActive changes.
-			setPlayer();
+		get;
+		private set;
+	}
 
-			//reset all active pieces on switch
-			GameController.active_player.setActivePiece(-1);
-			_localPlayer.setActivePiece(-1);
-			_twoPlayers.setActivePiece(-1);
-			_agentPlayer.setActivePiece(-1);
-			_networkedPlayer.setActivePiece(-1);
+	// keep track of when need to switch to new game
+	public static bool gameOdd {
+		get;
+		private set;
+	}
 
-			//need to reset positions???
-            
+	public static void setisAgentActive(bool val)
+	{
+		isAgentActive = val;
+		//set players again each time agentActive changes.
+		//setPlayer();
+
+		//RESTART GAME
+		if (gameOdd) {
+			//restart same game
+			curGameNum--;
+		} else {
+			//restart different game (default)
 		}
 	}
 
@@ -86,12 +89,9 @@ public class MainController : MonoBehaviour
 			curNode = NODE.WHITE_NODE;
 		else
 			throw new Exception("Node info can't be parsed.");
-		
 
-		//sets agent to active (b/c currently player plays with agent)
-		//set to false for networking, true for agent
-		agentActive = true;
-
+		//first game is initially agent active
+		isAgentActive = true;
 
 		//initializes game
 		GameInfo.NodeInfoInitialization();
@@ -99,7 +99,7 @@ public class MainController : MonoBehaviour
 		print("NODE: " + curNode.ToString());
 
 
-		curGameNum = 6;
+		curGameNum = 0;
 		totalGameNum = 10;
 
 
@@ -185,7 +185,7 @@ public class MainController : MonoBehaviour
 	//when game finished, start next game
 	public static void finishOneGame()
 	{
-		++curGameNum;
+		curGameNum++;
 		if (curGameNum < totalGameNum) {
 			//reset block success index on game end
 			GameController.blocksuccess_index = -1;
