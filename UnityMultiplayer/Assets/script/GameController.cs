@@ -39,7 +39,6 @@ public class GameController : MonoBehaviour
 	public static int totalStepNum;
 	
 	public static AudioSource audioP;
-	private static int succeedBlock;
 	public static stepType thisStep;
 
 
@@ -74,7 +73,6 @@ public class GameController : MonoBehaviour
 		DClip = Resources.Load("DING") as AudioClip;
 		audioP = GetComponent<AudioSource>();
 		totalStepNum = 7;
-		succeedBlock = -1;
 		thisStep = stepType.nullStep;
 		activePiece = -1;
 		logTimeDataScript = gameObject.GetComponent<LogTimeData>();
@@ -231,10 +229,6 @@ public class GameController : MonoBehaviour
 	void Update()
 	{
 		
-		//only update if both players ready
-		//if (!MainController._localPlayer.isReady())
-		//	return;
-		
 		//WARNING: might be problematic for two-player or agent games
 		if (!MainController._networkedPlayer.isReady() &&
 		    (MainController.black_player == MainController._networkedPlayer
@@ -262,22 +256,24 @@ public class GameController : MonoBehaviour
 
 			//agent timer (2 minutes)
 			agent_player_switch_timer += Time.deltaTime;
-			//switch every 40 seconds
-			if (agent_player_switch_timer > 40) {
-				//switch whether agent active
-				MainController.isAgentActive = !MainController.isAgentActive;
+			//switch every 30 seconds
+			if (agent_player_switch_timer > 30) {
 				//reset timer
 				agent_player_switch_timer = 0;
+
+				//switch whether agent active
+				MainController.setisAgentActive(!MainController.isAgentActive);
+                
 				if (MainController.isAgentActive)
 					Debug.Log("SWITCHED: Agent player is active.");
 				else
 					Debug.Log("SWITCHED: Agent player is not active.");
-			} else if (agent_player_switch_timer % 3 < .018f)
+
+				MainController.FSM.Fire(Trigger.endGame);
+			} else if (agent_player_switch_timer % 3 < .015f)
 				Debug.Log("TIMER: " + agent_player_switch_timer);
 
-
-
-
+            
 			if (GameTimer <= 0) {
 				//automatically move a block
 				print("reset secondary active 10");
@@ -399,12 +395,10 @@ public class GameController : MonoBehaviour
 		audioP.PlayOneShot(DClip);
 		
 		//step 3: trigger end the step
-		if (turnNumber < totalStepNum - 1) {	
+		if (turnNumber < totalStepNum - 1) {
 			MainController.FSM.Fire(Trigger.startStep);
+            
 		} else {
-			//when game ends, reset timers??
-			//agent_player_switch_timer = 0;
-
 			LanguageManager.DMFSM.Fire(DMTrigger.GameEnd);
 			MainController.FSM.Fire(Trigger.endGame);
 		}
