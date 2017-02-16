@@ -21,7 +21,7 @@ public class NetworkConnection: MonoBehaviour
 
 	//location of google server for AI
 	//private string Address = "129.59.79.186";
-	private string Address = "129.59.79.171";
+	private string Address = "10.66.55.214";
 
 
 	public Hashtable speechHT;
@@ -33,6 +33,7 @@ public class NetworkConnection: MonoBehaviour
 		
 		Debug.Log("Connecting to speech started.");
 		StartSpeechConnection();
+        
 		
 		MainController.FSM.Fire(Trigger.startIntro);
 	}
@@ -42,25 +43,56 @@ public class NetworkConnection: MonoBehaviour
 		//ensure speechClient not null
 		if (speechClient == null)
 			return;
-		if (speechClient.Connected && MainController.FSM.IsInState(PuzzleState.GAME)) {            
+		if (!speechClient.Connected || !MainController.FSM.IsInState(PuzzleState.GAME))
+			return;
 
-			if (speechClient.Available > 0) {
-				Debug.Log("AAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHH");
-				string speechDataString = receiveSpeechData();
-				decodeSpeech(speechDataString);
-				LanguageManager.takeAction(speechHT);
-                
+		if (speechClient.Available <= 0)
+			return;
+		Debug.Log("AAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHH");
+		string speechDataString = receiveSpeechData();
+		decodeSpeech(speechDataString);
+		LanguageManager.takeAction(speechHT);
+        
+        
+		//only use agent input if it is agent's turn
+		if (!MainController.isAgentActive)
+			return;
 
-				//temporary shim
-				//todo change based on parsing...
-				//only use agent input if it is agent's turn
-				if (MainController.isAgentActive)
-					MainController._agentPlayer.startMoveBlock(6);
 
+		//get block ID from player speech text
+		int id = -1;
+		int num = 0;
+		//convert to words if is a number
+		if (int.TryParse(speechDataString, out num)) {
+			speechDataString = GameInfo.blockNameStr[num - 2];
+			Debug.Log("===== converted from number to word: " + speechDataString);
+		} else
+			Debug.Log("===== word: " + speechDataString);
+            
+		for (int i = 0; i < GameInfo.blockNameStr.Length; i++) {
+			if (speechDataString.IndexOf(GameInfo.blockNameStr[i]) == -1) {
+				Debug.Log("CHECKED: " + GameInfo.blockNameStr[i] + " != " + speechDataString);
+				continue;
+			} else {
+				Debug.Log("MATCH: " + i);
 			}
+
+			/*
+            for(int j=0; j<GameInfo.RandomList.Count; j++)
+            {
+                if (i == GameInfo.RandomList[j])
+                    id = j;
+            }
+            */
+			id = GameInfo.RandomList[i];
+			//id = i;
+			MainController._agentPlayer.startMoveBlock(id);
+			Debug.Log("Agent started moving block: " + id);
+			//only move one block matching string
+			break;
 		}
 	}
-
+	
 	void ClientConnectLoop(TcpClient tcpClient, string ipAddress, int port)
 	{
 		//keep trying to connect to server, once per second
