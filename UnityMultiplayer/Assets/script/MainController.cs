@@ -36,12 +36,27 @@ public class MainController : MonoBehaviour
 		//setPlayer();
 
 		//RESTART GAME
-		if (gameOdd) {
+		if (!gameOdd) {
 			//restart same game
 			curGameNum--;
 		} else {
 			//restart different game (default)
 		}
+		gameOdd = !gameOdd;
+		
+		//reset all active pieces
+		_localPlayer.setActivePiece(-1);
+		_networkedPlayer.setActivePiece(-1);
+		_agentPlayer.setActivePiece(-1);
+		_twoPlayers.setActivePiece(-1);
+		
+		//reset all positions
+		_localPlayer.setPosition(Vector3.zero);
+		_networkedPlayer.setPosition(Vector3.zero);
+		_twoPlayers.setPosition(Vector3.zero);
+		
+		
+		
 	}
 
 	//may be local player, agent player, networked player, twoPlayer
