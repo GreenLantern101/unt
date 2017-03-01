@@ -231,9 +231,9 @@ public class GameController : MonoBehaviour
 		
 		//WARNING: might be problematic for two-player or agent games
 		//if (!MainController._networkedPlayer.isReady() &&
-		    //(MainController.black_player == MainController._networkedPlayer
-		    //|| MainController.white_player == MainController._networkedPlayer))
-			//return;
+		//(MainController.black_player == MainController._networkedPlayer
+		//|| MainController.white_player == MainController._networkedPlayer))
+		//return;
 		
 		
 		if (MainController.FSM.IsInState(PuzzleState.GAME_INITIALIZATION)) {
@@ -300,9 +300,8 @@ public class GameController : MonoBehaviour
 				
 
 				activePiece = active_player.getActivePiece();
-				int id = MainController.isAgentActive ?
-					MainController._agentPlayer.getActivePiece() :
-					MainController._networkedPlayer.getActivePiece();
+
+				int id = MainController.isAgentActive ? MainController._agentPlayer.getActivePiece() : MainController._networkedPlayer.getActivePiece();
 
 				if (activePieceChanged && id != -1) {
 					//if block succeeded, do not incorporate synced changes
@@ -532,7 +531,7 @@ public class GameController : MonoBehaviour
 	//stores previous orientation, actually rotate in game loop
 	static float newOrient;
 	//store whether active piece changed --> primarily to reduce flicker caused by slight network delay
-	static bool activePieceChanged = false;
+	public static bool activePieceChanged = false;
 	//store whether block has succeeded on networked player's computer
 	public static int blocksuccess_index = -1;
 	
