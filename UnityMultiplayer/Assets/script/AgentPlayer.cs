@@ -6,7 +6,7 @@ using System.Globalization;
 public class AgentPlayer : MonoBehaviour, IPlayerHandler
 {
 	public static int activePiece;
-	public static Vector3 curPosition;
+	private static Vector3 curPosition;
 	public static Vector3 curOrientation;
 	private Vector3 targetPosition;
 	private Vector3 targetOrientation;
@@ -19,10 +19,9 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler
 	//whether to move the block or not
 	public static bool RotateBlockFlag = false;
 	public static float activeTimer;
-	
+
 	//last sent position
 	private static Vector3 lastSentPos;
-	
 
 	void Start()
 	{
@@ -63,6 +62,9 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler
 			activeTimer = 0f;		
 		}
 		activePiece = _acI;
+
+		//set active piece changed flag to true in game
+		GameController.activePieceChanged = true;
 	}
 
 	public bool isControllable(int _block)
@@ -87,6 +89,8 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler
 			curPosition = activeObject.transform.position;
 			targetPosition = GameInfo.getTargetPosition(activePiece);
 			moveBlockFlag = true;
+
+			Debug.Log("--------------- Block move started:: active block: " + activePiece);
 		} else {
 			moveBlockFlag = false;
 			setActivePiece(-1);
@@ -105,7 +109,6 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler
 
 	void Update()
 	{
-		//update timer always
 		if (activePiece != -1 && GameController.active_player.getActivePiece() != activePiece) {
 			activeTimer += Time.deltaTime;
 			if (activeTimer > GameInfo.activeLen) {
@@ -113,35 +116,38 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler
 				LanguageManager.feedbackTimer1 = 0;
 			}
 		} else {
-			activeTimer = -1000f;				
+			activeTimer = -1000f;
 		}
+
 		//detect the failure actions
-		if (moveBlockFlag && activePiece != -1) {	
+		if (moveBlockFlag && activePiece != -1) {
 			Vector3 blockpos = GameInfo.blockList[activePiece].transform.position;
-			if (GameController.active_player == MainController._twoPlayers && MainController._twoPlayers.getActivePiece() == -1)
-			{
+			if (GameController.active_player == MainController._twoPlayers && MainController._twoPlayers.getActivePiece() == -1) {
 				curPosition = blockpos;
 				lastSentPos = curPosition;
 				return;
 			}
-			
+
 			if (Vector3.Distance(blockpos, GameInfo.getTargetPosition(activePiece)) > 2.5) {
 				rate = 1;
 			} else {
 				rate = 5;
 			}
 			float step = speed * Time.deltaTime / rate;
-			Vector3 newPosition = Vector3.MoveTowards(blockpos, GameInfo.getTargetPosition(activePiece), step);
-			
+            
+			Vector3 newPosition = Vector3.MoveTowards(curPosition, GameInfo.getTargetPosition(activePiece), step);
+            
 			lastSentPos = curPosition;
 			curPosition = newPosition;
-			if (curPosition == GameInfo.getTargetPosition(activePiece)) {
+			if (blockpos == GameInfo.getTargetPosition(activePiece)) {
 				moveBlockFlag = false;
 				setActivePiece(-1);
 			}
 		} else {
+			//NOTE: resets active piece to -1 very quickly
 			//setActivePiece(-1);
 		}
+
 	}
 
 }
