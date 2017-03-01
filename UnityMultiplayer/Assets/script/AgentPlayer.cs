@@ -105,11 +105,20 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler
 
 	void Update()
 	{
+		//update timer always
+		if (activePiece != -1 && GameController.active_player.getActivePiece() != activePiece) {
+			activeTimer += Time.deltaTime;
+			if (activeTimer > GameInfo.activeLen) {
+				activeTimer = -1000f;
+				LanguageManager.feedbackTimer1 = 0;
+			}
+		} else {
+			activeTimer = -1000f;				
+		}
 		//detect the failure actions
-
-		if (moveBlockFlag && activePiece!=-1) {	
+		if (moveBlockFlag && activePiece != -1) {	
 			Vector3 blockpos = GameInfo.blockList[activePiece].transform.position;
-			if(GameController.active_player==MainController._twoPlayers && MainController._twoPlayers.getActivePiece()==-1)
+			if (GameController.active_player == MainController._twoPlayers && MainController._twoPlayers.getActivePiece() == -1)
 				return;
 			
 			if (Vector3.Distance(blockpos, GameInfo.getTargetPosition(activePiece)) > 2.5) {
@@ -128,16 +137,6 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler
 			}
 		} else {
 			setActivePiece(-1);
-		}
-		if (activePiece != -1 && GameController.active_player.getActivePiece() != activePiece) {
-//			print ("agent active " + activePiece + "active player active " + GameController.active_player.getActivePiece());
-			activeTimer += Time.deltaTime;
-			if (activeTimer > GameInfo.activeLen) {
-				activeTimer = -1000f;
-				LanguageManager.feedbackTimer1 = 0;
-			}
-		} else {
-			activeTimer = -1000f;				
 		}
 	}
 
