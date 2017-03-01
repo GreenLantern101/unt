@@ -88,16 +88,16 @@ public class LanguageManager : MonoBehaviour
 	/// <summary>
 	/// Name of current block
 	/// </summary>
-	private static string CurBlockName{
-		get{
+	private static string CurBlockName {
+		get {
 			return GameInfo.blockNameStr[GameInfo.RandomList[curBlock]];
 		}
 	}
 	/// <summary>
 	/// Current play state
 	/// </summary>
-	private static PlayState playState{
-		get{
+	private static PlayState playState {
+		get {
 			return GameController.curPlayState;
 		}
 	}
@@ -128,7 +128,11 @@ public class LanguageManager : MonoBehaviour
 		print("current state: enter the DMIntentionConf");
 		++intDectNum;
 		feedbackTimer2 = TimerLen2;
-		AgentPlayer.moveBlockFlag = false;
+
+		//NOTE: enabling this prevents agent-player from moving in two-player mode??
+		//AgentPlayer.moveBlockFlag = false;
+
+
 		print("current intention: " + curIntention);
 		//give some information based on intention 
 		if (curIntention == intention.IntentColorCheck) {			
@@ -237,7 +241,6 @@ public class LanguageManager : MonoBehaviour
 
 	void Update()
 	{
-		
 		if (!MainController.FSM.IsInState(PuzzleState.GAME))
 			return;
 		if (DMFSM.IsInState(DMState.DMInitial)) {
@@ -604,7 +607,8 @@ public class LanguageManager : MonoBehaviour
 		curIntention = intention.IntentNone;
 	}
 	//helper method for above IntentionUpdate_...() methods
-	private static void SpeakCurBlock(string description){
+	private static void SpeakCurBlock(string description)
+	{
 		curBlock = AI.selectPiece();
 		responseText = getOneRes(description, "ID", CurBlockName);
 		VoiceSpeaker.speakOut(responseText);
@@ -786,6 +790,7 @@ public class LanguageManager : MonoBehaviour
 	{
 
 		speechHT = new Hashtable();
+		Debug.Log("INITIALIZED SPEECH_HT");
 		objectList = new List<int>();
 		slotList = new List<string>();
 		slotValList = new List<string>();
