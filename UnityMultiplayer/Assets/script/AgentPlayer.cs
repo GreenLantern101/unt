@@ -108,13 +108,14 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler
 		//detect the failure actions
 
 		if (moveBlockFlag) {	
-			if (Vector3.Distance(GameInfo.blockList[activePiece].transform.position, GameInfo.getTargetPosition(activePiece)) > 2.5) {
+			Vector3 blockpos = GameInfo.blockList[activePiece].transform.position;
+			if (Vector3.Distance(blockpos, GameInfo.getTargetPosition(activePiece)) > 2.5) {
 				rate = 1;
 			} else {
 				rate = 5;
 			}
 			float step = speed * Time.deltaTime / rate;
-			Vector3 newPosition = Vector3.MoveTowards(GameInfo.blockList[activePiece].transform.position, GameInfo.getTargetPosition(activePiece), step);
+			Vector3 newPosition = Vector3.MoveTowards(blockpos, GameInfo.getTargetPosition(activePiece), step);
 			
 			lastSentPos = curPosition;
 			curPosition = newPosition;
