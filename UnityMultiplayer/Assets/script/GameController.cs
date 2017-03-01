@@ -230,10 +230,10 @@ public class GameController : MonoBehaviour
 	{
 		
 		//WARNING: might be problematic for two-player or agent games
-		if (!MainController._networkedPlayer.isReady() &&
-		    (MainController.black_player == MainController._networkedPlayer
-		    || MainController.white_player == MainController._networkedPlayer))
-			return;
+		//if (!MainController._networkedPlayer.isReady() &&
+		    //(MainController.black_player == MainController._networkedPlayer
+		    //|| MainController.white_player == MainController._networkedPlayer))
+			//return;
 		
 		
 		if (MainController.FSM.IsInState(PuzzleState.GAME_INITIALIZATION)) {
@@ -300,7 +300,9 @@ public class GameController : MonoBehaviour
 				
 
 				activePiece = active_player.getActivePiece();
-				int id = MainController._networkedPlayer.getActivePiece();
+				int id = MainController.isAgentActive ?
+					MainController._agentPlayer.getActivePiece() :
+					MainController._networkedPlayer.getActivePiece();
 
 				if (activePieceChanged && id != -1) {
 					//if block succeeded, do not incorporate synced changes
