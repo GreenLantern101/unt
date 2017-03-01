@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System;
 using System.IO;
-
 public enum NODE
 {
 	BLACK_NODE,
@@ -31,7 +30,7 @@ public class MainController : MonoBehaviour
 
 	public static void setisAgentActive(bool val)
 	{
-		
+
 		isAgentActive = val;
 		//set players again each time agentActive changes.
 		//setPlayer();
@@ -44,18 +43,21 @@ public class MainController : MonoBehaviour
 			//restart different game (default)
 		}
 		gameOdd = !gameOdd;
-		/*
+
 		//reset all active pieces
-		_localPlayer.setActivePiece(-1);
-		_networkedPlayer.setActivePiece(-1);
-		_agentPlayer.setActivePiece(-1);
-		_twoPlayers.setActivePiece(-1);
-		
-		//reset all positions
-		_localPlayer.setPosition(Vector3.zero);
-		_networkedPlayer.setPosition(Vector3.zero);
-		_twoPlayers.setPosition(Vector3.zero);
-		*/
+		/*
+        _localPlayer.setActivePiece(-1);
+        _networkedPlayer.setActivePiece(-1);
+        _agentPlayer.setActivePiece(-1);
+        _twoPlayers.setActivePiece(-1);
+
+        //reset all positions?
+        _localPlayer.setPosition(Vector3.zero);
+        _networkedPlayer.setPosition(Vector3.zero);
+        _twoPlayers.setPosition(Vector3.zero);
+        */
+
+		//setPlayer();
 	}
 
 	//may be local player, agent player, networked player, twoPlayer
@@ -104,8 +106,11 @@ public class MainController : MonoBehaviour
 		else
 			throw new Exception("Node info can't be parsed.");
 
-		//first game is initially agent active
+
+		//sets agent to active (b/c currently player plays with agent)
+		//set to false for networking, true for agent
 		isAgentActive = true;
+
 
 		//initializes game
 		GameInfo.NodeInfoInitialization();
@@ -135,14 +140,17 @@ public class MainController : MonoBehaviour
 		if (isAgentActive) {
 			//AI-HUMAN GAME
 			/*
-			if (curNode == NODE.BLACK_NODE) {
-				black_player = _localPlayer;
-				white_player = _agentPlayer;
-			} else {
-				black_player = _agentPlayer;
-				white_player = _localPlayer;
-			}
-			*/
+            if (curNode == NODE.BLACK_NODE)
+            {
+                black_player = _localPlayer;
+                white_player = _agentPlayer;
+            }
+            else
+            {
+                black_player = _agentPlayer;
+                white_player = _localPlayer;
+            }
+            */
 			black_player = _agentPlayer;
 			white_player = _localPlayer;
 			print("PLAYERS SET --- local player + agent player");
