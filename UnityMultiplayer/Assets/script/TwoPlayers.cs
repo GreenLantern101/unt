@@ -49,7 +49,6 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 		if (activePiece != -1) {
 			
 			curPosition = GameInfo.blockList[activePiece].transform.position;
-
 			
 			p1diff = player1.getPosition() - p1oldpos;
 			p2diff = player2.getPosition() - p2oldpos;
@@ -63,6 +62,7 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 			double aZ = Math.Round(p1diff.z, 4);
 			double bX = Math.Round(p2diff.x, 4);
 			double bZ = Math.Round(p2diff.z, 4);
+
 			float averageX = 0;
 			float averageZ = 0;
 			//can't use float b/c 0f may not be equal to 0
@@ -75,18 +75,15 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 			p1oldpos = player1.getPosition();
 			p2oldpos = player2.getPosition();
 			
-			
 			//black node player is more powerful, commands sync
 			if (MainController.curNode == NODE.BLACK_NODE &&
 			    Vector3.Magnitude(curPosition - lastSentPos) > 1) {
-				//message has both position and active piece at time sent
 				string message = "twoplayerpos: " + curPosition.x + "," + curPosition.y + "," + curPosition.z + "," + activePiece;
 				GameController.SyncGame_command(message);
 				lastSentPos = curPosition;
 			}
 			
 		}
-		//Debug.Log("POS: " + curPosition);
 		return curPosition;
 	}
 	
