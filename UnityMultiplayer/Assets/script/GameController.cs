@@ -555,6 +555,7 @@ public class GameController : MonoBehaviour
 			return;
 
 		string[] entries = sync_info.Split(';');
+		Debug.Log("MESSAGE: " + sync_info);
 		
 		foreach (string entry in entries) {
 			//trim all beginning/ending whitespace in key/value
