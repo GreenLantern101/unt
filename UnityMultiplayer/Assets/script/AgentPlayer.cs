@@ -119,7 +119,11 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler
 		if (moveBlockFlag && activePiece != -1) {	
 			Vector3 blockpos = GameInfo.blockList[activePiece].transform.position;
 			if (GameController.active_player == MainController._twoPlayers && MainController._twoPlayers.getActivePiece() == -1)
+			{
+				curPosition = blockpos;
+				lastSentPos = curPosition;
 				return;
+			}
 			
 			if (Vector3.Distance(blockpos, GameInfo.getTargetPosition(activePiece)) > 2.5) {
 				rate = 1;
