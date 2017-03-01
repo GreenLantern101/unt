@@ -45,6 +45,7 @@ public class NetworkConnection: MonoBehaviour
 			return;
 		if (!speechClient.Connected || !MainController.FSM.IsInState(PuzzleState.GAME))
 			return;
+       
 
 		if (speechClient.Available <= 0)
 			return;
@@ -70,29 +71,36 @@ public class NetworkConnection: MonoBehaviour
 			Debug.Log("===== word: " + speechDataString);
             
 		for (int i = 0; i < GameInfo.blockNameStr.Length; i++) {
-			if (speechDataString.IndexOf(GameInfo.blockNameStr[i]) == -1) {
-				Debug.Log("CHECKED: " + GameInfo.blockNameStr[i] + " != " + speechDataString);
+			if (speechDataString.IndexOf(GameInfo.blockNameStr[i]) == -1) {            
+				//Debug.Log("CHECKED: " + GameInfo.blockNameStr[i] + " != " + speechDataString);
 				continue;
 			} else {
 				Debug.Log("MATCH: " + i);
 			}
 
-			/*
-            for(int j=0; j<GameInfo.RandomList.Count; j++)
-            {
-                if (i == GameInfo.RandomList[j])
-                    id = j;
-            }
-            */
-			id = GameInfo.RandomList[i];
+            
+			for (int j = 0; j < GameInfo.RandomList.Count; j++) {
+				if (i == GameInfo.RandomList[j])
+					id = j;
+			}
+            
+			//id = GameInfo.RandomList[i];
 			//id = i;
 			MainController._agentPlayer.startMoveBlock(id);
-			Debug.Log("Agent started moving block: " + id);
 			//only move one block matching string
 			break;
 		}
 	}
-	
+
+	private bool compareCharArrays(char[] a, char[] b)
+	{
+		for (int i = 0; i < Math.Min(a.Length, b.Length); i++) {
+			if (a[i] != b[i])
+				return false;
+		}
+		return true;
+	}
+
 	void ClientConnectLoop(TcpClient tcpClient, string ipAddress, int port)
 	{
 		//keep trying to connect to server, once per second
