@@ -31,6 +31,7 @@ public class MainController : MonoBehaviour
 
 	public static void setisAgentActive(bool val)
 	{
+		
 		isAgentActive = val;
 		//set players again each time agentActive changes.
 		//setPlayer();
@@ -43,7 +44,7 @@ public class MainController : MonoBehaviour
 			//restart different game (default)
 		}
 		gameOdd = !gameOdd;
-		
+		/*
 		//reset all active pieces
 		_localPlayer.setActivePiece(-1);
 		_networkedPlayer.setActivePiece(-1);
@@ -54,9 +55,7 @@ public class MainController : MonoBehaviour
 		_localPlayer.setPosition(Vector3.zero);
 		_networkedPlayer.setPosition(Vector3.zero);
 		_twoPlayers.setPosition(Vector3.zero);
-		
-		
-		
+		*/
 	}
 
 	//may be local player, agent player, networked player, twoPlayer
@@ -135,6 +134,7 @@ public class MainController : MonoBehaviour
 	{
 		if (isAgentActive) {
 			//AI-HUMAN GAME
+			
 			if (curNode == NODE.BLACK_NODE) {
 				black_player = _localPlayer;
 				white_player = _agentPlayer;
@@ -142,6 +142,8 @@ public class MainController : MonoBehaviour
 				black_player = _agentPlayer;
 				white_player = _localPlayer;
 			}
+			
+			
 			print("PLAYERS SET --- local player + agent player");
 		} else {
 			//HUMAN-HUMAN GAME (networked)
