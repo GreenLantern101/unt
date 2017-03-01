@@ -20,6 +20,9 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler
 	public static bool RotateBlockFlag = false;
 	public static float activeTimer;
 	
+	//last sent position
+	private static Vector3 lastSentPos;
+	
 
 	void Start()
 	{
@@ -33,7 +36,7 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler
 	
 	public Vector3 getPosition()
 	{
-		return curPosition;
+		return lastSentPos;
 	}
 
 	public Vector3 getOrientation()
@@ -112,6 +115,8 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler
 			}
 			float step = speed * Time.deltaTime / rate;
 			Vector3 newPosition = Vector3.MoveTowards(GameInfo.blockList[activePiece].transform.position, GameInfo.getTargetPosition(activePiece), step);
+			
+			lastSentPos = curPosition;
 			curPosition = newPosition;
 			if (curPosition == GameInfo.getTargetPosition(activePiece)) {
 				moveBlockFlag = false;
