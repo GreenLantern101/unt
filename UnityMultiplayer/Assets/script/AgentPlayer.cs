@@ -140,7 +140,7 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler
 				setActivePiece(-1);
 			}
 		} else {
-			setActivePiece(-1);
+			//setActivePiece(-1);
 		}
 	}
 
