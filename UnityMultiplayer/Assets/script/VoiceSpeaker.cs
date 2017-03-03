@@ -80,6 +80,10 @@ public class VoiceSpeaker : MonoBehaviour
 	{
 		LogTimeData.logEvent(LogTimeData.speakEvnet);
 		Debug.Log("ATTEMPTED TO SAY: " + _str);
+		//Handle empty string to prevent crashes
+		if(_str=="" || _str.Trim() ==""){
+			return;
+		}
 		Say(_str);
 		LanguageManager.responseText = "";
 	}
