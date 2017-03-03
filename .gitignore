@@ -20,6 +20,8 @@
 
 
 Debug/
+!*/Assets/Resources/*.txt
+!*/Assets/Resources/*.xml
 
 # Windows image file caches
 Thumbs.db

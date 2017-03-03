@@ -1,0 +1,51 @@
+<Assignment>
+  <timer>
+	<timer>60</timer>
+  </timer>
+  <color>
+	<first>True</first>
+    <second>True</second>
+  </color>
+  <steps>
+	  <step>
+		<first>1</first>
+		<second>0</second>
+	  </step>
+	  <step>
+		<first>0</first>
+		<second>1</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>0</second>
+	  </step>
+	  <step>
+		<first>0</first>
+		<second>1</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>0</second>
+	  </step>
+	  <step>
+		<first>0</first>
+		<second>1</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>0</second>
+	  </step>
+   </steps>
+  <hint1>
+	<first>Ask your partner to take a turn if you can’t move a block. </first>
+    <second>Ask your partner to take a turn if you can’t move a block. </second>
+	<firstAudio>Task 1</firstAudio>
+    <secondAudio>Task 1</secondAudio>
+  </hint1>
+  <hint2>
+	<first>Move one block and then give your partner a turn.  </first>
+    <second>Move one block and then give your partner a turn.  </second>
+	<firstAudio>T1</firstAudio>
+    <secondAudio>T1</secondAudio>
+  </hint2>
+</Assignment>

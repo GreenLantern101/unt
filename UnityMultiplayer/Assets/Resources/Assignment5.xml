@@ -1,0 +1,51 @@
+<Assignment>
+  <timer>
+	<timer>40</timer>
+  </timer>
+   <color> 
+	<first>False</first>
+    <second>True</second>
+  </color>  
+  <steps>
+	  <step>
+		<first>1</first>
+		<second>0</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>0</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>0</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>0</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>0</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>0</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>0</second>
+	  </step>
+  </steps>
+    <hint1>
+	<first>Try to move a block.  How can you find out the color of the blocks?   </first>
+    <second>Your partner may not know the color of the blocks.</second>
+	<firstAudio>Task 5 P1</firstAudio>
+    <secondAudio>Task 5 P2</secondAudio>
+  </hint1>
+  <hint2>
+	<first>To rotate a block, click on the block then use the right and left arrows on the keyboard to turn it.  Ask your partner for the color of the blocks. </first>
+    <second>Watch your partner’s movement and share the color information with your partner.</second>
+	<firstAudio>T5 P1</firstAudio>
+    <secondAudio>T5 P2</secondAudio>
+  </hint2>
+</Assignment>

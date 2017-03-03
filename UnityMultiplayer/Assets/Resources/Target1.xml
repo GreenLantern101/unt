@@ -1,0 +1,32 @@
+<Target>
+  <blocks>
+	  <block>
+		<name>block1</name>
+		<rotation>132.4</rotation>
+	  </block>
+	  <block>
+		<name>block2</name>
+		<rotation>131.5</rotation>
+	  </block>
+	  <block>
+		<name>block3</name>
+		<rotation>86.82</rotation>
+	  </block>
+	  <block>
+		<name>block4</name>
+		<rotation>356.6</rotation>
+	  </block>
+	  <block>
+		<name>block5</name>
+		<rotation>267.8</rotation>
+	  </block>
+	  <block>
+		<name>block6</name>
+		<rotation>496.0162</rotation>
+	  </block>
+	  <block>
+		<name>block7</name>
+		<rotation>86.9</rotation>
+	  </block>
+   </blocks>
+</Target>

@@ -1,0 +1,51 @@
+<Assignment>
+  <timer>
+	<timer>50</timer>
+  </timer>
+  <color>
+	<first>True</first>
+    <second>False</second>
+  </color>
+  <steps>
+	  <step>
+		<first>1</first>
+		<second>1</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>1</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>1</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>1</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>1</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>1</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>1</second>
+	  </step>
+  </steps>
+    <hint1>
+	<first>Think about a collaborative move. You may need your partner to help you move these blocks.</first>
+    <second>You can rotate a block using the right and left arrows on the keyboard. </second>
+	<firstAudio>Task 6 P1</firstAudio>
+    <secondAudio>Task 6 P2</secondAudio>
+  </hint1>
+  <hint2>
+	<first>Try a collaborative move.  Ask your partner to help you move a block.  Your partner may be able to rotate the block.</first>
+    <second>Try a collaborative move.  Ask your partner to help you move a block.  Your partner may know the color. You can rotate a block using the right and left arrows on the keyboard.</second>
+	<firstAudio>T6 P1</firstAudio>
+    <secondAudio>T6 P2</secondAudio>
+  </hint2>
+</Assignment>

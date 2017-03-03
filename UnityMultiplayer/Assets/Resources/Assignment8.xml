@@ -1,0 +1,51 @@
+<Assignment>
+  <timer>
+	<timer>45</timer>
+  </timer>
+  <color>
+	<first>True</first>
+    <second>True</second>
+  </color>
+  <steps>
+	  <step>
+		<first>1</first>
+		<second>1</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>1</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>1</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>1</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>1</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>1</second>
+	  </step>
+	  <step>
+		<first>1</first>
+		<second>1</second>
+	  </step>
+  </steps>
+    <hint1>
+	<first>Maybe two people are needed to move this block.   </first>
+    <second>Maybe two people are needed to move this block.  </second>
+	<firstAudio>Task 3</firstAudio>
+    <secondAudio>Task 3</secondAudio>
+  </hint1>
+  <hint2>
+	<first>Talk to your partner so that you can both move the same block in the same direction at the same time.</first>
+    <second>Talk to your partner so that you can both move the same block in the same direction at the same time.</second>
+	<firstAudio>T3</firstAudio>
+    <secondAudio>T3</secondAudio>
+  </hint2>
+</Assignment>
