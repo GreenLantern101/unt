@@ -120,7 +120,7 @@ public class BlockController : MonoBehaviour
 		plane.transform.position = curPos;
 	}
 
-	public void relaseName(int name)
+	public void releaseName(int name)
 	{
 		plane = GameObject.Find("Plane" + (name + 1));
 		Vector3 curPos = new Vector3(-100f, -100f, -100f);

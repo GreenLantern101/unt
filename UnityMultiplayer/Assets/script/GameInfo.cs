@@ -255,7 +255,7 @@ public static class GameInfo
 		tempRotation.y = targetRotationArray[blockI];
 		suObj.transform.localEulerAngles = new Vector3(tempRotation.x, tempRotation.y, tempRotation.z);
 		//remove plant 
-		suObj.GetComponent<BlockController>().relaseName(RandomList[blockI]);
+		suObj.GetComponent<BlockController>().releaseName(RandomList[blockI]);
 		
 		blockSucceed[blockI] = true;
 		/*
