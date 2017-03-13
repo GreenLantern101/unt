@@ -191,7 +191,7 @@ public static class GameInfo
 			blockSucceed[blockIndex] = false;
 			agentColorVisible[blockIndex] = 0;
 		}
-		getRandomNumList();
+		Shuffle();
 		currTarget = "Target7";
 
 		//infinite timer?
@@ -301,15 +301,26 @@ public static class GameInfo
 		currTarget = targetName;
 	}
 
-	public static void getRandomNumList()
-	{
-		Shuffle();
-	}
-
 	public static void Shuffle()
 	{
 		int n = 7;
-		System.Random rnd = new System.Random(10);
+		/* Conditions for shuffling:
+		 * 1. produce a different random list each repeat of the same game
+		 * 2. produce synchronized, deterministic list for player-player games 
+		 */
+		
+		//only is synchronized if two players are not off by more than 20 seconds
+		int salt = (int)GameController.agent_player_switch_timer / 20;
+		int seed = 29* MainController.curGameNum + salt + 70;
+		
+		Debug.Log("SEED: " + seed);
+		System.Random rnd = new System.Random(seed);
+		
+		//reset random list first
+		for (int i = 0; i < RandomList.Count; i++) {
+			RandomList[i] = i;
+		}
+		
 		while (n > 1) {
 			int k = (rnd.Next(0, n));
 			n--;
@@ -474,7 +485,7 @@ public static class GameInfo
 	public static int agentSeeColor(int blockI)
 	{
 		//HACK: prevents array index out of bounds exception
-		if (blockI == -1){
+		if (blockI == -1) {
 			Debug.Log("ERROR: blockI is a negative array index.");
 			return -99999;
 		}
@@ -483,7 +494,6 @@ public static class GameInfo
 		if (peerBlock == -1 || (peerBlock != -1 && agentColorVisible[peerBlock] == 2) || blockSucceed[peerBlock] || blockSucceed[blockI]) {
 			agentColorVisible[blockI] = 2;	 
 		}
-
 		return agentColorVisible[blockI];
 	}
 }

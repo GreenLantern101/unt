@@ -222,7 +222,10 @@ public class GameController : MonoBehaviour
 	}
 
 	//decides when to switch agent-local to networked-local and vice-versa
-	private static float agent_player_switch_timer = 0;
+	public static float agent_player_switch_timer {
+		get;
+		private set;
+	}
 	private const float GAME_LENGTH = 80;
 
 
@@ -401,7 +404,7 @@ public class GameController : MonoBehaviour
 			MainController.FSM.Fire(Trigger.startStep);
             
 		} else {
-			if(agent_player_switch_timer < GAME_LENGTH - 2){
+			if (agent_player_switch_timer < GAME_LENGTH - 2) {
 				//restart game
 				MainController.curGameNum--;
 			}
@@ -624,7 +627,7 @@ public class GameController : MonoBehaviour
 						throw new Exception("Two player position could not be parsed to type: UnityEngine.Vector3");
 
 					if (Convert.ToInt32(twolocs[3]) == MainController._localPlayer.getActivePiece()
-					                   && MainController._localPlayer.getActivePiece() > -1) {
+					    && MainController._localPlayer.getActivePiece() > -1) {
 						twoPlayerPos = new Vector3(float.Parse(twolocs[0]), float.Parse(twolocs[1]), float.Parse(twolocs[2]));
 						twoplayerposchanged = true;
 					}
