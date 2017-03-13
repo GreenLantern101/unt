@@ -257,7 +257,7 @@ public class GameController : MonoBehaviour
 
 			//agent timer (2 minutes)
 			agent_player_switch_timer += Time.deltaTime;
-			//switch every 30 seconds
+			//switch regularly
 			if (agent_player_switch_timer > GAME_LENGTH) {
 				//reset timer
 				agent_player_switch_timer = 0;
@@ -402,14 +402,13 @@ public class GameController : MonoBehaviour
             
 		} else {
 			if(agent_player_switch_timer < GAME_LENGTH - 2){
-				//TODO: restart game
-				
+				//restart game
+				MainController.curGameNum--;
+				//NOTE: don't reset agent player switch timer
 			}
-			else{
-				//start next game
-				LanguageManager.DMFSM.Fire(DMTrigger.GameEnd);
-				MainController.FSM.Fire(Trigger.endGame);
-			}
+			//start next game
+			LanguageManager.DMFSM.Fire(DMTrigger.GameEnd);
+			MainController.FSM.Fire(Trigger.endGame);
 		}
 	}
 
