@@ -223,6 +223,7 @@ public class GameController : MonoBehaviour
 
 	//decides when to switch agent-local to networked-local and vice-versa
 	private static float agent_player_switch_timer = 0;
+	private const float GAME_LENGTH = 120;
 
 
 	// Update is called once per frame
@@ -257,7 +258,7 @@ public class GameController : MonoBehaviour
 			//agent timer (2 minutes)
 			agent_player_switch_timer += Time.deltaTime;
 			//switch every 30 seconds
-			if (agent_player_switch_timer > 30) {
+			if (agent_player_switch_timer > GAME_LENGTH) {
 				//reset timer
 				agent_player_switch_timer = 0;
 
@@ -400,8 +401,15 @@ public class GameController : MonoBehaviour
 			MainController.FSM.Fire(Trigger.startStep);
             
 		} else {
-			LanguageManager.DMFSM.Fire(DMTrigger.GameEnd);
-			MainController.FSM.Fire(Trigger.endGame);
+			if(agent_player_switch_timer < GAME_LENGTH - 2){
+				//TODO: restart game
+				
+			}
+			else{
+				//start next game
+				LanguageManager.DMFSM.Fire(DMTrigger.GameEnd);
+				MainController.FSM.Fire(Trigger.endGame);
+			}
 		}
 	}
 
