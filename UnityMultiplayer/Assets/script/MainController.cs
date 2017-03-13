@@ -44,12 +44,6 @@ public class MainController : MonoBehaviour
 		}
 		gameOdd = !gameOdd;
 
-		//reset all active pieces
-		_localPlayer.setActivePiece(-1);
-		_networkedPlayer.setActivePiece(-1);
-		_agentPlayer.setActivePiece(-1);
-		_twoPlayers.setActivePiece(-1);
-
 		/*
         //reset all positions?
         _localPlayer.setPosition(Vector3.zero);
@@ -59,8 +53,17 @@ public class MainController : MonoBehaviour
 
 		//setPlayer();
 		
-		//reset block success index on game end
+	}
+	public static void resetAllActivePieces()
+	{
+		_localPlayer.setActivePiece(-1);
+		_networkedPlayer.setActivePiece(-1);
+		_agentPlayer.setActivePiece(-1);
+		_twoPlayers.setActivePiece(-1);
+		
+		//reset temp also
 		GameController.blocksuccess_index = -1;
+
 	}
 
 	//may be local player, agent player, networked player, twoPlayer
