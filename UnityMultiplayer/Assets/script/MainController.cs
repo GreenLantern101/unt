@@ -45,12 +45,12 @@ public class MainController : MonoBehaviour
 		gameOdd = !gameOdd;
 
 		//reset all active pieces
-		/*
-        _localPlayer.setActivePiece(-1);
-        _networkedPlayer.setActivePiece(-1);
-        _agentPlayer.setActivePiece(-1);
-        _twoPlayers.setActivePiece(-1);
+		_localPlayer.setActivePiece(-1);
+		_networkedPlayer.setActivePiece(-1);
+		_agentPlayer.setActivePiece(-1);
+		_twoPlayers.setActivePiece(-1);
 
+		/*
         //reset all positions?
         _localPlayer.setPosition(Vector3.zero);
         _networkedPlayer.setPosition(Vector3.zero);
@@ -58,6 +58,9 @@ public class MainController : MonoBehaviour
         */
 
 		//setPlayer();
+		
+		//reset block success index on game end
+		GameController.blocksuccess_index = -1;
 	}
 
 	//may be local player, agent player, networked player, twoPlayer
@@ -217,7 +220,7 @@ public class MainController : MonoBehaviour
 			GameController.blocksuccess_index = -1;
 			FSM.Fire(Trigger.startGame);
 		} else {
-			FSM.Fire(Trigger.endNode);	
+			FSM.Fire(Trigger.endNode);
 		}
 	}
 }
