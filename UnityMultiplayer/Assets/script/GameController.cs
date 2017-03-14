@@ -563,6 +563,9 @@ public class GameController : MonoBehaviour
 		//if agent active, IGNORE networked player
 		if (MainController.isAgentActive && !sync_info.Contains("readyFlag"))
 			return;
+		
+		if (!MainController.FSM.IsInState(PuzzleState.GAME_STEP) && !sync_info.Contains("readyFlag"))
+			return;
 
 		string[] entries = sync_info.Split(';');
 		Debug.Log("MESSAGE: " + sync_info);
