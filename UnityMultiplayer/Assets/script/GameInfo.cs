@@ -309,8 +309,8 @@ public static class GameInfo
 		 * 2. produce synchronized, deterministic list for player-player games 
 		 */
 		
-		//only is synchronized if two players are not off by more than 20 seconds
-		int salt = (int)GameController.agent_player_switch_timer / 20;
+		//only is synchronized if two players are not off by more than 30 seconds
+		int salt = (int)GameController.agent_player_switch_timer / 30;
 		int seed = 29 * MainController.curGameNum + 17 * (MainController.gameOdd ? 1 : 0) + salt + 70;
 		
 		Debug.Log("SEED: " + seed);
