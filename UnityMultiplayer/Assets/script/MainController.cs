@@ -63,6 +63,9 @@ public class MainController : MonoBehaviour
 		
 		//reset temp also
 		GameController.blocksuccess_index = -1;
+		
+		GameController.activePieceChanged = false;
+		GameController.secondaryActivePiece = -1;
 
 	}
 
