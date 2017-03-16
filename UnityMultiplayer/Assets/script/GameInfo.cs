@@ -111,6 +111,7 @@ public static class GameInfo
 		initialRotationArray[5] = 0.0f;
 		initialRotationArray[6] = 270.0f;
 
+		//basically z-offset (of the entire target area)
 		initialPositionArray = new Hashtable();
 		initialPositionArray.Add("Target1T", -146f);
 		initialPositionArray.Add("Target2T", -152f);
@@ -119,6 +120,10 @@ public static class GameInfo
 		initialPositionArray.Add("Target5T", -200f);
 		initialPositionArray.Add("Target6T", -200f);
 		initialPositionArray.Add("Target7T", -200f);
+		initialPositionArray.Add("Target8T", -200f);
+		initialPositionArray.Add("Target9T", -200f);
+		initialPositionArray.Add("Target10T", -200f);
+		initialPositionArray.Add("Target11T", -200f);
 
 		
 		gapHT = new Hashtable();
@@ -129,7 +134,12 @@ public static class GameInfo
 		gapHT.Add("Target5T", 2f);
 		gapHT.Add("Target6T", 2f);
 		gapHT.Add("Target7T", 2f);
-		
+		//custom vertical offsets
+		gapHT.Add("Target8T", -3f);
+		gapHT.Add("Target9T", -3f);
+		gapHT.Add("Target10T", -1.5f);
+		gapHT.Add("Target11T", -4f);
+
 		blockSmoothList = new GameObject[blockNumber];
 		for (int i = 0; i < blockNumber; i++)
 			blockSmoothList[i] = GameObject.Find("block" + (1 + i) + "Smooth");
@@ -315,12 +325,13 @@ public static class GameInfo
 		
 		Debug.Log("SEED: " + seed);
 		System.Random rnd = new System.Random(seed);
-		
+
 		//reset random list first
 		for (int i = 0; i < RandomList.Count; i++) {
 			RandomList[i] = i;
 		}
-		
+
+
 		while (n > 1) {
 			int k = (rnd.Next(0, n));
 			n--;
@@ -494,6 +505,7 @@ public static class GameInfo
 		if (peerBlock == -1 || (peerBlock != -1 && agentColorVisible[peerBlock] == 2) || blockSucceed[peerBlock] || blockSucceed[blockI]) {
 			agentColorVisible[blockI] = 2;	 
 		}
+
 		return agentColorVisible[blockI];
 	}
 }
