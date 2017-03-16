@@ -84,13 +84,13 @@ public class LogTimeData : MonoBehaviour {
 	}
 	
 	
-	public static void setEvent(string eventInf){
+	public static void setEvent(string eventInf, bool isAgent = false){
 		//	print("new event: " + eventInf);
-		logEvent(eventInf);
+		logEvent(eventInf, isAgent);
 	}
 	
 	
-	public static void logEvent(string eventInf){
+	public static void logEvent(string eventInf, bool isAgent = false){
 		//if finished the previous writing
 		string blockName = ActiveBlockName;
 		currentDateTime = System.DateTime.Now;
@@ -161,9 +161,17 @@ public class LogTimeData : MonoBehaviour {
 				} else if (eventInf == speakEvnet) {
 			additionalInfor = LanguageManager.responseText;
 		}
-		string text =  eventInf  +  "," + convertToString(currentDateTime) + "," +  currentState + ","+ totalSpanSeconds.ToString()+ "," + TaskIndex + "," + StepIndex + "," + ActivePersonName + "," + blockName  + "," + additionalInfor; 
-		LogInfor = text;
-		//	print("logInfor "+LogInfor);
+		string text =  eventInf  +  "," + convertToString(currentDateTime) + "," +  currentState + ","+ totalSpanSeconds.ToString()+ "," + TaskIndex + "," + StepIndex + "," + ActivePersonName + "," + blockName  + "," + additionalInfor;
+        if (!isAgent)
+        {
+            LogInfor = text;
+        }
+        else
+        {
+            LogInfor = text + "," + "AGENT";
+        }
+		
+        //	print("logInfor "+LogInfor);
 		//	if(eventInf == moveStartEvent ||eventInf == moveEndEvent ){
 		//		//remove the move event
 		//	}else{
@@ -172,7 +180,7 @@ public class LogTimeData : MonoBehaviour {
 		resetAdditionalInfor();
 	}
 	
-	public static void writeToFile(){
+	private static void writeToFile(){
 		StreamWriter sw = new StreamWriter(logFileName, true);
 		sw.WriteLine(LogInfor);
 		sw.Close();
@@ -195,7 +203,7 @@ public class LogTimeData : MonoBehaviour {
 		ActiveBlockName = name;
 	}
 	
-	public static void setNoState(){
+	private static void setNoState(){
 		currentState = NoneInfor;
 		currentTimespan = currentDateTime - currentDateTime;	
 	}
@@ -214,22 +222,22 @@ public class LogTimeData : MonoBehaviour {
 	}
 	
 	
-	public static void resetAdditionalInfor(){
+	private static void resetAdditionalInfor(){
 		additionalInfor = NoneInfor;
 	}
 	
-	public static string convertToString(System.DateTime t){
+	private static string convertToString(System.DateTime t){
 		string timeString = t.ToString("hh-mm-ss-fff");
 		//var timeString : String = t.Hour + ":" + t.Minute + ":" t.Second + ":"  + t.Millisecond; 
 		return timeString;
 	}
 	
 	
-	public static void resetMoveDuration(){
+	private static void resetMoveDuration(){
 		moveDuration = 0f;
 	}
 	
-	public static float getTotalSecond(System.TimeSpan span){
+	private static float getTotalSecond(System.TimeSpan span){
 		return (float)span.TotalSeconds;
 	}
 }
