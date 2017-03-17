@@ -91,6 +91,7 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler
 			moveBlockFlag = true;
 
 			Debug.Log("--------------- Block move started:: active block: " + activePiece);
+			LogTimeData.setEvent(LogTimeData.dragStartEvent, true);
 		} else {
 			moveBlockFlag = false;
 			setActivePiece(-1);
@@ -142,8 +143,10 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler
 			if (blockpos == GameInfo.getTargetPosition(activePiece)) {
 				moveBlockFlag = false;
 				setActivePiece(-1);
+				LogTimeData.setEvent(LogTimeData.stepSuccessEvent, true);
 			}
 		} else {
+			LogTimeData.setEvent(LogTimeData.stepFailEvent, true);
 			//NOTE: resets active piece to -1 very quickly
 			//setActivePiece(-1);
 		}

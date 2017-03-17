@@ -70,6 +70,11 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 				averageX = (float)(aX + bX) / 2.0f;
 			if (aZ * bZ > 0)
 				averageZ = (float)(aZ + bZ) / 2.0f;
+			
+			if(averageX>.0001 || averageZ>.0001){
+				//TODO:need to log not moving...
+			}
+			
 			curPosition += new Vector3(averageX, 0f, averageZ);
 			
 			p1oldpos = player1.getPosition();

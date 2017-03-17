@@ -104,7 +104,7 @@ public class LogTimeData : MonoBehaviour
 	}
 	
 	
-	public static void logEvent(string eventInf, bool isAgent = false)
+	private static void logEvent(string eventInf, bool isAgent = false)
 	{
 		//if finished the previous writing
 		string blockName = ActiveBlockName;
