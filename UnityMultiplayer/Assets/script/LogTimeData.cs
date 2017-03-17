@@ -63,7 +63,7 @@ public class LogTimeData : MonoBehaviour
 	private static string currentState;
 	private static string preEvent;
 	private static string preRotateEvent;
-	public static string speakEvnet;
+	public static string speakEvent;
 	private static float initialAngle;
 	private static float currentAngle;
 	private static string additionalInfor;
@@ -81,13 +81,13 @@ public class LogTimeData : MonoBehaviour
 		
 		if (!Directory.Exists(logFileName))
 			Directory.CreateDirectory(Path.GetDirectoryName(logFileName));
-		string TitleLine = "Event" + "," + "TimeStamp" + "," + "Description" + "," + "Duration" + "," + "TaskIndex" + "," + "StepIndex" + "PersonIndex" + "," + "BlockIndex" + "," + "Commend";
+		string TitleLine = "Event" + "," + "TimeStamp" + "," + "Description" + "," + "Duration" + "," + "TaskIndex" + "," + "StepIndex" + "," + "PersonIndex" + "," + "BlockIndex" + "," + "Commend";
 		StreamWriter sw = new StreamWriter(logFileName, true);
 		sw.WriteLine(TitleLine);
 		sw.Close();
 		preEvent = "Nothing";
 		preRotateEvent = "Nothing";
-		speakEvnet = "Spoken";
+		speakEvent = "Spoken";
 		currentState = "Nothing";
 		StepIndex = -1;
 		TaskIndex = -1;
@@ -173,7 +173,7 @@ public class LogTimeData : MonoBehaviour
 			currentState = rotateState;
 			blockName = preActiveBlock;
 			additionalInfor = currentAngle.ToString();		//current angle
-		} else if (eventInf == speakEvnet) {
+		} else if (eventInf == speakEvent) {
 			additionalInfor = LanguageManager.responseText;
 		}
 		string text = eventInf + "," + convertToString(currentDateTime) + "," + currentState + "," + totalSpanSeconds.ToString() + "," + TaskIndex + "," + StepIndex + "," + ActivePersonName + "," + blockName + "," + additionalInfor;
@@ -199,14 +199,14 @@ public class LogTimeData : MonoBehaviour
 		sw.Close();
 	}
 	
-	public static void setTaskIndex(int indxe)
+	public static void setTaskIndex(int index)
 	{
-		TaskIndex = indxe;
+		TaskIndex = index;
 	}
 	
-	public static void setStepIndex(int indxe)
+	public static void setStepIndex(int index)
 	{
-		StepIndex = indxe;
+		StepIndex = index;
 	}
 	
 	public static void setActivePerson(string name)

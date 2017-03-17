@@ -78,7 +78,7 @@ public class VoiceSpeaker : MonoBehaviour
 
 	public static void speakOut(string _str)
 	{
-		LogTimeData.setEvent(LogTimeData.speakEvnet);
+		LogTimeData.setEvent(LogTimeData.speakEvent);
 		Debug.Log("ATTEMPTED TO SAY: " + _str);
 		//Handle empty string to prevent crashes
 		if (_str == "" || _str.Trim() == "") {
