@@ -18,20 +18,24 @@ public class LogTimeData : MonoBehaviour
 	private static string ActiveBlockName;
 	private static bool stepFlag;
 	/* the event list*/
-	public static string stepSuccessEvent = "hit_target";
-	//only set for the person who achive the success
-	public static string stepFailEvent = "time_over";
-	//only set for the person who take charge of the step
-	public static string stepStartEvent = "start_new_step";
 	public static string taskStartEvent = "start_new_task";
 	public static string taskEndEvent = "the_end_of_task";
+	public static string repeatTaskEvent = "repeat_task";
+	
+	public static string stepStartEvent = "start_new_step";
+	public static string stepSuccessEvent = "hit_target";
+	public static string stepFailEvent = "time_over";
+	
 	public static string dragStartEvent = "start_drag_block";
 	public static string dragEndEvent = "stop_drag_block";
 	public static string moveStartEvent = "start_move_block";
 	public static string moveEndEvent = "stop_move_block";
+	
 	public static string rotateStartEvent = "start_rotate_block";
 	public static string rotateEndEvent = "stop_rotate_block";
+	
 	public static string NoneInfor = "No";
+	
 	/*the state list*/
 	private static string stepSuccessState = "one_success_step";
 	//one step
