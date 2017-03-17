@@ -110,6 +110,39 @@ public class LogTimeData : MonoBehaviour
 	
 	private static void logEvent(string eventInf, bool isAgent = false)
 	{
+		if (eventInf == taskStartEvent || eventInf == taskEndEvent) {
+			totalSpanSeconds = getTotalSecond(currentDateTime - preTaskTime);
+			preTaskTime = currentDateTime;
+			if (eventInf == taskStartEvent) {
+				if (TaskIndex != 0) {
+					currentState = interTaskState;
+				} else {
+					totalSpanSeconds = getTotalSecond(currentDateTime - currentDateTime);
+					setNoState();			
+				}
+			} else {
+				currentState = taskState;
+			}
+			
+			//TODO: fix
+			LogInfor = "";
+			writeToFile();
+			resetAdditionalInfor();
+			return;
+		}
+		
+		if(eventInf==repeatTaskEvent){
+			
+			//TODO: fix
+			LogInfor = "";
+			writeToFile();
+			resetAdditionalInfor();
+			return;
+		}
+		
+		
+		
+		
 		//if finished the previous writing
 		string blockName = ActiveBlockName;
 		currentDateTime = System.DateTime.Now;
@@ -132,19 +165,6 @@ public class LogTimeData : MonoBehaviour
 				} else {
 					setNoState();
 				}
-			}
-		} else if (eventInf == taskStartEvent || eventInf == taskEndEvent) {
-			totalSpanSeconds = getTotalSecond(currentDateTime - preTaskTime);
-			preTaskTime = currentDateTime;
-			if (eventInf == taskStartEvent) {
-				if (TaskIndex != 0) {
-					currentState = interTaskState;
-				} else {
-					totalSpanSeconds = getTotalSecond(currentDateTime - currentDateTime);
-					setNoState();			
-				}
-			} else {
-				currentState = taskState;
 			}
 		} else if (eventInf == dragStartEvent || eventInf == moveStartEvent || eventInf == rotateStartEvent) {
 			totalSpanSeconds = getTotalSecond(currentDateTime - preMoveTime);
