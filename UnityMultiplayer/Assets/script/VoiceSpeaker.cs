@@ -78,10 +78,10 @@ public class VoiceSpeaker : MonoBehaviour
 
 	public static void speakOut(string _str)
 	{
-		LogTimeData.logEvent(LogTimeData.speakEvnet);
+		LogTimeData.setEvent(LogTimeData.speakEvnet);
 		Debug.Log("ATTEMPTED TO SAY: " + _str);
 		//Handle empty string to prevent crashes
-		if(_str=="" || _str.Trim() ==""){
+		if (_str == "" || _str.Trim() == "") {
 			return;
 		}
 		Say(_str);

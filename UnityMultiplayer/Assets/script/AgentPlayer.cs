@@ -140,13 +140,15 @@ public class AgentPlayer : MonoBehaviour, IPlayerHandler
             
 			lastSentPos = curPosition;
 			curPosition = newPosition;
+			LogTimeData.setEvent(LogTimeData.moveStartEvent, true);
 			if (blockpos == GameInfo.getTargetPosition(activePiece)) {
 				moveBlockFlag = false;
 				setActivePiece(-1);
 				LogTimeData.setEvent(LogTimeData.stepSuccessEvent, true);
 			}
 		} else {
-			LogTimeData.setEvent(LogTimeData.stepFailEvent, true);
+			if (activePiece != -1)
+				LogTimeData.setEvent(LogTimeData.stepFailEvent, true);
 			//NOTE: resets active piece to -1 very quickly
 			//setActivePiece(-1);
 		}
