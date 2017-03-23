@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour
 	public static stepType thisStep;
 
 
-	private static int activePiece;
+	public static int activePiece{ get; private set; }
 	public static int secondaryActivePiece;
 
 

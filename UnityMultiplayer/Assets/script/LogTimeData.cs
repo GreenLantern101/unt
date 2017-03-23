@@ -105,13 +105,14 @@ public class LogTimeData : MonoBehaviour
 		additionalInfor = "No";
 	}
 	
-	public static void logGameStartParams(){
+	public static void logGameStartParams()
+	{
 		StreamWriter sw = new StreamWriter(logFileName, true);
 		sw.WriteLine("**************************************************************");
 		System.DateTime dt = System.DateTime.Now;
 		sw.WriteLine("DateTime: " + String.Format("{0:G}", dt));
-		sw.WriteLine("Players: " + MainController.WhoIs(MainController.black_player) 
-		             + " and " + MainController.WhoIs(MainController.white_player));
+		sw.WriteLine("Players: " + MainController.WhoIs(MainController.black_player)
+		+ " and " + MainController.WhoIs(MainController.white_player));
 		sw.WriteLine("Active player: " + MainController.WhoIs(GameController.active_player));
 		//sw.WriteLine("Agent active: " + MainController.isAgentActive);
 		
@@ -163,7 +164,8 @@ public class LogTimeData : MonoBehaviour
 			return;
 		}
 		
-		
+		//refresh active block each frame
+		setActiveBlock(GameController.activePiece);
 		
 		
 		//if finished the previous writing
@@ -265,8 +267,9 @@ public class LogTimeData : MonoBehaviour
 		ActivePersonName = name;
 	}
 	
-	public static void setActiveBlock(string name)
+	public static void setActiveBlock(int active_block_index)
 	{
+		string name = GameInfo.blockNameStr[active_block_index];
 		preActiveBlock = ActiveBlockName;
 		ActiveBlockName = name;
 	}
