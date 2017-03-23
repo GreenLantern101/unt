@@ -135,6 +135,9 @@ public class GameController : MonoBehaviour
 		GameInfo.switchTimer = GameInfo.switchLen; 
 		print("secondary active3 " + GameController.secondaryActivePiece);
 		secondaryActivePiece = -1;
+		
+		//log all game start params
+		LogTimeData.logGameStartParams();
 	}
 
 

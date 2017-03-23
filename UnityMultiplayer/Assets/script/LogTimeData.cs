@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.IO;
+using System;
 
 /*
  * Log data for research purposes into /LoggedData/*
@@ -85,10 +86,14 @@ public class LogTimeData : MonoBehaviour
 		
 		if (!Directory.Exists(logFileName))
 			Directory.CreateDirectory(Path.GetDirectoryName(logFileName));
-		string TitleLine = "Event" + "," + "TimeStamp" + "," + "Description" + "," + "Duration" + "," + "TaskIndex" + "," + "StepIndex" + "," + "PersonIndex" + "," + "BlockIndex" + "," + "Commend";
+		string headers = "Event" + "," + "TimeStamp" + "," + "Description" + "," + "Duration" + "," + "TaskIndex" + "," + "StepIndex" + "," + "PersonIndex" + "," + "BlockIndex" + "," + "Commend";
+		
+		//log column headers
 		StreamWriter sw = new StreamWriter(logFileName, true);
-		sw.WriteLine(TitleLine);
+		//column headers
+		sw.WriteLine(headers);
 		sw.Close();
+		
 		preEvent = "Nothing";
 		preRotateEvent = "Nothing";
 		speakEvent = "Spoken";
@@ -98,6 +103,24 @@ public class LogTimeData : MonoBehaviour
 		initialAngle = 0f;
 		currentAngle = 0f;
 		additionalInfor = "No";
+	}
+	
+	public static void logGameStartParams(){
+		StreamWriter sw = new StreamWriter(logFileName, true);
+		sw.WriteLine("**************************************************************");
+		System.DateTime dt = System.DateTime.Now;
+		sw.WriteLine("DateTime: " + String.Format("{0:G}", dt));
+		sw.WriteLine("Players: " + MainController.WhoIs(MainController.black_player) 
+		             + " and " + MainController.WhoIs(MainController.white_player));
+		sw.WriteLine("Active player: " + MainController.WhoIs(GameController.active_player));
+		//sw.WriteLine("Agent active: " + MainController.isAgentActive);
+		
+		
+		sw.WriteLine("Assignment: " + MainController.curGameNum);
+		//sw.WriteLine("Game Name: " + MainInfo.getAssignmentName());
+		sw.WriteLine("Target Name: " + GameController.targetTName);
+		sw.WriteLine("Nth time this game is being played: " + "<todo>");
+		sw.Close();
 	}
 	
 	
@@ -131,7 +154,7 @@ public class LogTimeData : MonoBehaviour
 			return;
 		}
 		
-		if(eventInf==repeatTaskEvent){
+		if (eventInf == repeatTaskEvent) {
 			
 			//TODO: fix
 			LogInfor = "";
@@ -145,7 +168,11 @@ public class LogTimeData : MonoBehaviour
 		
 		//if finished the previous writing
 		string blockName = ActiveBlockName;
+		
+		//refresh current date time
 		currentDateTime = System.DateTime.Now;
+		
+		
 		if (eventInf == stepSuccessEvent || eventInf == stepFailEvent || eventInf == stepStartEvent) {
 			totalSpanSeconds = getTotalSecond(currentDateTime - preStepTime);
 			preStepTime = currentDateTime;
