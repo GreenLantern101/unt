@@ -137,7 +137,7 @@ public class GameController : MonoBehaviour
 		secondaryActivePiece = -1;
 		
 		//log all game start params
-		LogTimeData.logGameStartParams();
+		LogTimeData.logParams_startGame();
 	}
 
 

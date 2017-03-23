@@ -12,7 +12,7 @@ public class LogTimeData : MonoBehaviour
 	
 	public static string participantName;
 	private static string logPath;
-	private static string LogInfor = "";
+	private static string LogInfo = "";
 	private static int TaskIndex;
 	private static int StepIndex;
 	private static string ActivePersonName;
@@ -35,7 +35,7 @@ public class LogTimeData : MonoBehaviour
 	public static string rotateStartEvent = "start_rotate_block";
 	public static string rotateEndEvent = "stop_rotate_block";
 	
-	public static string NoneInfor = "No";
+	public static string NoneInfo = "No";
 	
 	/*the state list*/
 	private static string stepSuccessState = "one_success_step";
@@ -62,7 +62,7 @@ public class LogTimeData : MonoBehaviour
 	private static System.DateTime preMoveTime;
 	private static System.DateTime preDragTime;
 	private static System.DateTime preRotateTime;
-	/*current information */
+	/*current Infomation */
 	private static System.TimeSpan currentTimespan;
 	private static System.DateTime currentDateTime;
 	private static string currentState;
@@ -71,7 +71,7 @@ public class LogTimeData : MonoBehaviour
 	public static string speakEvent;
 	private static float initialAngle;
 	private static float currentAngle;
-	private static string additionalInfor;
+	private static string additionalInfo;
 	private static string preActiveBlock;
 	private static string logFileName;
 	private static float moveDuration;
@@ -102,10 +102,10 @@ public class LogTimeData : MonoBehaviour
 		TaskIndex = -1;
 		initialAngle = 0f;
 		currentAngle = 0f;
-		additionalInfor = "No";
+		additionalInfo = "No";
 	}
 	
-	public static void logGameStartParams()
+	public static void logParams_startGame()
 	{
 		StreamWriter sw = new StreamWriter(logFileName, true);
 		sw.WriteLine("**************************************************************");
@@ -149,18 +149,18 @@ public class LogTimeData : MonoBehaviour
 			}
 			
 			//TODO: fix
-			LogInfor = "";
+			LogInfo = "";
 			writeToFile();
-			resetAdditionalInfor();
+			resetAdditionalInfo();
 			return;
 		}
 		
 		if (eventInf == repeatTaskEvent) {
 			
 			//TODO: fix
-			LogInfor = "";
+			LogInfo = "";
 			writeToFile();
-			resetAdditionalInfor();
+			resetAdditionalInfo();
 			return;
 		}
 		
@@ -181,12 +181,12 @@ public class LogTimeData : MonoBehaviour
 			if (eventInf == stepSuccessEvent) {
 				currentState = stepSuccessState;
 				blockName = preActiveBlock;
-				additionalInfor = moveDuration.ToString();
+				additionalInfo = moveDuration.ToString();
 				resetMoveDuration();
 			} else if (eventInf == stepFailEvent) {
 				currentState = stepFailedState;
 				blockName = preActiveBlock;
-				additionalInfor = moveDuration.ToString();
+				additionalInfo = moveDuration.ToString();
 				resetMoveDuration();
 			} else {
 				if (StepIndex != 0) {
@@ -208,7 +208,7 @@ public class LogTimeData : MonoBehaviour
 			if (eventInf == rotateStartEvent) {
 				preRotateEvent = eventInf;
 				preRotateTime = currentDateTime;
-				additionalInfor = currentAngle.ToString();		//additional angle
+				additionalInfo = currentAngle.ToString();		//additional angle
 			}
 		} else if (eventInf == dragEndEvent) {
 			totalSpanSeconds = getTotalSecond(currentDateTime - preDragTime);
@@ -225,30 +225,30 @@ public class LogTimeData : MonoBehaviour
 			totalSpanSeconds = getTotalSecond(currentDateTime - preRotateTime);
 			currentState = rotateState;
 			blockName = preActiveBlock;
-			additionalInfor = currentAngle.ToString();		//current angle
+			additionalInfo = currentAngle.ToString();		//current angle
 		} else if (eventInf == speakEvent) {
-			additionalInfor = LanguageManager.responseText;
+			additionalInfo = LanguageManager.responseText;
 		}
-		string text = eventInf + "," + convertToString(currentDateTime) + "," + currentState + "," + totalSpanSeconds.ToString() + "," + TaskIndex + "," + StepIndex + "," + ActivePersonName + "," + blockName + "," + additionalInfor;
+		string text = eventInf + "," + convertToString(currentDateTime) + "," + currentState + "," + totalSpanSeconds.ToString() + "," + TaskIndex + "," + StepIndex + "," + ActivePersonName + "," + blockName + "," + additionalInfo;
 		if (!isAgent) {
-			LogInfor = text;
+			LogInfo = text;
 		} else {
-			LogInfor = text + "," + "AGENT";
+			LogInfo = text + "," + "_agent";
 		}
 		
-		//	print("logInfor "+LogInfor);
+		//	print("logInfo "+LogInfo);
 		//	if(eventInf == moveStartEvent ||eventInf == moveEndEvent ){
 		//		//remove the move event
 		//	}else{
 		writeToFile();
 		//	}
-		resetAdditionalInfor();
+		resetAdditionalInfo();
 	}
 	
 	private static void writeToFile()
 	{
 		StreamWriter sw = new StreamWriter(logFileName, true);
-		sw.WriteLine(LogInfor);
+		sw.WriteLine(LogInfo);
 		sw.Close();
 	}
 	
@@ -276,7 +276,7 @@ public class LogTimeData : MonoBehaviour
 	
 	private static void setNoState()
 	{
-		currentState = NoneInfor;
+		currentState = NoneInfo;
 		currentTimespan = currentDateTime - currentDateTime;	
 	}
 	
@@ -297,9 +297,9 @@ public class LogTimeData : MonoBehaviour
 	}
 	
 	
-	private static void resetAdditionalInfor()
+	private static void resetAdditionalInfo()
 	{
-		additionalInfor = NoneInfor;
+		additionalInfo = NoneInfo;
 	}
 	
 	private static string convertToString(System.DateTime t)
