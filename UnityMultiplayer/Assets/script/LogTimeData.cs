@@ -304,7 +304,7 @@ public class LogTimeData : MonoBehaviour
 	
 	private static string convertToString(System.DateTime t)
 	{
-		string timeString = t.ToString("hh-mm-ss-fff");
+		string timeString = t.ToString("hh:mm:ss:fff");
 		//var timeString : String = t.Hour + ":" + t.Minute + ":" t.Second + ":"  + t.Millisecond; 
 		return timeString;
 	}
