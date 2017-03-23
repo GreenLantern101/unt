@@ -12,11 +12,9 @@ public class LogTimeData : MonoBehaviour
 	
 	public static string participantName;
 	private static string logPath;
-	private static string LogInfo = "";
-	private static int TaskIndex;
-	private static int StepIndex;
-	private static string ActivePlayerName;
-	private static string ActiveBlockName;
+	private static string LogInfo;
+	private static int TaskIndex, StepIndex;
+	private static string ActivePlayerName, ActiveBlockName;
 	private static bool stepFlag;
 	/* the event list*/
 	public static string taskStartEvent = "start_new_task";
@@ -57,36 +55,30 @@ public class LogTimeData : MonoBehaviour
 	private static string interStepState = "move_in_seconds";
 	//not 0 for the two feedbacks
 	/*record DateTime for each event*/
-	private static System.DateTime preTaskTime;
-	private static System.DateTime preStepTime;
-	private static System.DateTime preMoveTime;
-	private static System.DateTime preDragTime;
-	private static System.DateTime preRotateTime;
+	private static DateTime preTaskTime, preStepTime, preMoveTime, preDragTime, preRotateTime;
 	/*current Infomation */
-	private static System.TimeSpan currentTimespan;
-	private static System.DateTime currentDateTime;
+	private static TimeSpan currentTimespan;
+	private static DateTime currentDateTime;
 	private static string currentState;
-	private static string preEvent;
-	private static string preRotateEvent;
-	public static string speakEvent;
-	private static float initialAngle;
-	private static float currentAngle;
+	private static string preEvent, preRotateEvent, speakEvent;
+	private static float initialAngle, currentAngle;
 	private static string additionalInfo;
 	private static string preActiveBlock;
 	private static string logFileName;
-	private static float moveDuration;
-	private static float totalSpanSeconds;
+	private static float moveDuration, totalSpanSeconds;
 	
 	void Start()
 	{
 		string appPath = Application.dataPath;
 		appPath = appPath.LastIndexOf('/') == -1 ? appPath : appPath.Substring(0, appPath.LastIndexOf('/'));
-		string timeString = System.DateTime.Now.ToString("hh-mm-ss-fff");
+		string timeString = DateTime.Now.ToString("hh-mm-ss-fff");
 		logFileName = appPath + "/LoggedData/" + "Log_" + timeString + ".csv";
 		
 		if (!Directory.Exists(logFileName))
 			Directory.CreateDirectory(Path.GetDirectoryName(logFileName));
-		string headers = "Event" + "," + "TimeStamp" + "," + "Description" + "," + "Duration" + "," + "TaskIndex" + "," + "StepIndex" + "," + "PersonIndex" + "," + "BlockIndex" + "," + "Commend";
+		string headers = "Event" + "," + "TimeStamp" + "," + "Description" + ","
+		                 + "Duration" + "," + "TaskIndex" + "," + "StepIndex" + "," + "PersonIndex"
+		                 + "," + "BlockIndex" + "," + "Command";
 		
 		//log column headers
 		StreamWriter sw = new StreamWriter(logFileName, true);
@@ -109,7 +101,7 @@ public class LogTimeData : MonoBehaviour
 	{
 		StreamWriter sw = new StreamWriter(logFileName, true);
 		sw.WriteLine("**************************************************************");
-		System.DateTime dt = System.DateTime.Now;
+		DateTime dt = DateTime.Now;
 		sw.WriteLine("DateTime: " + String.Format("{0:G}", dt));
 		//p1 = white player, p2 = black player
 		sw.WriteLine("Players: p1 -" + MainController.WhoIs(MainController.white_player)
@@ -176,7 +168,7 @@ public class LogTimeData : MonoBehaviour
 		string blockName = ActiveBlockName;
 		
 		//refresh current date time
-		currentDateTime = System.DateTime.Now;
+		currentDateTime = DateTime.Now;
 		
 		
 		if (eventInf == stepSuccessEvent || eventInf == stepFailEvent || eventInf == stepStartEvent) {
@@ -310,9 +302,7 @@ public class LogTimeData : MonoBehaviour
 	
 	private static string prettify(DateTime t)
 	{
-		string timeString = t.ToString("hh:mm:ss:fff");
-		//var timeString : String = t.Hour + ":" + t.Minute + ":" t.Second + ":"  + t.Millisecond; 
-		return timeString;
+		return t.ToString("hh:mm:ss:fff");
 	}
 	
 	
@@ -321,7 +311,7 @@ public class LogTimeData : MonoBehaviour
 		moveDuration = 0f;
 	}
 	
-	private static float getTotalSecond(System.TimeSpan span)
+	private static float getTotalSecond(TimeSpan span)
 	{
 		return (float)span.TotalSeconds;
 	}
