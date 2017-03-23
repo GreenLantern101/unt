@@ -460,7 +460,7 @@ public class GameController : MonoBehaviour
 					curPlayState = PlayState.BothMoveBothColor;
 				}
 			}
-			LogTimeData.setActivePerson("p1_and_p2");
+			LogTimeData.setActivePlayer("p1_and_p2");
 
 		} else {
 			if (GameInfo.stepControl[turnNumber]) {
@@ -473,7 +473,7 @@ public class GameController : MonoBehaviour
 				} else {
 					curPlayState = PlayState.UserMoveBothColor;
 				}
-				LogTimeData.setActivePerson("p1");
+				LogTimeData.setActivePlayer("p1");
 			} else if (GameInfo.otherStepControl[turnNumber]) {
 
 				//active_player = MainController._agentPlayer;	
@@ -485,7 +485,7 @@ public class GameController : MonoBehaviour
 				} else {
 					curPlayState = PlayState.AgentMoveBothColor;
 				}
-				LogTimeData.setActivePerson("p2");
+				LogTimeData.setActivePlayer("p2");
 			}
 
 			//log player type

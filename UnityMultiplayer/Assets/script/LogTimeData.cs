@@ -15,7 +15,7 @@ public class LogTimeData : MonoBehaviour
 	private static string LogInfo = "";
 	private static int TaskIndex;
 	private static int StepIndex;
-	private static string ActivePersonName;
+	private static string ActivePlayerName;
 	private static string ActiveBlockName;
 	private static bool stepFlag;
 	/* the event list*/
@@ -111,8 +111,9 @@ public class LogTimeData : MonoBehaviour
 		sw.WriteLine("**************************************************************");
 		System.DateTime dt = System.DateTime.Now;
 		sw.WriteLine("DateTime: " + String.Format("{0:G}", dt));
-		sw.WriteLine("Players: " + MainController.WhoIs(MainController.black_player)
-		+ " and " + MainController.WhoIs(MainController.white_player));
+		//p1 = white player, p2 = black player
+		sw.WriteLine("Players: p1 -" + MainController.WhoIs(MainController.white_player)
+		+ " and p2 -" + MainController.WhoIs(MainController.black_player));
 		sw.WriteLine("Active player: " + MainController.WhoIs(GameController.active_player));
 		//sw.WriteLine("Agent active: " + MainController.isAgentActive);
 		
@@ -122,6 +123,9 @@ public class LogTimeData : MonoBehaviour
 		sw.WriteLine("Target Name: " + GameController.targetTName);
 		sw.WriteLine("Nth time this game is being played: " + "<todo>");
 		sw.Close();
+		
+		setTaskIndex(MainController.curGameNum);
+		setStepIndex(GameController.turnNumber);
 	}
 	
 	
@@ -229,7 +233,9 @@ public class LogTimeData : MonoBehaviour
 		} else if (eventInf == speakEvent) {
 			additionalInfo = LanguageManager.responseText;
 		}
-		string text = eventInf + "," + convertToString(currentDateTime) + "," + currentState + "," + totalSpanSeconds.ToString() + "," + TaskIndex + "," + StepIndex + "," + ActivePersonName + "," + blockName + "," + additionalInfo;
+		string text = eventInf + "," + prettify(currentDateTime) + ","
+		              + currentState + "," + totalSpanSeconds + "," + TaskIndex + ","
+		              + StepIndex + "," + ActivePlayerName + "," + blockName + "," + additionalInfo;
 		if (!isAgent) {
 			LogInfo = text;
 		} else {
@@ -252,7 +258,7 @@ public class LogTimeData : MonoBehaviour
 		sw.Close();
 	}
 	
-	public static void setTaskIndex(int index)
+	private static void setTaskIndex(int index)
 	{
 		TaskIndex = index;
 	}
@@ -262,12 +268,12 @@ public class LogTimeData : MonoBehaviour
 		StepIndex = index;
 	}
 	
-	public static void setActivePerson(string name)
+	public static void setActivePlayer(string name)
 	{
-		ActivePersonName = name;
+		ActivePlayerName = name;
 	}
 	
-	public static void setActiveBlock(int active_block_index)
+	private static void setActiveBlock(int active_block_index)
 	{
 		string name = GameInfo.blockNameStr[active_block_index];
 		preActiveBlock = ActiveBlockName;
@@ -302,7 +308,7 @@ public class LogTimeData : MonoBehaviour
 		additionalInfo = NoneInfo;
 	}
 	
-	private static string convertToString(System.DateTime t)
+	private static string prettify(DateTime t)
 	{
 		string timeString = t.ToString("hh:mm:ss:fff");
 		//var timeString : String = t.Hour + ":" + t.Minute + ":" t.Second + ":"  + t.Millisecond; 
