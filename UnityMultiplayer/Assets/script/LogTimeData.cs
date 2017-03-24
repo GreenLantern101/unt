@@ -60,7 +60,8 @@ public class LogTimeData : MonoBehaviour
 	private static TimeSpan currentTimespan;
 	private static DateTime currentDateTime;
 	private static string currentState;
-	private static string preEvent, preRotateEvent, speakEvent;
+	private static string preEvent, preRotateEvent;
+	public static string speakEvent;
 	private static float initialAngle, currentAngle;
 	private static string additionalInfo;
 	private static string preActiveBlock;
@@ -113,7 +114,7 @@ public class LogTimeData : MonoBehaviour
 		sw.WriteLine("Assignment: " + MainController.curGameNum);
 		//sw.WriteLine("Game Name: " + MainInfo.getAssignmentName());
 		sw.WriteLine("Target Name: " + GameController.targetTName);
-		sw.WriteLine("Nth time this game is being played: " + "<todo>");
+		sw.WriteLine("Nth time this game is being played: " + (MainController.numGamesPlayed + 1));
 		sw.Close();
 		
 		setTaskIndex(MainController.curGameNum);
@@ -145,8 +146,7 @@ public class LogTimeData : MonoBehaviour
 			}
 			
 			//TODO: fix
-			LogInfo = "";
-			writeToFile();
+			logParams_startGame();
 			resetAdditionalInfo();
 			return;
 		}
@@ -154,8 +154,7 @@ public class LogTimeData : MonoBehaviour
 		if (eventInf == repeatTaskEvent) {
 			
 			//TODO: fix
-			LogInfo = "";
-			writeToFile();
+			logParams_startGame();
 			resetAdditionalInfo();
 			return;
 		}

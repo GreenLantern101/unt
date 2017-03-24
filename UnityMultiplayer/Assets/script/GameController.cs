@@ -410,6 +410,11 @@ public class GameController : MonoBehaviour
 			if (agent_player_switch_timer < GAME_LENGTH - 2) {
 				//restart game
 				MainController.curGameNum--;
+				MainController.numGamesPlayed++;
+				//TODO: randomize next target
+				//TODO: log repeating game
+				LogTimeData.setEvent(LogTimeData.repeatTaskEvent);
+				
 			}
 			MainController.resetAllActivePieces();
 			//start next game

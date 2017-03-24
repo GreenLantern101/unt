@@ -27,6 +27,9 @@ public class MainController : MonoBehaviour
 		get;
 		private set;
 	}
+	
+	//number of times certain task/game was replayed
+	public static int numGamesPlayed = 0;
 
 	public static void setisAgentActive(bool val)
 	{
