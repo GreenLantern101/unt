@@ -266,7 +266,9 @@ public class LogTimeData : MonoBehaviour
 	
 	private static void setActiveBlock(int active_block_index)
 	{
-		string name = GameInfo.blockNameStr[active_block_index];
+		string name = "";
+		if (active_block_index > -1)
+			name = GameInfo.blockNameStr[active_block_index];
 		preActiveBlock = ActiveBlockName;
 		ActiveBlockName = name;
 	}
