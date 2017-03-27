@@ -231,18 +231,9 @@ public class GameController : MonoBehaviour
 	}
 	private const float GAME_LENGTH = 80;
 
-
 	// Update is called once per frame
 	void Update()
 	{
-		
-		//WARNING: might be problematic for two-player or agent games
-		//if (!MainController._networkedPlayer.isReady() &&
-		//(MainController.black_player == MainController._networkedPlayer
-		//|| MainController.white_player == MainController._networkedPlayer))
-		//return;
-		
-		
 		if (MainController.FSM.IsInState(PuzzleState.GAME_INITIALIZATION)) {
 			GameInfo.switchTimer -= Time.deltaTime;
 			if (GameInfo.switchTimer < 0) {
