@@ -34,6 +34,13 @@ public class MainInfo : MonoBehaviour {
 		}else{
 			taskI = 14 - MainController.curGameNum;
 		}
+		
+		//generates deterministic random number targets for each new repeat of same game
+		//same for all computers
+		int seed = MainController.numGamesPlayed;
+		System.Random rng = new System.Random(seed);
+		taskI = rng.Next(0, 11);
+		
 		TargetName = "Target" + taskI.ToString();
 		return TargetName; 
 	}
