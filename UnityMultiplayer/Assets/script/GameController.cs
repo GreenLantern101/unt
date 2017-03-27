@@ -258,6 +258,8 @@ public class GameController : MonoBehaviour
 			if (agent_player_switch_timer > GAME_LENGTH) {
 				//reset timer
 				agent_player_switch_timer = 0;
+				//reset num games played for current assignment
+				MainController.numGamesPlayed = 0;
 
 				//switch whether agent active
 				MainController.setisAgentActive(!MainController.isAgentActive);
