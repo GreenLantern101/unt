@@ -146,7 +146,7 @@ public class LogTimeData : MonoBehaviour
 			}
 			
 			//TODO: fix
-			logParams_startGame();
+			//logParams_startGame();
 			resetAdditionalInfo();
 			return;
 		}
@@ -154,7 +154,7 @@ public class LogTimeData : MonoBehaviour
 		if (eventInf == repeatTaskEvent) {
 			
 			//TODO: fix
-			logParams_startGame();
+			//logParams_startGame();
 			resetAdditionalInfo();
 			return;
 		}
