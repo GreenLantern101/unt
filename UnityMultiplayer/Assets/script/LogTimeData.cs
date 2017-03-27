@@ -98,6 +98,14 @@ public class LogTimeData : MonoBehaviour
 		additionalInfo = "No";
 	}
 	
+	public static void logGameEnd(){
+		StreamWriter sw = new StreamWriter(logFileName, true);
+		sw.WriteLine("GAME ENDED.");
+		DateTime dt = DateTime.Now;
+		sw.WriteLine("DateTime: " + String.Format("{0:G}", dt));
+		sw.Close();
+	}
+	
 	public static void logParams_startGame()
 	{
 		StreamWriter sw = new StreamWriter(logFileName, true);

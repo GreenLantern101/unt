@@ -223,7 +223,10 @@ public class MainController : MonoBehaviour
 	//when game finished, start next game
 	public static void finishOneGame()
 	{
+		//increment
 		curGameNum++;
+		//log game end
+		LogTimeData.logGameEnd();
 		if (curGameNum < totalGameNum) {
 			//reset block success index on game end
 			GameController.blocksuccess_index = -1;

@@ -405,7 +405,6 @@ public class GameController : MonoBehaviour
 				MainController.curGameNum--;
 				MainController.numGamesPlayed++;
 				//TODO: randomize next target
-				//TODO: log repeating game
 				LogTimeData.setEvent(LogTimeData.repeatTaskEvent);
 				
 			}
