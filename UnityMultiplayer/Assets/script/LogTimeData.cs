@@ -227,7 +227,7 @@ public class LogTimeData : MonoBehaviour
 		string text = eventInf + "," + prettify(currentDateTime) + ","
 		              + currentState + "," + totalSpanSeconds + "," + TaskIndex + ","
 		              + StepIndex + "," + ActivePlayerName + "," + blockName + "," + additionalInfo;
-		if (!isAgent) {
+		if (!isAgent && GameController.active_player != MainController._agentPlayer) {
 			LogInfo = text;
 		} else {
 			LogInfo = text + "," + "_agent";
