@@ -163,6 +163,7 @@ public class NetworkConnection: MonoBehaviour
 		}
 	}
 	void OnApplicationQuit(){
+		speechClient.GetStream().Close();
 		speechClient.Close();
 	}
 }
