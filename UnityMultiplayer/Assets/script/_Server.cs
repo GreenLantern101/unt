@@ -173,17 +173,9 @@ public class Server
 		// Give the client some time to send and process the graceful disconnect
 		Thread.Sleep(500);
 
-		CleanupClient(client);
+		client.Close();
 	}
 		
-	// cleans up resources for a TcpClient and closes it
-	private static void CleanupClient(TcpClient client)
-	{
-		client.GetStream().Close();     // Close network stream
-		client.Close();                 // Close client
-		//this.tcpClient_other = null;
-	}
-
 	// Will get a single packet from a TcpClient
 	// Returns null if no data available or issue
 	private Packet ReceivePacket(TcpClient client)
