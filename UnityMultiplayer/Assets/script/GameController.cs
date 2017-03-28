@@ -136,8 +136,7 @@ public class GameController : MonoBehaviour
 		print("secondary active3 " + GameController.secondaryActivePiece);
 		secondaryActivePiece = -1;
 		
-		//log all game start params
-		LogTimeData.logParams_startGame();
+		/* log game params & start time AFTER intro ends, not here */
 	}
 
 
@@ -237,6 +236,10 @@ public class GameController : MonoBehaviour
 		if (MainController.FSM.IsInState(PuzzleState.GAME_INITIALIZATION)) {
 			GameInfo.switchTimer -= Time.deltaTime;
 			if (GameInfo.switchTimer < 0) {
+				//log data
+				//log all game start params
+				LogTimeData.logParams_startGame();
+				
 				//Finish all initilization
 				MainController.FSM.Fire(Trigger.startStep);
 				LanguageManager.DMFSM.Fire(DMTrigger.GameStart);
