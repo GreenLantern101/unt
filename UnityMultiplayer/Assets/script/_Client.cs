@@ -68,15 +68,6 @@ public class Client
 		_clientRequestedDisconnect = true;
 		Packet.SendPacket(this._msgStream, new Packet("bye", ""));
 	}
-	public void _cleanupNetworkResources()
-	{
-		Debug.Log("Cleaning up network resources...");
-		if (_msgStream != null)
-			_msgStream.Close();
-		_msgStream = null;
-		tcpClient.Close();
-		Debug.Log("Client disconnected.");
-	}
 
 	// Checks for new incoming messages and handles them
 	// Handles one Packet at a time, even if more than one is in the memory stream

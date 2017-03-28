@@ -121,7 +121,8 @@ public class Server
 		if (client != null)
 			client.Disconnect();
 		// Cleanup
-		client._cleanupNetworkResources();
+		client.tcpClient.Close();
+		Debug.Log("Client has been shut down.");
 		
 		//-------------------------------------------------------- server STOP
 		// Disconnect any clients remaining
