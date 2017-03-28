@@ -33,6 +33,8 @@ public class Client
 	public void Connect()
 	{
 		Thread client_conn = new Thread(new ThreadStart(ClientConnectLoop));
+		//make thread act as daemon
+		client_conn.IsBackground = true;
 		client_conn.Start();
 	}
 	void ClientConnectLoop()

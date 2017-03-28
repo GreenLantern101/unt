@@ -128,6 +128,8 @@ public class NetworkConnection: MonoBehaviour
 	void StartSpeechConnection()
 	{            
 		Thread client_conn = new Thread(new ThreadStart(() => ClientConnectLoop(speechClient, Address, sPort)));
+		//set thread as daemon
+		client_conn.IsBackground = true;
 		client_conn.Start();
 	}
 
@@ -159,5 +161,8 @@ public class NetworkConnection: MonoBehaviour
 				speechHT.Add(Elem[0], Elem[1]);
 			}
 		}
+	}
+	void OnApplicationQuit(){
+		speechClient.Close();
 	}
 }

@@ -45,6 +45,8 @@ public class Server
 		Running = true;
 		
 		Thread server_conn = new Thread(new ThreadStart(ServerConnectLoop));
+		//make server act as daemon thread
+		server_conn.IsBackground = true;
 		server_conn.Start();
 
 		//------------------- start client
