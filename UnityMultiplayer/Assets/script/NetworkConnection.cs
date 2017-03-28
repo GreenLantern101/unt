@@ -162,8 +162,9 @@ public class NetworkConnection: MonoBehaviour
 			}
 		}
 	}
-	void OnApplicationQuit(){
-		speechClient.GetStream().Close();
+	void OnApplicationQuit()
+	{
+		//only need to close stream separately in .NET 1.1 and before
 		speechClient.Close();
 	}
 }
