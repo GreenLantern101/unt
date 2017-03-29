@@ -111,7 +111,7 @@ public class GameGUI : MonoBehaviour
 					audioStop();
 					textIndex = 10;
 					this.SetLocalPlayerReady();
-					MainController.FSM.Fire(Trigger.endIntro);
+					
 				}
 			} else if (textIndex == 3) {		//for post test
 				text = "This is the final one. ";
@@ -119,7 +119,6 @@ public class GameGUI : MonoBehaviour
 				GUI.Label(new Rect(Screen.width / 7, Screen.height / 6, 5 * Screen.width / 7, 2 * Screen.height / 6), text, textStyle);
 				if (GUI.Button(new Rect(3.25f * Screen.width / 7, 4 * Screen.height / 6, 0.5f * Screen.width / 7, 0.5f * Screen.height / 6), buttonText)) {
 					this.SetLocalPlayerReady();
-					MainController.FSM.Fire(Trigger.endIntro);
 				}
 			} else if (textIndex == 4) {		//for post test
 				text = "More block puzzle games. ";
@@ -127,7 +126,6 @@ public class GameGUI : MonoBehaviour
 				GUI.Label(new Rect(Screen.width / 7, Screen.height / 6, 5 * Screen.width / 7, 2 * Screen.height / 6), text, textStyle);
 				if (GUI.Button(new Rect(3.25f * Screen.width / 7, 4 * Screen.height / 6, 0.5f * Screen.width / 7, 0.5f * Screen.height / 6), buttonText)) {
 					this.SetLocalPlayerReady();
-					MainController.FSM.Fire(Trigger.endIntro);
 				}
 
 			}
@@ -196,9 +194,10 @@ public class GameGUI : MonoBehaviour
 	}
 	
 	//default true value
-	void SetLocalPlayerReady(bool value = true)
+	void SetLocalPlayerReady()
 	{
-		MainController._localPlayer.setReadyFlag(value);
+		//sends player ready on endIntro
+		MainController.FSM.Fire(Trigger.endIntro);
 	}
 
 	
