@@ -318,13 +318,7 @@ public static class GameInfo
 		 * 1. produce a different random list each repeat of the same game
 		 * 2. produce synchronized, deterministic list for player-player games 
 		 */
-		
-		//only is synchronized if two players are not off by more than 30 seconds
-		int salt = (int)GameController.agent_player_switch_timer / 30;
-		int seed = 29 * MainController.curGameNum + 17 * (MainController.gameOdd ? 1 : 0) + salt + 70;
-		
-		Debug.Log("SEED: " + seed);
-		System.Random rnd = new System.Random(seed);
+		System.Random rnd = new System.Random(MainController.RANDOM_SEED);
 
 		//reset random list first
 		for (int i = 0; i < RandomList.Count; i++) {
