@@ -32,14 +32,19 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 	}
 	private static void sendReadyFlag()
 	{
-		//send the player is ready to the other player
+		// 1. sends player ready
+		// 2. sends random seed
+		int seed = -1; //default un-initialized value = -1
 		string message = "readyFlag: ";
-		if(readyFlag)
-			message += "true";
-		else
-			message += "false";
+		//only black node creates random seed
+		if (MainController.curNode == NODE.BLACK_NODE) {
+			seed = DateTime.Now.Millisecond + DateTime.Now.Second;
+			MainController.RANDOM_SEED = seed;
+		}
+		message += seed;
 		GameController.SyncGame_command(message);
-		Debug.Log("Local player::" + message);
+		Debug.Log("SEED SENT: " + seed);
+		Debug.Log("Local player:: ReadyFlag sent.");
 	}
 
 

@@ -3,8 +3,9 @@ using System;
 using System.IO;
 public enum NODE
 {
-	BLACK_NODE,
+	UNASSIGNED,
 	WHITE_NODE,
+	BLACK_NODE,
 }
 
 public class MainController : MonoBehaviour
@@ -30,6 +31,8 @@ public class MainController : MonoBehaviour
 	
 	//number of times certain task/game was replayed
 	public static int numGamesPlayed = 0;
+	
+	public static int RANDOM_SEED = -1;
 
 	public static void setisAgentActive(bool val)
 	{
@@ -79,7 +82,7 @@ public class MainController : MonoBehaviour
 	public static int curGameNum;
 
 	//hard-coded into config file
-	public static NODE curNode;
+	public static NODE curNode = NODE.UNASSIGNED;
 
 
 	public static Camera mainCam;
@@ -184,7 +187,6 @@ public class MainController : MonoBehaviour
 
 	void Update()
 	{
-
 		//start game at end of intro
 		if (FSM.IsInState(PuzzleState.INTRO_END)) {
 			if (_localPlayer.isReady()) {

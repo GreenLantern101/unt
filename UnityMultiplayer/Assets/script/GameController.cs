@@ -583,10 +583,16 @@ public class GameController : MonoBehaviour
 				throw new Exception("Sync info in improper format.");
 			
 			switch (key) {
-			//sync ready flags
+			//sync ready flags (and random seed)
 				case "readyFlag":
-					bool flag = Convert.ToBoolean(value);
-					MainController._networkedPlayer.setReadyFlag(flag);
+					//black node makes random seed, white node receives
+					if (MainController.curNode == NODE.WHITE_NODE) {
+						MainController.RANDOM_SEED = Convert.ToInt32(value);
+						Debug.Log("SEED RECEIVED: " + MainController.RANDOM_SEED);
+					}
+					//set ready flag
+					MainController._networkedPlayer.setReadyFlag(true);
+					Debug.Log("Networked player ready");
 					break;
 			//sync active piece
 				case "activePiece":
@@ -612,12 +618,6 @@ public class GameController : MonoBehaviour
 					//set rotation
 					MainController._networkedPlayer.setOrientation(orient);
 					newOrient = orient.y;
-					break;
-			
-				case "time":
-					long time = Convert.ToInt32(value);
-					long now = DateTime.Now.Minute * 60 * 1000 + DateTime.Now.Second * 1000 + DateTime.Now.Millisecond;
-					Debug.Log("Packet travel time: " + (now - time));
 					break;
 				
 			//sync block success
