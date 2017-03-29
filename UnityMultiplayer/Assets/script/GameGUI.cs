@@ -140,17 +140,7 @@ public class GameGUI : MonoBehaviour
 
 		if (MainController.FSM.IsInState(PuzzleState.GAME_END)) {
 			buttonText = "finish";
-			
-			//reset player ready flag to false, until "finish" button clicked
-			//if(MainController._localPlayer.isReady())
-				//MainController._localPlayer.setReadyFlag(false);
-			
-			//if (GUI.Button(new Rect(3.25f * Screen.width / 7, 4.5f * Screen.height / 6f, 0.5f * Screen.width / 7, 0.5f * Screen.height / 6), buttonText)) 
-			{
-				//set ready flag to true if button clicked
-				//MainController._localPlayer.setReadyFlag(true);
-				MainController.FSM.Fire(Trigger.endGame);
-			}
+			MainController.FSM.Fire(Trigger.endGame);
 		}
 
 		if (MainController.FSM.IsInState(PuzzleState.GAME_INITIALIZATION)) {
