@@ -109,13 +109,17 @@ public class MainInfo : MonoBehaviour
 			}
 		}
 			
-		//start in the middle
-		arr[1, 1] = 0;
+		//start anywhere
+		int x = r.Next(0, 2);
+		int y = r.Next(0, 2);
+		/* uncomment line below to start in the middle */
+		//x = 1; y = 1;
+		arr[x, y] = 0;
 		//Note: task# = 3*x_index + y_index + 1
-		tasks_randomized.Add(3 * 1 + 1 + 1);
+		tasks_randomized.Add(3 * x + y + 1);
 			
 		//get available points
-		Coord cur = new Coord(1, 1);
+		Coord cur = new Coord(x, y);
 		
 		//stores list of candidate next points in two lists
 		//in same row as cur
@@ -152,31 +156,36 @@ public class MainInfo : MonoBehaviour
 			}
 				
 			//If there is one remaining node in row/column, must go to that node
-			if (tmp_column.Count == 1) {
+			if (tmp_row.Count == 1 && tmp_column.Count == 1) {
+				//if one node in both row and column, take a pick
+				if (r.Next(0, 100) < 50) {
+					cur = tmp_column[0];
+				} else {
+					cur = tmp_row[0];
+				}
+			} else if (tmp_column.Count == 1) {
 				cur = tmp_column[0];
-				arr[cur.x, cur.y] = 0;
 			} else if (tmp_row.Count == 1) {
 				cur = tmp_row[0];
-				arr[cur.x, cur.y] = 0;
 			}
 			//else pick a point randomly & move there
 			else {
-				if (tmp_row.Count != 0 && tmp_column.Count == 0) {
-					cur.x = tmp_row[r.Next(0, tmp_row.Count - 1)].x;
-				} else if (tmp_column.Count != 0 && tmp_row.Count == 0) {
-					cur.y = tmp_column[r.Next(0, tmp_column.Count - 1)].y;
-				} else if (tmp_row.Count > 0 && tmp_column.Count > 0) {
-					if (r.Next(1, 100) < 50) {
-						cur.x = tmp_row[r.Next(0, tmp_row.Count - 1)].x;
+				if (tmp_row.Count > 0 && tmp_column.Count > 0) {
+					if (r.Next(0, 100) < 50) {
+						cur.x = tmp_row[r.Next(0, tmp_row.Count * 100 - 1) / 100].x;
 					} else {
-						cur.y = tmp_column[r.Next(0, tmp_column.Count - 1)].y;
+						cur.y = tmp_column[r.Next(0, tmp_column.Count * 100 - 1) / 100].y;
 					}
+				} else if (tmp_row.Count > 0) {
+					cur.x = tmp_row[r.Next(0, tmp_row.Count * 100 - 1) / 100].x;
+				} else if (tmp_column.Count > 0) {
+					cur.y = tmp_column[r.Next(0, tmp_column.Count * 100 - 1) / 100].y;
 				}
-				arr[cur.x, cur.y] = 0;
 			}
 			
 			//Note: task# = 3*x_index + y_index + 1
 			tasks_randomized.Add(cur.x * 3 + cur.y + 1);
+			arr[cur.x, cur.y] = 0;
 			
 		}
 		//repeat until all points visited
