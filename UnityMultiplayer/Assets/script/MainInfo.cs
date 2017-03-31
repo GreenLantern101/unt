@@ -95,7 +95,15 @@ public class MainInfo : MonoBehaviour
 			 *  X X X
 			 *  X X X
 			 */
-			
+		
+		/**************************************************************
+		NOTE: random number generation parameters have been magnified 
+		for better random number generation. DO NOT CHANGE.
+		
+		eg. For some reason, r.Next(0,2) gives much less uniform
+		distribution than r.Next(0,299)/100
+	
+		**************************************************************/
 			
 		//deterministic random number generator
 		System.Random r = new System.Random(MainController.RANDOM_SEED);
@@ -110,8 +118,8 @@ public class MainInfo : MonoBehaviour
 		}
 			
 		//start anywhere
-		int x = r.Next(0, 2);
-		int y = r.Next(0, 2);
+		int x = r.Next(0, 299)/100; //0 to 2, inclusive
+		int y = r.Next(0, 299)/100; //0 to 2, inclusive
 		/* uncomment line below to start in the middle */
 		//x = 1; y = 1;
 		arr[x, y] = 0;
