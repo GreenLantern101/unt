@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Diagnostics;
 using System.IO;
 public enum NODE
 {
@@ -36,6 +37,20 @@ public class MainController : MonoBehaviour
 
 	public static void setisAgentActive(bool val)
 	{
+		//find process ID value of Skype application
+		//NOTE: error will be thrown if Skype is not running
+		int skype_pid = Process.GetProcessesByName("Skype")[0].Id;		
+		
+		//mute and unmute Skype depending on whether Agent Active
+		//NOTE: can't just set master volume because Agent will still talk to player	
+		if(isAgentActive){
+			//mute skype output on agent active
+			AudioManager.SetApplicationVolume(skype_pid, 0);
+		}
+		else{
+			//unmute skype output on agent inactive
+			AudioManager.SetApplicationVolume(skype_pid, 50);
+		}
 
 		isAgentActive = val;
 		//set players again each time agentActive changes.
