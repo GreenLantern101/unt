@@ -1,0 +1,15 @@
+NN
+NNP
+VBZ
+JJ
+VBD
+DT
+VBP
+MD
+VB
+IN
+NNS
+PDT
+CC
+CD
+PRP

@@ -1,0 +1,116 @@
+Child B: [Provide]the one at the top is red
+Child B: [DirectMove]move it down
+Child B: [Provide]that is pink
+Child B: [ReqColor]what color is this one
+Child B: [Provide]the other one is green
+Child B: [Provide]that is pink
+Child B: [Provide]this one
+Child B: [Provide]number three
+Child B: [Provide]number two
+Child B: [Provide]number four
+Child B: [Provide]number five
+Child B: [Provide]number six
+Child B: [Provide]number seven
+Child B: [Provide]number eight
+Child B: [Provide]this one
+Child B: [Provide]this one
+Child B: [Provide]this block
+Child B: [Provide]this block
+Child B: [Provide]I have color
+Child B: [Provide]I do not have color
+Child B: [Provide]I can see colors
+Child B: [Provide]I can not see colors
+Child B: [DirectMove]put the blue one 
+Child B: [DirectMove]drag it
+Child B: [DirectMove]I think you move it
+Child B: [ReqColor]what color is the one 
+Child B: [DirectMove]move that right on top of the
+Child B: [DirectMove]get this square
+Child B: [Acknowledge]okay
+Child B: [DirectMove]put the final piece 
+Child B: [DirectMove]let us do the red ready set go
+Child B: [DirectMove]move it down
+Child B: [DirectMove]ready set go
+Child B: [DirectMove]ready move it go
+Child B: [DirectMove]can you move them
+Child B: [DirectMove]one two three
+Child B: [DirectMove]move it in one two three okay goes 
+Child B: [ReqColor]What is the color of this block
+Child B: [ReqColor]waht color is this
+Child B: [ReqColor]what is the color
+Child B: [ReqColor]what color
+Child A: [Provide]the one at the top is red 
+Child A: [DirectMove]move it down
+Child A: [DirectMove]to the right
+Child A: [Provide]that is green
+Child A: [Provide]it is green
+Child A: [Provide]it is red
+Child A: [Provide]it is pink
+Child A: [Provide]it is orange
+Child A: [Provide]the other one is green
+Child B: [ReqColor]what color is this one
+Child B: [ReqColor]can you tell me what color is this one
+Child B: [ReqColor]can you tell me what is the color 
+Child B: [ReqColor]can you tell me what is the color of number five
+Child B: [ReqColor]can you tell me what color is number three
+Child B: [ReqColor]could you please tell me what color is this one
+Child B: [ReqColor]could you please tell me what color is number two
+Child B: [ReqColor]could you please tell me what color is block three
+Child A: [Provide]that is pink 
+Child B: [Acknowledge]lovely 
+Child B: [Provide]so you should have colors and I have the pieces
+Child A: [Provide]I have the colors
+Child B: [Acknowledge]alright
+Child A: [DirectMove]so put the blue one and rotate it rotate it 
+Child A: [Acknowledge]good
+Child B: [Provide]I do not have the colors 
+Child A: [DirectMove]and now drag it oh I will move it um
+Child B: [DirectMove]I think you have to move it
+Child B: [DirectMove]no yeah I think you move it
+Child B: [DirectMove]you try moving it
+Child A: [Provide]so it is in the correct position
+Child B: [Acknowledge]alright 
+Child B: [Acknowledge]there we go 
+Child B: [Acknowledge]alright
+Child B: [ReqColor]what color is the one that Iam spinning in circles this one
+Child A: [Provide]it is red yes yes it is that one
+Child A: [DirectMove]now rotate it
+Child B: [DirectMove]and now move that right on top of the
+Child A: [Provide]yes that is the green one
+Child B: [Acknowledge]alright
+Child B: [Acknowledge]alright
+Child A: [DirectMove]alright now the next step is to get this square
+Child B: [Acknowledge]okay square 
+Child A: [DirectMove]it is good and put it right on the green triangle
+Child B: [Acknowledge]alright
+Child A: [DirectMove]yes that one now put on top of the yellow square
+Child B: [Acknowledge]alright
+Child A: [DirectMove]next get the top triangle and rotate it so points to the left yes
+Child A: [DirectMove]um okay so we know how to put the final piece in
+Child B: [Acknowledge]yeah 
+Child A: [DirectMove]Yeah I think you do it this time
+Child A: [DirectMove]there you go little more there you go
+Child A: [DirectMove]you are turn
+Child B: [Acknowledge]okay
+Child A: [DirectMove]you are turn
+Child A: [DirectMove] little more back back
+Child A: [DirectMove]drag it wait maybe you gotta drag it 
+Child A: [Acknowledge]that is good
+Child A: [Acknowledge] here we go
+Child A: [Acknowledge] perfect
+Child A: [DirectMove]you turn 
+Child A: [Acknowledge]there we go
+Child A: [ReqObject]which block is red
+Child A: [ReqObject]which one should we move
+Child A: [ReqObject]which block do you want to move
+Child A: [ReqObject]which block is dark blue
+Child A: [ReqObject]which piece do you want me to move
+Child A: [ReqObject]which to drag
+Child A: [ReqObject]which one is pink
+Child A: [ReqObject]which piece is the green one
+Child A: [ReqObject]which one should I move
+Child A: [ReqObject]which one should we move
+Child A: [ReqObject]which one should you move
+Child A: [ReqObject]which one to move
+Child A: [ReqObject]which one move
+
