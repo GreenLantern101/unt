@@ -9,6 +9,11 @@
 */Assets/SharedAssets/*
 */Temp/*
 
+/TangramGames/*.txt
+/TangramGames/lib/*
+/TangramGames/*.pyc
+*.sln
+
 
 */backup/*
 */Keyboard/*

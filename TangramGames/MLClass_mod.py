@@ -52,12 +52,13 @@ class MLClass:
     responseList = []
     dialogueActs = len(slotList) * [''] #the detailed information
     currentState = -1 #the current state, request, provide, direct, acknowledge
-    SlotfileName = 'F:/agent/AI/Dialogue/SlotValues.txt'
-    responseFileName = 'F:/agent/AI/Dialogue/SysResponses.txt'
-    os.environ['STANFORD_PARSER'] = 'c:/Users/zhangl22/AppData/Local/Enthought/Canopy/User/Lib/stanford-jars'
-    os.environ['STANFORD_MODELS'] = 'c:/Users/zhangl22/AppData/Local/Enthought/Canopy/User/Lib/stanford-jars'
-    os.environ['JAVAHOME'] = 'c:/Program Files (x86)/java/jre1.8.0_60/bin/java.exe'
-    parser = stanford.StanfordParser(model_path="c:/Users/zhangl22/AppData/Local/Enthought/Canopy/User/Lib/stanford-jars/englishPCFG.ser.gz")
+    SlotfileName = os.getcwd() + '/SlotValues.txt'
+    responseFileName = os.getcwd() + '/SysResponsesNew.txt'
+
+    # for NLTK 3.1 and above, 'STANFORD_PARSER' env var no longer used.
+    #os.environ['STANFORD_MODELS'] = os.getcwd() + '/edu/stanford/nlp/stanford-parser-full-2016-10-31'
+    #os.environ['JAVAHOME'] = 'C:/Program Files/Java/jre1.8.0_102/bin/java.exe'
+    parser = stanford.StanfordParser(model_path= os.getcwd() + '/lib/englishPCFG.ser.gz')
     thred = 3
     dependent_node = []
     stemmer = PorterStemmer()

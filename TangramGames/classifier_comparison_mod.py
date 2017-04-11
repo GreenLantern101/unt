@@ -17,7 +17,7 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
-from MLClass import
+from MLClass_mod import MLClass
 
 import os
 
@@ -39,7 +39,7 @@ classifiers = [
 
 #get the data
 InsML = MLClass()
-TrainfileName = os.getcwd() + 'Collaborative_Game.txt'
+TrainfileName = os.getcwd() + '/Collaborative_Game.txt'
 InsML.createMLmodel(TrainfileName)
 
 for i in range(0, 10):
