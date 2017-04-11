@@ -118,8 +118,8 @@ public class MainInfo : MonoBehaviour
 		}
 			
 		//start anywhere
-		int x = r.Next(0, 299)/100; //0 to 2, inclusive
-		int y = r.Next(0, 299)/100; //0 to 2, inclusive
+		int x = r.Next(0, 299) / 100; //0 to 2, inclusive
+		int y = r.Next(0, 299) / 100; //0 to 2, inclusive
 		/* uncomment line below to start in the middle */
 		//x = 1; y = 1;
 		arr[x, y] = 0;
@@ -199,16 +199,15 @@ public class MainInfo : MonoBehaviour
 		//repeat until all points visited
 		while(tasks_randomized.Count < 9);
 	}
-}
-
-
-//coordinate struct
-public struct Coord
-{
-	public Coord(int x, int y)
+	
+	//coordinate struct
+	public struct Coord
 	{
-		this.x = x;
-		this.y = y;
+		public Coord(int x, int y)
+		{
+			this.x = x;
+			this.y = y;
+		}
+		public int x, y;
 	}
-	public int x, y;
 }

@@ -40,6 +40,8 @@ public class LocalPlayer : MonoBehaviour, IPlayerHandler
 		if (MainController.curNode == NODE.BLACK_NODE) {
 			seed = DateTime.Now.Millisecond + DateTime.Now.Second;
 			MainController.RANDOM_SEED = seed;
+			//generate initial move pattern using random seed
+			TargetPosition.generateNewMovePattern();
 		}
 		message += seed;
 		GameController.SyncGame_command(message);

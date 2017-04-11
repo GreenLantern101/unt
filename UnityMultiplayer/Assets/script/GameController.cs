@@ -407,8 +407,10 @@ public class GameController : MonoBehaviour
 				//restart game
 				MainController.curGameNum--;
 				MainController.numGamesPlayed++;
-				//TODO: randomize next target
+				
 				LogTimeData.setEvent(LogTimeData.repeatTaskEvent);
+				//randomize next target
+				TargetPosition.generateNewMovePattern();
 				
 			}
 			MainController.resetAllActivePieces();
@@ -588,6 +590,8 @@ public class GameController : MonoBehaviour
 					//black node makes random seed, white node receives
 					if (MainController.curNode == NODE.WHITE_NODE) {
 						MainController.RANDOM_SEED = Convert.ToInt32(value);
+						//generate initial move pattern using random seed
+						TargetPosition.generateNewMovePattern();
 						Debug.Log("SEED RECEIVED: " + MainController.RANDOM_SEED);
 					}
 					//set ready flag
