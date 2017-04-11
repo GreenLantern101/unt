@@ -52,6 +52,8 @@ public static class GameInfo
 	public static string[] blockNameStr;
 	public static string[] blockNameStrOther;
 	public static List<List<string>> blockColorNameList;
+	//triangle, square, diamond, rectangle, quadrilateral
+	//list of lists
 	public static List<List<string>> blockShapeNameList;
 	public const float activeLen = 3f;
 
@@ -77,25 +79,41 @@ public static class GameInfo
 
 		agentColorVisible = new int[blockNumber];
 
-		//defind the color of each block
-		blockColorNameList = new List<List<string>>();
-		blockColorNameList.Add(new List<string>());
-		blockColorNameList[0].Add("red");
-		blockColorNameList.Add(new List<string>());
-		blockColorNameList[1].Add("green");
-		blockColorNameList.Add(new List<string>());
-		blockColorNameList[2].Add("pink");
-		blockColorNameList[2].Add("magenta");
-		blockColorNameList[2].Add("purple");
-		blockColorNameList.Add(new List<string>());
-		blockColorNameList[3].Add("yellow");
-		blockColorNameList.Add(new List<string>());
-		blockColorNameList[4].Add("orange");
-		blockColorNameList.Add(new List<string>());
-		blockColorNameList[5].Add("blue");
-		blockColorNameList.Add(new List<string>());
-		blockColorNameList[6].Add("gray");
-		blockColorNameList[6].Add("grey");
+		//define the color of each block	
+		blockColorNameList = new List<List<string>> {
+			//block0
+			new List<string>{ "red" },
+			//block1
+			new List<string>{ "green" },
+			//block2
+			new List<string>{ "pink", "magenta", "purple" },
+			//block3
+			new List<string>{ "yellow" },
+			//block4
+			new List<string>{ "orange" },
+			//block5
+			new List<string>{ "blue", "navy" },
+			//block6
+			new List<string>{ "gray", "grey" },
+		};
+		
+		//define the shape of each block
+		blockShapeNameList = new List<List<string>> {
+			//block0
+			new List<string>{ "triangle" },
+			//block1
+			new List<string>{ "triangle" },
+			//block2
+			new List<string>{ "triangle" },
+			//block3
+			new List<string>{ "rectangle", "square", "diamond", "quadrilateral" },
+			//block4
+			new List<string>{ "triangle" },
+			//block5
+			new List<string>{ "parallelogram", "quadrilateral", "rhombus" },
+			//block6
+			new List<string>{ "triangle" },
+		};
 
 
 		smoothBlockNameArray = new string[blockNumber];
@@ -375,12 +393,22 @@ public static class GameInfo
 	{
 		Debug.Log("start detect object ");
 		//initilize 
-		float Wid = 10f;
+		float Wid = 15f;
+		//color
 		float Wcolor = 9f;
+		//current active obj
 		float Wactive = 10f;
-		float Wsucc = -8f;
+		//success --> extreme neg weight
+		float Wsucc = -80f;
+		//last obj
 		float Wlast = 10f;
+		//secondary active obj
 		float Wsec = 9f;
+		
+		//shape
+		float Wshape = 8f;
+		
+		
 		float[] objectWeights = new float[blockNumber];
 		for (int i = 0; i < blockNumber; ++i) {
 			objectWeights[i] = 0f;
@@ -434,15 +462,27 @@ public static class GameInfo
 			}
 		}
 
-		//calculate weight based on shape (add weight)	
-		
+		//calculate weight for block already succeeded (negative punishment)
 		for (int i = 0; i < blockNumber; ++i) {
 			if (blockSucceed[i]) {
 				objectWeights[i] += Wsucc;
 			}
 		}
+		
+		//calculate weight based on shape
+		if (_ht["shape"].ToString() != "Requ") {
+			string shape = _ht["shape"].ToString();
+			for (int i = 0; i < 7; ++i) {
+				//give the color name
+				if (blockShapeNameList[i].Contains(shape)) {
+					objectWeights[i] += Wshape;
+				} else {
+					objectWeights[i] -= Wshape;
+				}
+			}
+		}
 
-		//calcualte weight based on whether is the last block
+		//calculate weight based on whether is the last block
 		int succCounter = 0;
 		for (int i = 0; i < blockNumber; ++i) {
 			if (blockSucceed[i]) {
