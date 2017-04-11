@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\script\AI.cs" />
      <Compile Include="Assets\script\AgentPlayer.cs" />
+     <Compile Include="Assets\script\AudioManager.cs" />
      <Compile Include="Assets\script\BlockController.cs" />
      <Compile Include="Assets\script\CLZF2.cs" />
      <Compile Include="Assets\script\DMStateMachine.cs" />
