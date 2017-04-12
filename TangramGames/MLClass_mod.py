@@ -29,6 +29,9 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neighbors import NearestCentroid
 from sklearn.decomposition import PCA
 import random
+# used to persist the model without having to retrain
+# using joblib instead of python's built-in pickle more efficient for
+# certain cases
 from sklearn.externals import joblib
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
@@ -209,15 +212,19 @@ class MLClass:
         for sentence in self.sentenceArray:
             fList.append(self.convert2Feature(sentence))
 
+        # NOTE: .pkl files are python pickled files.
+
         # reduce the feature dimension
         pca = PCA(n_components=5)
         pca.fit(fList)
         self.featureList = pca.transform(fList)
+        # save
         joblib.dump(pca, os.getcwd() + '/pcaModel.pkl')
 
         # classification methods
         clf = SVC(gamma=2, C=1)
         clf.fit(self.featureList, self.actionArray)
+        # save
         joblib.dump(clf, os.getcwd() + '/clasModel.pkl')
 
     def loadclassModel(self):
@@ -282,10 +289,12 @@ class MLClass:
         return bigram_list
 
     def convert2Feature(self, sentence):
+        # replace, convert numbers to words
         for i in range(0, len(self.number2List)):
             sentence = sentence.replace(
                 self.number2List[i], self.number1List[i])
 
+        # QUESTION: didn't we already call tokenize() in createMLmodel()??
         words = self.tokenize(sentence)
         # step1: get the word feature
         state1 = [0] * len(self.wordArray)
