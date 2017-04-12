@@ -156,10 +156,11 @@ class MLClass:
             sentence.translate(None, string.punctuation)
             #sentence = unicode(sentence, 'utf-8')
 
-            words = self.tokenize(sentence)
+            # add sentence to array
+            self.sentenceArray.append(sentence)
 
             # step1: extract word features into array, no duplicates
-            self.sentenceArray.append(sentence)
+            words = self.tokenize(sentence)
             for word in words:
                 if word not in self.wordArray:
                     self.wordArray.append(word)
