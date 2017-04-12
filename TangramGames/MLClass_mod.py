@@ -38,27 +38,30 @@ from sklearn.svm import SVC
 
 import os
 
+
 class MLClass:
 
     slotList = []
     stoplist = set('for a of the and to in'.split())
     slotName = []
-    actionList = ['reqcolor', 'provide', 'directmove', 'acknowledge', 'reqobject']
+    actionList = ['reqcolor', 'provide',
+                  'directmove', 'acknowledge', 'reqobject']
     number1List = ['two', 'three', 'four', 'five', 'six', 'seven', 'eight']
     number2List = ['2', '3', '4', '5', '6', '7', '8']
     wordArray = []
     posArray = []
     bigramArray = []
     responseList = []
-    dialogueActs = len(slotList) * [''] #the detailed information
-    currentState = -1 #the current state, request, provide, direct, acknowledge
+    dialogueActs = len(slotList) * ['']  # the detailed information
+    currentState = -1  # the current state, request, provide, direct, acknowledge
     SlotfileName = os.getcwd() + '/SlotValues.txt'
     responseFileName = os.getcwd() + '/SysResponsesNew.txt'
 
     # for NLTK 3.1 and above, 'STANFORD_PARSER' env var no longer used.
     #os.environ['STANFORD_MODELS'] = os.getcwd() + '/edu/stanford/nlp/stanford-parser-full-2016-10-31'
     #os.environ['JAVAHOME'] = 'C:/Program Files/Java/jre1.8.0_102/bin/java.exe'
-    parser = stanford.StanfordParser(model_path= os.getcwd() + '/lib/englishPCFG.ser.gz')
+    parser = stanford.StanfordParser(
+        model_path=os.getcwd() + '/lib/englishPCFG.ser.gz')
     thred = 3
     dependent_node = []
     stemmer = PorterStemmer()
@@ -70,24 +73,25 @@ class MLClass:
     def stem_tokens(self, tokens, stemmer):
         stemmed = []
         for item in tokens:
-            #stemmed.append(stemmer.stem(item))
+            # stemmed.append(stemmer.stem(item))
             stemmed.append(item)
         return stemmed
 
+    # returns stems of tokenized, lowercase words
     def tokenize(self, text):
         filtered = []
         tokens = nltk.word_tokenize(text)
-        #stopwords = nltk.corpus.stopwords.words('english')     #what, which, can are stopwords
-        stopwords = ['the', 'a', 'and', 'but', 'because', 'as', 'with', 'to', 'out']
+        # stopwords = nltk.corpus.stopwords.words('english')     #what, which,
+        # can are stopwords
+        stopwords = ['the', 'a', 'and', 'but',
+                     'because', 'as', 'with', 'to', 'out']
         filtered = [w.lower() for w in tokens if not w.lower() in stopwords]
         stems = self.stem_tokens(filtered, self.stemmer)
         return stems
 
-
     def __init__(self):
         self.getSlotValues()
         self.getResponseActions()
-
 
     def getSlotValues(self):
         with open(self.SlotfileName) as fo:
@@ -102,7 +106,7 @@ class MLClass:
         startIdx = string.index(':')
         self.slotName.append(string[1:startIdx])
         if startIdx > 0:
-            _str = string[startIdx+2: len(string)-2]
+            _str = string[startIdx + 2: len(string) - 2]
             slotVa = [slot for slot in _str.split('|')]
         return slotVa
 
@@ -110,7 +114,7 @@ class MLClass:
         for slot in self.slotList:
             if word in slot:
                 return self.slotList.index(slot)
-        return -1;
+        return -1
 
     def getResponseActions(self):
         with open(self.responseFileName) as fo:
@@ -124,48 +128,50 @@ class MLClass:
             return RespVa
         startIdx = string.index(':')
         if startIdx > 0:
-            _str = string[startIdx+1: len(string)-1]
+            _str = string[startIdx + 1: len(string) - 1]
             RespVa = [slot for slot in _str.split('|')]
         return RespVa
 
     def createMLmodel(self, fileName):
 
-        #read the file to store the initial information
+        # read the file to store the initial information
+        # process sentence by sentence
         for line in open(fileName):
             line = str(line)
             # remove "Child ..."
             temp1 = [word for word in line.lower().split(':')]
-            if(len(temp1)<2):
+            if(len(temp1) < 2):
                 continue
             # split action from sentence
             temp2 = [word for word in temp1[1].split(']')]
             temp3 = [word for word in temp2[0].split('[')]
-            if(len(temp3)<2):
+            if(len(temp3) < 2):
                 continue
             temp4 = [word for word in temp3[1].split('(')]
-            #get and record the action
+            # get and record the action
             action = self.actionList.index(temp4[0])
             self.actionArray.append(action)
-            #get words of a sentence
+            # get words of a sentence
             sentence = temp2[1]
             sentence.translate(None, string.punctuation)
             #sentence = unicode(sentence, 'utf-8')
 
             words = self.tokenize(sentence)
 
-            #step1: get the word feature
+            # step1: extract word features into array, no duplicates
             self.sentenceArray.append(sentence)
             for word in words:
                 if word not in self.wordArray:
                     self.wordArray.append(word)
 
-            #step2: get teh bigram feature
+            # step2: extract bigram features into array, no duplicates
             bigrams = self.find_bigrams(sentence)
             for bis in bigrams:
                 if bis not in self.bigramArray:
                     self.bigramArray.append(bis)
 
-            #step3: get the pos feature
+            # step3: extract pos(part of speech) features into array
+            # no duplicates
             parserF = self.parserFeature(sentence)
             for pars in parserF:
                 if pars not in self.posArray:
@@ -178,7 +184,7 @@ class MLClass:
                 if item not in self.depArray:
                     self.depArray.append(item)
             '''
-
+        # write all data to output files ----------------------
         wordFile = open(os.getcwd() + '/wordArray.txt', 'w')
         for item in self.wordArray:
             wordFile.write("%s\n" % item)
@@ -197,21 +203,21 @@ class MLClass:
             depFile.write("%s\n" % item)
         depFile.close()
         '''
+        # -----------------------------------------------------
         fList = []
         for sentence in self.sentenceArray:
             fList.append(self.convert2Feature(sentence))
 
-        #reduce the feature dimension
+        # reduce the feature dimension
         pca = PCA(n_components=5)
         pca.fit(fList)
         self.featureList = pca.transform(fList)
         joblib.dump(pca, os.getcwd() + '/pcaModel.pkl')
 
-        #classification methods
+        # classification methods
         clf = SVC(gamma=2, C=1)
         clf.fit(self.featureList, self.actionArray)
         joblib.dump(clf, os.getcwd() + '/clasModel.pkl')
-
 
     def loadclassModel(self):
         clf = joblib.load(os.getcwd() + '/clasModel.pkl')
@@ -222,22 +228,25 @@ class MLClass:
         return pca
 
     def loadOtherInfor(self):
-        self.wordArray = [line.rstrip('\n') for line in open(os.getcwd() + '/wordArray.txt')]
-        self.bigramArray = [line.rstrip('\n') for line in open(os.getcwd() + '/bigramArray.txt')]
-        self.posArray = [line.rstrip('\n') for line in open(os.getcwd() + '/posArray.txt')]
+        self.wordArray = [line.rstrip('\n') for line in open(
+            os.getcwd() + '/wordArray.txt')]
+        self.bigramArray = [line.rstrip('\n') for line in open(
+            os.getcwd() + '/bigramArray.txt')]
+        self.posArray = [line.rstrip('\n')
+                         for line in open(os.getcwd() + '/posArray.txt')]
         #self.depArray = [line.rstrip('\n') for line in open(os.getcwd() + '/depArray.txt')]
 
-    #all_node includes all the nodes will be used
-    #node_list includes the nodes with highest depth
+    # all_node includes all the nodes will be used
+    # node_list includes the nodes with highest depth
     def traverse_deep(self, node_list):
         child_list = []
-        #step1: record all the child nodes
+        # step1: record all the child nodes
         for node in node_list:
             for child in node:
                 if isinstance(child, unicode) or isinstance(child, str):
                     return
                 child_list.append(child)
-        #step2: record the child nodes if not enough
+        # step2: record the child nodes if not enough
         for node in child_list:
             self.dependent_node.append(node.label())
             if len(self.dependent_node) == self.thred:
@@ -245,7 +254,7 @@ class MLClass:
         self.traverse_deep(child_list)
 
     def parserFeature(self, sentence):
-        #get the tag of pos
+        # get the tag of pos
         sent_pos_tagger = nltk.pos_tag(sentence)
         results = []
         for pos in sent_pos_tagger:
@@ -259,7 +268,6 @@ class MLClass:
         self.traverse_deep(tree_list)
         return self.dependent_node
 
-
     def MLPredict(self, model, x_test):
         #np.array(x_test).reshape(1, -1)
         y_result = model.predict(x_test)
@@ -268,33 +276,34 @@ class MLClass:
     def find_bigrams(self, sentence):
         words = self.tokenize(sentence)
         bigram_list = []
-        for i in range(len(words)-1):
-            bigram_list.append((words[i]+' ' +words[i+1]))
+        for i in range(len(words) - 1):
+            bigram_list.append((words[i] + ' ' + words[i + 1]))
         return bigram_list
 
     def convert2Feature(self, sentence):
         for i in range(0, len(self.number2List)):
-            sentence = sentence.replace(self.number2List[i], self.number1List[i])
+            sentence = sentence.replace(
+                self.number2List[i], self.number1List[i])
 
         words = self.tokenize(sentence)
-        #step1: get the word feature
+        # step1: get the word feature
         state1 = [0] * len(self.wordArray)
-        #assign sentence presentation
+        # assign sentence presentation
         for word in words:
             if word in self.wordArray:
                 idx = self.wordArray.index(word)
                 state1[idx] = 1
 
-        #step1.5: get the bi-grams feature
+        # step1.5: get the bi-grams feature
         bigrams = self.find_bigrams(sentence)
         state15 = [0] * len(self.bigramArray)
-        #assign sentence presentation
+        # assign sentence presentation
         for word in bigrams:
             if word in self.bigramArray:
                 idx = self.bigramArray.index(word)
                 state15[idx] = 1
 
-        #step2: get the pos feature
+        # step2: get the pos feature
         pars = self.parserFeature(sentence)
         state2 = [0] * len(self.posArray)
         for parFeature in pars:
@@ -318,11 +327,10 @@ class MLClass:
             results.append(feature)
         for feature in state2:
             results.append(feature)
-        #for feature in state3:
+        # for feature in state3:
         #    results.append(feature)
 
         return results
-
 
     def processFeature(self, pcaModel, feature):
         #np.array(feature).reshape(1, -1)
@@ -339,19 +347,18 @@ class MLClass:
         inforSlot = ["" for x in range(len(self.slotList))]
         words = self.tokenize(sentence)
         #words = [word for word in sentence.split() if word not in self.stoplist]
-        #replace word with slot
+        # replace word with slot
         for word in words:
-            #in slot ?
+            # in slot ?
             slotNum = self.slotValue(word)
             if(slotNum != -1):
                 inforSlot[slotNum] = word
-        #replace bi-word with slot
-        for i in range(len(words)-1):
-            str1 = words[i]+' ' +words[i+1]
+        # replace bi-word with slot
+        for i in range(len(words) - 1):
+            str1 = words[i] + ' ' + words[i + 1]
             slotNum = self.slotValue(str1)
             if(slotNum != -1):
                 inforSlot[slotNum] = str1
-
 
         if self.slotName[0] not in responseUtterance:
             for i in range(0, len(inforSlot)):
