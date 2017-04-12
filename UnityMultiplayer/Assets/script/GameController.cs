@@ -56,7 +56,6 @@ public class GameController : MonoBehaviour
 	
 	
 	public static bool flag;
-	private int blockNumber = 7;
 	public static PlayState curPlayState;
 	public static string targetTName;
 	private LogTimeData logTimeDataScript;
@@ -429,7 +428,7 @@ public class GameController : MonoBehaviour
 		//switch user at each step
 		DetectPlayState();
 		//assign pre active block
-		for (int i = 0; i < GameInfo.blockNumber; ++i) {
+		for (int i = 0; i < GameInfo.NUM_BLOCKS; ++i) {
 			if (!GameInfo.blockSucceed[i]) {
 				GameInfo.PreActiveBlock = i;			
 			}	

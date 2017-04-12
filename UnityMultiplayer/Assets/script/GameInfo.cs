@@ -6,7 +6,7 @@ using System.Collections.Generic;
 //This class is used to store static information of each game for each node
 public static class GameInfo
 {
-	public const int blockNumber = 7;
+	public const int NUM_BLOCKS = 7;
 	public static string[] blockNameArray;
 	public static float[] initialRotationArray;
 	private static GameObject SelectionPlan;
@@ -27,7 +27,7 @@ public static class GameInfo
 
 
 	private static bool[] rotationHitFlagArray;
-	public static Vector3[] blockPositionArray;
+	private static Vector3[] blockPositionArray;
 	public static Hashtable initialPositionArray;
 	public static Hashtable gapHT;
 	private static bool[] SelectFlagArray;
@@ -64,15 +64,15 @@ public static class GameInfo
 
 	public static void NodeInfoInitialization()
 	{
-		blockNameArray = new string[blockNumber];
-		for (int i = 0; i < blockNumber; i++)
+		blockNameArray = new string[NUM_BLOCKS];
+		for (int i = 0; i < NUM_BLOCKS; i++)
 			blockNameArray[i] = "block" + (1 + i);
 
-		peerList = new int[blockNumber] {
+		peerList = new int[NUM_BLOCKS] {
 			1, 0, 4, -1, 2, -1, -1
 		};
 
-		agentColorVisible = new int[blockNumber];
+		agentColorVisible = new int[NUM_BLOCKS];
 
 		//define the color of each block	
 		blockColorNameList = new List<List<string>> {
@@ -111,11 +111,11 @@ public static class GameInfo
 		};
 
 
-		smoothBlockNameArray = new string[blockNumber];
-		for (int i = 0; i < blockNumber; i++)
+		smoothBlockNameArray = new string[NUM_BLOCKS];
+		for (int i = 0; i < NUM_BLOCKS; i++)
 			smoothBlockNameArray[i] = "block" + (1 + i) + "Smooth";
 
-		initialRotationArray = new float[blockNumber] {
+		initialRotationArray = new float[NUM_BLOCKS] {
 			135, 135, 0, 0, 0, 0, 270
 		};
 
@@ -150,41 +150,41 @@ public static class GameInfo
 			{ "Target11T", -4f }
 		};
 
-		blockSmoothList = new GameObject[blockNumber];
-		for (int i = 0; i < blockNumber; i++)
+		blockSmoothList = new GameObject[NUM_BLOCKS];
+		for (int i = 0; i < NUM_BLOCKS; i++)
 			blockSmoothList[i] = GameObject.Find("block" + (1 + i) + "Smooth");
 
-		blockList = new GameObject[blockNumber];
-		for (int i = 0; i < blockNumber; i++)
+		blockList = new GameObject[NUM_BLOCKS];
+		for (int i = 0; i < NUM_BLOCKS; i++)
 			blockList[i] = GameObject.Find("b" + (1 + i));
 
 		//color information	
-		blockNameStr = new string[blockNumber] {
+		blockNameStr = new string[NUM_BLOCKS] {
 			"two", "three", "four", "five", "six", "seven", "eight"
 		};
 
-		blockNameStrOther = new string[blockNumber];
-		for (int i = 0; i < blockNumber; i++)
+		blockNameStrOther = new string[NUM_BLOCKS];
+		for (int i = 0; i < NUM_BLOCKS; i++)
 			blockNameStrOther[i] = (i + 2).ToString();
 
 		SelectionPlan = GameObject.Find("SelectionArea");
 		SelectionPosition = SelectionPlan.transform.position;
 		hintsInfor = new string[2];
 		audioClips = new AudioClip[2];
-		for (int i = 0; i < blockNumber; ++i) {
+		for (int i = 0; i < NUM_BLOCKS; ++i) {
 			RandomList.Add(i);
 		}
 
 
 
-		ColorControl = new bool[blockNumber];
-		OtherColorControl = new bool[blockNumber];
-		stepControl = new bool[blockNumber];
-		otherStepControl = new bool[blockNumber];
-		resetPositionFlagArray = new bool[blockNumber];
-		targetRotationArray = new float[blockNumber];
-		rotationHitFlagArray = new bool[blockNumber];
-		blockSucceed = new bool[blockNumber];
+		ColorControl = new bool[NUM_BLOCKS];
+		OtherColorControl = new bool[NUM_BLOCKS];
+		stepControl = new bool[NUM_BLOCKS];
+		otherStepControl = new bool[NUM_BLOCKS];
+		resetPositionFlagArray = new bool[NUM_BLOCKS];
+		targetRotationArray = new float[NUM_BLOCKS];
+		rotationHitFlagArray = new bool[NUM_BLOCKS];
+		blockSucceed = new bool[NUM_BLOCKS];
 	}
 
 	//called by GameController.gameInitialization();
@@ -193,9 +193,9 @@ public static class GameInfo
 		//two hints are included for the game
 		hintsInfor[0] = "";
 		hintsInfor[1] = "";
-		blockPositionArray = new Vector3[blockNumber];
-		SelectFlagArray = new bool[blockNumber];
-		for (int blockIndex = 0; blockIndex < blockNumber; blockIndex++) {
+		blockPositionArray = new Vector3[NUM_BLOCKS];
+		SelectFlagArray = new bool[NUM_BLOCKS];
+		for (int blockIndex = 0; blockIndex < NUM_BLOCKS; blockIndex++) {
 			SelectFlagArray[blockIndex] = true;
 			resetPositionFlagArray[blockIndex] = true;
 			blockPositionArray[blockIndex] = Vector3.zero;
@@ -217,7 +217,7 @@ public static class GameInfo
 	
 	private static void resetBlocks()
 	{
-		for (int i = 0; i < blockNumber; ++i) {
+		for (int i = 0; i < NUM_BLOCKS; ++i) {
 			blockList[i].transform.position = new Vector3(180f, 0f, -145f - 10f * RandomList[i]);
 			blockList[i].transform.localEulerAngles = new Vector3(0f, initialRotationArray[i], 0f);
 		}
@@ -325,7 +325,7 @@ public static class GameInfo
 	//the target rotation
 	public static void setTargetBlockRotation(string blockName, float rotationY)
 	{
-		for (int blockIndex = 0; blockIndex < blockNumber; blockIndex++) {
+		for (int blockIndex = 0; blockIndex < NUM_BLOCKS; blockIndex++) {
 			if (blockNameArray[blockIndex] == blockName) {
 				targetRotationArray[blockIndex] = rotationY;
 			}
@@ -335,7 +335,7 @@ public static class GameInfo
 	//sets target block position
 	public static void setTargetBlockPosition(string blockName, Vector3 positionT)
 	{
-		for (int blockIndex = 0; blockIndex < blockNumber; blockIndex++) {
+		for (int blockIndex = 0; blockIndex < NUM_BLOCKS; blockIndex++) {
 			if (blockNameArray[blockIndex] == blockName) {
 				blockPositionArray[blockIndex] = positionT;
 			}
@@ -362,8 +362,8 @@ public static class GameInfo
 		float Wshape = 8f;
 		
 		
-		float[] objectWeights = new float[blockNumber];
-		for (int i = 0; i < blockNumber; ++i) {
+		float[] objectWeights = new float[NUM_BLOCKS];
+		for (int i = 0; i < NUM_BLOCKS; ++i) {
 			objectWeights[i] = 0f;
 		}
 
@@ -371,7 +371,7 @@ public static class GameInfo
 		if (_ht["id"].ToString() != "Requ") {
 			string name = _ht["id"].ToString();
 			int id = -1;
-			for (int i = 0; i < blockNumber; ++i) {
+			for (int i = 0; i < NUM_BLOCKS; ++i) {
 				if (blockNameStr[i] == name || blockNameStrOther[i] == name) {
 					id = i;
 					break;
@@ -379,7 +379,7 @@ public static class GameInfo
 			}
 
 			if (id != -1) {
-				for (int i = 0; i < 7; ++i) {
+				for (int i = 0; i < NUM_BLOCKS; ++i) {
 					if (RandomList[i] == id) {
 						objectWeights[i] += Wid;
 					} else {
@@ -405,7 +405,7 @@ public static class GameInfo
 		//calculate weight based on color
 		if (_ht["color"].ToString() != "Requ") {
 			string objColor = _ht["color"].ToString();
-			for (int i = 0; i < 7; ++i) {
+			for (int i = 0; i < NUM_BLOCKS; ++i) {
 				//give the color name
 				if (blockColorNameList[i].Contains(objColor)) {
 					objectWeights[i] += Wcolor;
@@ -416,7 +416,7 @@ public static class GameInfo
 		}
 
 		//calculate weight for block already succeeded (negative punishment)
-		for (int i = 0; i < blockNumber; ++i) {
+		for (int i = 0; i < NUM_BLOCKS; ++i) {
 			if (blockSucceed[i]) {
 				objectWeights[i] += Wsucc;
 			}
@@ -425,7 +425,7 @@ public static class GameInfo
 		//calculate weight based on shape
 		if (_ht["shape"].ToString() != "Requ") {
 			string shape = _ht["shape"].ToString();
-			for (int i = 0; i < 7; ++i) {
+			for (int i = 0; i < NUM_BLOCKS; ++i) {
 				//give the color name
 				if (blockShapeNameList[i].Contains(shape)) {
 					objectWeights[i] += Wshape;
@@ -437,13 +437,13 @@ public static class GameInfo
 
 		//calculate weight based on whether is the last block
 		int succCounter = 0;
-		for (int i = 0; i < blockNumber; ++i) {
+		for (int i = 0; i < NUM_BLOCKS; ++i) {
 			if (blockSucceed[i]) {
 				++succCounter;
 			}
 		}
 		if (succCounter == 6) {
-			for (int i = 0; i < blockNumber; ++i) {
+			for (int i = 0; i < NUM_BLOCKS; ++i) {
 				if (!blockSucceed[i]) {
 					objectWeights[i] += Wlast;
 				}
@@ -454,7 +454,7 @@ public static class GameInfo
 		//return the block with highest weight
 		float maxWeight = 0f;
 		int theBlockIdx = -1;
-		for (int i = 0; i < blockNumber; ++i) {
+		for (int i = 0; i < NUM_BLOCKS; ++i) {
 			if (objectWeights[i] > maxWeight) {
 				maxWeight = objectWeights[i];
 				theBlockIdx = i;
@@ -467,7 +467,7 @@ public static class GameInfo
 //				return -1;		
 //			}
 //		} 
-//		for (int i=0; i<blockNumber; ++i) {
+//		for (int i=0; i<NUM_BLOCKS; ++i) {
 //			if(blockSucceed[i]){
 //				objectWeights[i] += Wsucc;
 //			}
