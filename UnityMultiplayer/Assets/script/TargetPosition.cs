@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 
 public class TargetPosition: MonoBehaviour
@@ -100,7 +99,7 @@ public class TargetPosition: MonoBehaviour
 		
 		//only happens if(gameObject.name == GameController.targetTName)
 		int n = MainController.curGameNum;
-		if (n == 7 || n == 8 || n == 9) {		
+		if (n == 7 || n == 8 || n == 9) {	
 			GameController.setPosition("");
 			
 			//if distance is near enough to dest point, increment point, looping if necessary
@@ -140,7 +139,7 @@ public class TargetPosition: MonoBehaviour
 	}
 	
 	//coordinate struct
-	public struct Coord
+	private struct Coord
 	{
 		public Coord(float x, float y)
 		{
