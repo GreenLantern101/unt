@@ -22,8 +22,8 @@ public static class GameInfo
 	public static bool[] otherStepControl;
 
 	//flags for two players
-	public static bool NoColorTaskFlag;
-	public static bool OtherNoColorTaskFlag;
+	public static bool NoColorTaskFlag = false;
+	public static bool OtherNoColorTaskFlag = false;
 
 
 	private static bool[] rotationHitFlagArray;
@@ -68,14 +68,9 @@ public static class GameInfo
 		for (int i = 0; i < blockNumber; i++)
 			blockNameArray[i] = "block" + (1 + i);
 
-		peerList = new int[blockNumber];
-		peerList[0] = 1;
-		peerList[1] = 0;
-		peerList[2] = 4;
-		peerList[3] = -1;
-		peerList[4] = 2;
-		peerList[5] = -1;
-		peerList[6] = -1;
+		peerList = new int[blockNumber] {
+			1, 0, 4, -1, 2, -1, -1
+		};
 
 		agentColorVisible = new int[blockNumber];
 
@@ -120,14 +115,9 @@ public static class GameInfo
 		for (int i = 0; i < blockNumber; i++)
 			smoothBlockNameArray[i] = "block" + (1 + i) + "Smooth";
 
-		initialRotationArray = new float[blockNumber];
-		initialRotationArray[0] = 135.0f;
-		initialRotationArray[1] = 135.0f;
-		initialRotationArray[2] = 0.0f;
-		initialRotationArray[3] = 0.0f;
-		initialRotationArray[4] = 0.0f;
-		initialRotationArray[5] = 0.0f;
-		initialRotationArray[6] = 270.0f;
+		initialRotationArray = new float[blockNumber] {
+			135, 135, 0, 0, 0, 0, 270
+		};
 
 		//basically z-offset (of the entire target area)
 		initialPositionArray = new Hashtable();
@@ -167,14 +157,9 @@ public static class GameInfo
 			blockList[i] = GameObject.Find("b" + (1 + i));
 
 		//color information	
-		blockNameStr = new string[blockNumber];
-		blockNameStr[0] = "two";
-		blockNameStr[1] = "three";
-		blockNameStr[2] = "four";
-		blockNameStr[3] = "five";
-		blockNameStr[4] = "six";
-		blockNameStr[5] = "seven";
-		blockNameStr[6] = "eight";
+		blockNameStr = new string[blockNumber] {
+			"two", "three", "four", "five", "six", "seven", "eight"
+		};
 
 		blockNameStrOther = new string[blockNumber];
 		for (int i = 0; i < blockNumber; i++)
@@ -196,8 +181,6 @@ public static class GameInfo
 		otherStepControl = new bool[blockNumber];
 		resetPositionFlagArray = new bool[blockNumber];
 		targetRotationArray = new float[blockNumber];
-		NoColorTaskFlag = false;
-		OtherNoColorTaskFlag = false;
 		rotationHitFlagArray = new bool[blockNumber];
 		blockSucceed = new bool[blockNumber];
 	}
@@ -225,12 +208,12 @@ public static class GameInfo
 		//infinite timer?
 		stepTimer = INFTIMER;
 		PreActiveBlock = -1;
-		blockReset();
+		resetBlocks();
 
 	}
 
 	
-	public static void blockReset()
+	private static void resetBlocks()
 	{
 		for (int i = 0; i < blockNumber; ++i) {
 			blockList[i].transform.position = new Vector3(180f, 0f, -145f - 10f * RandomList[i]);
@@ -329,7 +312,7 @@ public static class GameInfo
 		currTarget = targetName;
 	}
 
-	public static void Shuffle()
+	private static void Shuffle()
 	{
 		int n = 7;
 		/* Conditions for shuffling:
@@ -392,7 +375,7 @@ public static class GameInfo
 	public static int getObject(Hashtable _ht)
 	{
 		Debug.Log("start detect object ");
-		//initilize 
+		//initialize 
 		float Wid = 15f;
 		//color
 		float Wcolor = 9f;
@@ -445,11 +428,11 @@ public static class GameInfo
 		} else {			
 			if (GameController.secondaryActivePiece != -1) {
 				objectWeights[GameController.secondaryActivePiece] += Wsec;
-			}		
+			}
 		}
 //		}
 
-		//calculate weight based on color		
+		//calculate weight based on color
 		if (_ht["color"].ToString() != "Requ") {
 			string objColor = _ht["color"].ToString();
 			for (int i = 0; i < 7; ++i) {
@@ -486,7 +469,7 @@ public static class GameInfo
 		int succCounter = 0;
 		for (int i = 0; i < blockNumber; ++i) {
 			if (blockSucceed[i]) {
-				++succCounter;		
+				++succCounter;
 			}
 		}
 		if (succCounter == 6) {
@@ -522,14 +505,14 @@ public static class GameInfo
 		//reset the secondary block
 		if (theBlockIdx != -1) {
 			Debug.Log("set secondary active block to -1 " + theBlockIdx);
-			GameController.secondaryActivePiece = -1;		
+			GameController.secondaryActivePiece = -1;	
 		}
 		return theBlockIdx;
 	}
 
 	public static int agentSeeColor(int blockI)
 	{
-		//HACK: prevents array index out of bounds exception
+		//prevents array index out of bounds exception
 		if (blockI == -1) {
 			Debug.Log("ERROR: blockI is a negative array index.");
 			return -99999;
