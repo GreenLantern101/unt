@@ -120,33 +120,35 @@ public static class GameInfo
 		};
 
 		//basically z-offset (of the entire target area)
-		initialPositionArray = new Hashtable();
-		initialPositionArray.Add("Target1T", -146f);
-		initialPositionArray.Add("Target2T", -152f);
-		initialPositionArray.Add("Target3T", -200f);
-		initialPositionArray.Add("Target4T", -200f);
-		initialPositionArray.Add("Target5T", -200f);
-		initialPositionArray.Add("Target6T", -200f);
-		initialPositionArray.Add("Target7T", -200f);
-		initialPositionArray.Add("Target8T", -200f);
-		initialPositionArray.Add("Target9T", -200f);
-		initialPositionArray.Add("Target10T", -200f);
-		initialPositionArray.Add("Target11T", -200f);
+		initialPositionArray = new Hashtable() {
+			{ "Target1T", -146f },
+			{ "Target2T", -152f },
+			{ "Target3T", -200f },
+			{ "Target4T", -200f },
+			{ "Target5T", -200f },
+			{ "Target6T", -200f },
+			{ "Target7T", -200f },
+			{ "Target8T", -200f },
+			{ "Target9T", -200f },
+			{ "Target10T", -200f },
+			{ "Target11T", -200f }
+		};
 
 		
-		gapHT = new Hashtable();
-		gapHT.Add("Target1T", 52f);
-		gapHT.Add("Target2T", 46f);
-		gapHT.Add("Target3T", 2f);
-		gapHT.Add("Target4T", 2f);
-		gapHT.Add("Target5T", 2f);
-		gapHT.Add("Target6T", 2f);
-		gapHT.Add("Target7T", 2f);
-		//custom vertical offsets
-		gapHT.Add("Target8T", -3f);
-		gapHT.Add("Target9T", -3f);
-		gapHT.Add("Target10T", -1.5f);
-		gapHT.Add("Target11T", -4f);
+		gapHT = new Hashtable() {
+			{ "Target1T", 52f },
+			{ "Target2T", 46f },
+			{ "Target3T", 2f },
+			{ "Target4T", 2f },
+			{ "Target5T", 2f },
+			{ "Target6T", 2f },
+			{ "Target7T", 2f },
+			//custom vertical offsets
+			{ "Target8T", -3f },
+			{ "Target9T", -3f },
+			{ "Target10T", -1.5f },
+			{ "Target11T", -4f }
+		};
 
 		blockSmoothList = new GameObject[blockNumber];
 		for (int i = 0; i < blockNumber; i++)
@@ -221,38 +223,20 @@ public static class GameInfo
 		}
 	}
 
-	//------------------------ SET COLOR CONTROLS -----------------------------
-
-	public static void setColorful()
+	public static void setColor(bool value)
 	{
-		for (int blockIndex = 0; blockIndex < blockNumber; blockIndex++) {
-			ColorControl[blockIndex] = true;
+		for (int i = 0; i < ColorControl.Length; i++) {
+			ColorControl[i] = value;
 		}
-		NoColorTaskFlag = false;
+		NoColorTaskFlag = !value;
 	}
-	public static void setNoColor()
+	public static void setOtherColor(bool value)
 	{
-		for (int blockIndex = 0; blockIndex < blockNumber; blockIndex++) {
-			ColorControl[blockIndex] = false;
+		for (int i = 0; i < OtherColorControl.Length; i++) {
+			otherStepControl[i] = value;
 		}
-		NoColorTaskFlag = true;
+		OtherNoColorTaskFlag = !value;
 	}
-	public static void setOtherColorful()
-	{
-		for (int blockIndex = 0; blockIndex < blockNumber; blockIndex++) {
-			OtherColorControl[blockIndex] = true;
-		}
-		OtherNoColorTaskFlag = false;
-	}
-	public static void setOtherNoColor()
-	{
-		for (int blockIndex = 0; blockIndex < blockNumber; blockIndex++) {
-			OtherColorControl[blockIndex] = false;
-		}
-		OtherNoColorTaskFlag = true;
-	}
-	//----------------------------------------------------------------------
-
 
 	public static void setSucceed(int blockI)
 	{
@@ -269,23 +253,11 @@ public static class GameInfo
 		suObj.GetComponent<BlockController>().releaseName(RandomList[blockI]);
 		
 		blockSucceed[blockI] = true;
-		/*
-		string s = "";
-		for (int i = 0; i < blockSucceed.Length; i++) {
-			s += i + " - " + blockSucceed[i] + "\n";
-		}
-		Debug.Log(s);
-		*/
-		
-//		Debug.Log ("secondary active6 " + GameController.secondaryActivePiece);
-//		GameController.secondaryActivePiece = -1;
-//		MainController._localPlayer.setActivePiece (-1);
 	}
 	public static GameObject getSmoothBlock(int id)
 	{
 		return blockSmoothList[id];
 	}
-	
 
 	public static void setStepControl(int stepIdx, bool flag)
 	{
@@ -326,7 +298,6 @@ public static class GameInfo
 			RandomList[i] = i;
 		}
 
-
 		while (n > 1) {
 			int k = (rnd.Next(0, n));
 			n--;
@@ -364,7 +335,6 @@ public static class GameInfo
 	//sets target block position
 	public static void setTargetBlockPosition(string blockName, Vector3 positionT)
 	{
-//		Debug.Log (blockName + "'s target position is: " + positionT.x.ToString() + ", " + positionT.z);
 		for (int blockIndex = 0; blockIndex < blockNumber; blockIndex++) {
 			if (blockNameArray[blockIndex] == blockName) {
 				blockPositionArray[blockIndex] = positionT;

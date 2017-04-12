@@ -189,14 +189,14 @@ public class GameController : MonoBehaviour
 		XmlNodeList colorList = XmlDoc.SelectNodes("/Assignment/color");
 		foreach (XmlNode colorNode in colorList) {
 			if (colorNode[curNodeStr].InnerXml == "True")
-				GameInfo.setColorful();
+				GameInfo.setColor(true);
 			else
-				GameInfo.setNoColor();
+				GameInfo.setColor(false);
 
 			if (colorNode[otherNodeStr].InnerXml == "True")
-				GameInfo.setOtherColorful();
+				GameInfo.setOtherColor(true);
 			else
-				GameInfo.setOtherNoColor();
+				GameInfo.setOtherColor(false);
 		}
 		
 		//read the step control information
