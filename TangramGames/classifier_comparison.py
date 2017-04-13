@@ -17,7 +17,9 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
-from MLClass import MLClass
+from MLClass_mod import MLClass
+
+import os
 
 h = .02  # step size in the mesh
 
@@ -35,9 +37,9 @@ classifiers = [
     LinearDiscriminantAnalysis(),
     QuadraticDiscriminantAnalysis()]
 
-#get the data 
+#get the data
 InsML = MLClass()
-TrainfileName = 'F:/agent/AI/Dialogue/TangramGames/Collaborative_Game.txt'
+TrainfileName = os.getcwd() + '/Collaborative_Game.txt'
 InsML.createMLmodel(TrainfileName)
 
 for i in range(0, 10):
@@ -45,6 +47,7 @@ for i in range(0, 10):
     X = InsML.featureList
     y = InsML.actionArray
     X = StandardScaler().fit_transform(X)
+    # http://scikit-learn.org/stable/modules/cross_validation.html
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.3, random_state=42)
 
     # iterate over classifiers
