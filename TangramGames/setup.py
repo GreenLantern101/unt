@@ -7,7 +7,7 @@ import string
 
 import os
 
-
+# used for actual game-play
 class setup:
 
     TrainfileName = os.getcwd() + '/Collaborative_Game1.txt'

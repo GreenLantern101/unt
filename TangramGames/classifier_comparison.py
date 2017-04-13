@@ -26,8 +26,16 @@ h = .02  # step size in the mesh
 names = ["Nearest Neighbors", "Linear SVM", "RBF SVM", "Decision Tree",
          "Random Forest", "AdaBoost", "Naive Bayes", "Linear Discriminant Analysis",
          "Quadratic Discriminant Analysis"]
+
+# play around with params?
+'''
+SVMs: A low C makes the decision surface smooth,
+while a high C aims at classifying all training examples correctly.
+gamma defines how much influence a single training example has.
+The larger gamma is, the closer other examples must be to be affected.
+'''
 classifiers = [
-    KNeighborsClassifier(3),
+    KNeighborsClassifier(n_neighbors = 3),
     SVC(kernel="linear", C=0.025),
     SVC(gamma=2, C=1),
     DecisionTreeClassifier(max_depth=5),
@@ -37,7 +45,7 @@ classifiers = [
     LinearDiscriminantAnalysis(),
     QuadraticDiscriminantAnalysis()]
 
-#get the data
+# get the data
 InsML = MLClass()
 TrainfileName = os.getcwd() + '/Collaborative_Game.txt'
 InsML.createMLmodel(TrainfileName)
@@ -48,7 +56,8 @@ for i in range(0, 10):
     y = InsML.actionArray
     X = StandardScaler().fit_transform(X)
     # http://scikit-learn.org/stable/modules/cross_validation.html
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.3, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=.3, random_state=42)
 
     # iterate over classifiers
     for name, clf in zip(names, classifiers):

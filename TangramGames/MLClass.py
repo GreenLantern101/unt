@@ -60,6 +60,7 @@ class MLClass:
     SlotfileName = os.getcwd() + '/SlotValues.txt'
     responseFileName = os.getcwd() + '/SysResponsesNew.txt'
 
+    # download nltk data as necessary
     nltk.download('punkt')
     nltk.download('averaged_perceptron_tagger')
 
@@ -267,6 +268,7 @@ class MLClass:
 
     def parserFeature(self, sentence):
         # get the tag of pos
+        # tags: https://catalog.ldc.upenn.edu/docs/LDC99T42/tagguid1.pdf
         sent_pos_tagger = nltk.pos_tag(sentence)
         results = []
         for pos in sent_pos_tagger:
