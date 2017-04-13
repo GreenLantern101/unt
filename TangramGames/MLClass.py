@@ -60,11 +60,15 @@ class MLClass:
     SlotfileName = os.getcwd() + '/SlotValues.txt'
     responseFileName = os.getcwd() + '/SysResponsesNew.txt'
 
-    # for NLTK 3.1 and above, 'STANFORD_PARSER' env var no longer used.
-    os.environ['STANFORD_MODELS'] ='C:/NLTK/stanford-jars'
+    nltk.download('punkt')
+    nltk.download('averaged_perceptron_tagger')
+
+    # for NLTK 3.1 and above, 'STANFORD_PARSER' env var no longer used?
+    os.environ['STANFORD_MODELS'] = 'C:/NLTK/stanford-jars'
+    os.environ['STANFORD_PARSER'] = 'C:/NLTK/stanford-jars'
     os.environ['JAVA_HOME'] = 'C:/Program Files/Java/jre1.8.0_102/bin'
-    #parser = stanford.StanfordParser(
-    #    model_path='C:/NLTK/stanford-jars/englishPCFG.ser.gz')
+    parser = stanford.StanfordParser(
+        model_path='C:/NLTK/stanford-jars/englishPCFG.ser.gz')
     thred = 3
     dependent_node = []
     stemmer = PorterStemmer()
