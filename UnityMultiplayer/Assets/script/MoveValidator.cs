@@ -11,7 +11,7 @@ public class MoveValidator : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Ises the move valid.
+	/// Check if move valid.
 	/// </summary>
 	/// <returns><c>true</c>, if move valid was ised, <c>false</c> otherwise.</returns>
 	public bool isMoveValid(int _activePiece)

@@ -71,7 +71,7 @@ public class TwoPlayers : MonoBehaviour, IPlayerHandler
 			if (aZ * bZ > 0)
 				averageZ = (float)(aZ + bZ) / 2.0f;
 			
-			if(averageX>.0001 || averageZ>.0001){
+			if(averageX<.0001 && averageZ<.0001){
 				//TODO:need to log not moving...
 			}
 			
