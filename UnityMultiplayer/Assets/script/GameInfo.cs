@@ -95,19 +95,19 @@ public static class GameInfo
 		//define the shape of each block
 		blockShapeNameList = new List<List<string>> {
 			//block0
-			new List<string>{ "triangle" },
+			new List<string>{ "triangle", "triangular" },
 			//block1
-			new List<string>{ "triangle" },
+			new List<string>{ "triangle", "triangular" },
 			//block2
-			new List<string>{ "triangle" },
+			new List<string>{ "triangle", "triangular" },
 			//block3
-			new List<string>{ "rectangle", "square", "diamond", "quadrilateral" },
+			new List<string>{ "rectangle", "rectangular", "square", "diamond", "quadrilateral" },
 			//block4
-			new List<string>{ "triangle" },
+			new List<string>{ "triangle", "triangular" },
 			//block5
 			new List<string>{ "parallelogram", "quadrilateral", "rhombus" },
 			//block6
-			new List<string>{ "triangle" },
+			new List<string>{ "triangle", "triangular" },
 		};
 
 
