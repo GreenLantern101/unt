@@ -118,8 +118,8 @@ public class LogTimeData : MonoBehaviour
 		sw.WriteLine("Active player: " + MainController.WhoIs(GameController.active_player));
 		//sw.WriteLine("Agent active: " + MainController.isAgentActive);
 		
-		
-		sw.WriteLine("Assignment: " + MainController.curGameNum);
+		sw.WriteLine("Game number: " + MainController.curGameNum);
+		sw.WriteLine("Assignment: " + MainInfo.getAssignmentName());
 		//sw.WriteLine("Game Name: " + MainInfo.getAssignmentName());
 		sw.WriteLine("Target Name: " + GameController.targetTName);
 		sw.WriteLine("Nth time this game is being played: " + (MainController.numGamesPlayed + 1));
