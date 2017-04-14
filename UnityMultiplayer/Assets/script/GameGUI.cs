@@ -144,40 +144,51 @@ public class GameGUI : MonoBehaviour
 		}
 
 		if (MainController.FSM.IsInState(PuzzleState.GAME_INITIALIZATION)) {
-			if (MainController.curGameNum == 0) {
-				text = "Game1: Move block one by one. ";
-			} else if (MainController.curGameNum == 1) {
-				text = "Game2: This is a turn-taking game ";
-				
-			} else if (MainController.curGameNum == 2) {
-				text = "Game3: Two players move block together in this game. ";
-				
-			} else if (MainController.curGameNum == 3) {
-				text = "Game4: One player moves block. The other player has color information. ";
-				
-			} else if (MainController.curGameNum == 4) {
-				text = "Game5: One player moves block. The other player has color information.";
-				
-			} else if (MainController.curGameNum == 5) {
-				text = "Game6: Two players need to move blocks together. ";
-				
-			} else if (MainController.curGameNum == 6) {
-				text = "Game7: Two players need to move blocks together. ";				
-			} else if (MainController.curGameNum == 7) {
-				text = "Game8: Two players need to move blocks together. ";				
-			} else if (MainController.curGameNum == 8) {
-				text = "Game9: Two players need to move blocks together. ";				
-			} else if (MainController.curGameNum == 9) {
-				text = "Game10: Two players need to move blocks together. ";				
-			} else if (MainController.curGameNum == 10) {
-				text = "Game11: Two players need to move blocks together. ";				
-			} else if (MainController.curGameNum == 11) {
-				text = "Game12: Two players need to move blocks together. ";				
-			} else if (MainController.curGameNum == 12) {
-				text = "Game13: Two players need to move blocks together. ";				
-			} else if (MainController.curGameNum == 13) {
-				text = "Game14: Two players need to move blocks together. ";				
-			}	
+			const string t = " Two players need to move the blocks together. ";
+			switch (MainController.curGameNum) {
+				case 0:
+					text = "Game1: Move block one by one. ";
+					break;
+				case 1:
+					text = "Game2: This is a turn-taking game ";
+					break;
+				case 2:
+					text = "Game3: Two players move block together in this game. ";
+					break;
+				case 3:
+					text = "Game4: One player moves block. The other player has color information. ";
+					break;
+				case 4:
+					text = "Game5: One player moves block. The other player has color information.";
+					break;
+				case 5:
+					text = "Game6:" + t;
+					break;
+				case 6:
+					text = "Game7:" + t;
+					break;		
+				case 7:
+					text = "Game8:" + t;
+					break;		
+				case 8:
+					text = "Game9:" + t;
+					break;			
+				case 9:
+					text = "Game10:" + t;
+					break;			
+				case 10:
+					text = "Game11:" + t;
+					break;			
+				case 11:
+					text = "Game12:" + t;
+					break;			
+				case 12:
+					text = "Game13:" + t;
+					break;
+				case 13:
+					text = "Game14:" + t;
+					break;
+			}
 			GUI.Label(new Rect(Screen.width / 7, Screen.height / 6, 5 * Screen.width / 7, 2 * Screen.height / 6), text, textStyle);
 		}
 
