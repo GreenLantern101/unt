@@ -31,7 +31,7 @@ from MyNetClass import MyNetClass
 import google.auth
 import google.auth.transport.grpc
 import google.auth.transport.requests
-from google.cloud.grpc.speech.v1beta1 import cloud_speech_pb2
+from google.cloud.speech.v1beta1 import cloud_speech_pb2
 from google.rpc import code_pb2
 import grpc
 import pyaudio
